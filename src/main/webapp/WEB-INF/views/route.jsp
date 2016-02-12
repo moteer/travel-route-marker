@@ -38,6 +38,34 @@
 
     var popup = L.popup();
 
+    function addPolyline(polylinePoints, pl) {
+        toogleContentContainer();
+    }
+
+    function selectLine(polylinePoints, pl) {
+        if (isSelectedAlready(polylinePoints)) {
+            deselectPoint(polylinePoints)
+            pl.setStyle({color: "blue"});
+        } else {
+            selectedPoints.push(polylinePoints);
+            pl.setStyle({color: "red"});
+            console.log("key: " + createMultiPolyLine());
+            console.log("Elements for selection: " + dict[createMultiPolyLine()].content);
+        }
+    }
+
+    function toogleContentContainer() {
+        if (selectedPoints.length == 0) {
+            $("#contentContainer").hide()
+        } else {
+            $("#contentContainer").show()
+        }
+    }
+
+    function addModusIsActive() {
+        return document.getElementById("routeAddModusCheckBox").checked == true;
+    }
+
     function onMapClick(e) {
 
         var newpoint = e.latlng;
@@ -50,24 +78,23 @@
             polylinePoints = [[prevLat, prevLng], [newpoint.lat, newpoint.lng]];
             points.push([newpoint.lat, newpoint.lng]);
         }
-        var pl = L.polyline(polylinePoints, {color: "blue"}).addTo(map);
-        sendAjax(newpoint.lat, newpoint.lng);
+        var pl = L.polyline(polylinePoints, {color: "blue"});
+        if (addModusIsActive()) {
+            pl.addTo(map);
+            sendAjax(newpoint.lat, newpoint.lng);
+            L.featureGroup([pl])
+                    .on('click', function () {
+                        if (addModusIsActive()) {
+                            addPolyline(polylinePoints, pl);
+                        } else {
+                            selectLine(polylinePoints, pl);
+                        }
+                    })
+                    .addTo(map);
+        }
 
-        L.featureGroup([pl])
-//            .bindPopup('Hello world!')
-                .on('click', function () {
-                    if (isSelectedAlready(polylinePoints)) {
-                        deselectPoint(polylinePoints)
-                        pl.setStyle({color: "blue"});
-                    } else {
-                        selectedPoints.push(polylinePoints);
-                        pl.setStyle({color: "red"});
-                    }
-                })
-                .addTo(map);
 
     }
-
     map.on('click', onMapClick);
 
     function isSelectedAlready(polylinePoints) {
@@ -79,7 +106,6 @@
         return false;
     }
 
-
     function deselectPoint(polylinePoints) {
         for (i = 0; i < selectedPoints.length; i++) {
             if (selectedPoints[i] == polylinePoints) {
@@ -89,6 +115,13 @@
         }
     }
 
+    function deselectAll() {
+        console.log(selectedPoints);
+        for (i = 0; i < selectedPoints.length; i++) {
+            selectedPoints[i].setStyle({color: "blue"})
+        }
+        selectedPoints.splice(0, selectedPoints.length);
+    }
 
     function sendAjax(longitude, latitude) {
 
@@ -121,12 +154,45 @@
         return color;
     }
 
+
+    var dict = {};
+
+    function saveContent(id, multipolyLine, content) {
+        dict[multipolyLine] = {id: id, multipolyLine: multipolyLine, content: content};
+//        console.log(dict[multipolyLine]);
+    }
+
+    function createMultiPolyLine() {
+        var multipolyLine = L.multiPolyline(selectedPoints);
+//        console.log(multipolyLine.getLatLngs());
+        return multipolyLine.getLatLngs();
+    }
+
+    function checkBoxChange(checkBox) {
+        deselectAll();
+//        updateView();
+        if (checkBox.checked == true) {
+
+        } else {
+
+        }
+    }
+
 </script>
 <p></p>
 
 
 <table>
 </table>
+<div id="controlPanel" style="background-color: blue">
+    <input id="routeAddModusCheckBox" type="checkbox" value="true" title="Route Add Modus" onchange="checkBoxChange(this);"/>
+</div>
+<div id="contentContainer" style="background-color: red">
+    <input id="id" type="text" value="1""/>
+    <input id="content" type="text" value="Here is the contenContainer text field!"/>
+    <button type="button" onclick="saveContent(document.getElementById('id').value, createMultiPolyLine(), document.getElementById('content').value);">Save
+    </button>
+</div>
 <%--<c:if test="${not empty lists}">--%>
 
 <%--<ul>--%>
