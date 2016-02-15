@@ -18,6 +18,12 @@ public class MyRouteController {
         return "route";
     }
 
+    @RequestMapping("/tests")
+    public String tests() {
+        return "tests";
+    }
+
+
     @RequestMapping(value = "route/safe", method = RequestMethod.POST)
     @ResponseBody
     public RoutePoint post(@RequestBody RoutePoint routePoint) {
