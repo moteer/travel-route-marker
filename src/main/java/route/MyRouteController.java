@@ -18,11 +18,15 @@ public class MyRouteController {
         return "route";
     }
 
-    @RequestMapping("/tests")
-    public String tests() {
-        return "tests";
+    @RequestMapping("/testsuite")
+    public String qunitTests() {
+        return "testsuite";
     }
 
+    @RequestMapping("/route_testsuite")
+    public String routeTests() {
+        return "route_testsuite";
+    }
 
     @RequestMapping(value = "route/safe", method = RequestMethod.POST)
     @ResponseBody

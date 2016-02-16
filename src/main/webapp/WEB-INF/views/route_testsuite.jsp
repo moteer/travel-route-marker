@@ -1,3 +1,8 @@
+<%--
+  ~ Copyright (c) 2003 - 2016 Tyro Payments Limited.
+  ~ Lv1, 155 Clarence St, Sydney NSW 2000.
+  ~ All rights reserved.
+  --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,11 +15,9 @@
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
   <script type="application/javascript" src="/scripts/test/qunitjs/qunit/qunit.js"></script>
+  <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
   <%--TESTS--%>
-  <script type="application/javascript" src="/scripts/test/function_scope_tests.js"></script>
-  <script type="application/javascript" src="/scripts/test/function_property_memoizing_tests.js"></script>
-  <script type="application/javascript" src="/scripts/test/function_anonymouse_tests.js"></script>
-  <script type="application/javascript" src="/scripts/test/function_invocation_tests.js"></script>
-
+  <script type="application/javascript" src="/scripts/routepart.js"></script>
+  <script type="application/javascript" src="/scripts/test/route_tests.js"></script>
 </body>
 </html>
