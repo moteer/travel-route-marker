@@ -1,17 +1,14 @@
-var contents = {
-    multiPolyLine: null,
-    content: null
-};
+var routeParts = {}
 
 function getContentFor(multipolyLine) {
     var result = "empty";
-    if (multipolyLine !== null && contents.content !== null) {
-        result = contents.content;
+
+    if (multipolyLine !== undefined && routeParts[multipolyLine.getLatLngs().toString()] !== undefined) {
+        result = routeParts[multipolyLine.getLatLngs().toString()];
     }
     return result;
 }
 
 function createContentFor(multiPolyLine, content) {
-    contents.multiPolyLine = multiPolyLine;
-    contents.content = content;
+    routeParts[multiPolyLine.getLatLngs().toString()] = content;
 }
