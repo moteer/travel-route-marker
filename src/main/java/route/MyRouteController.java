@@ -23,10 +23,16 @@ public class MyRouteController {
         return "testsuite";
     }
 
-    @RequestMapping("/route_testsuite")
-    public String routeTests() {
-        return "route_testsuite";
+    @RequestMapping("/route_model_testsuite")
+    public String routeModelTests() {
+        return "route/route_model_testsuite";
     }
+
+    @RequestMapping("/route_controller_testsuite")
+    public String routeControllerTests() {
+        return "route/route_controller_testsuite";
+    }
+
 
     @RequestMapping(value = "route/safe", method = RequestMethod.POST)
     @ResponseBody

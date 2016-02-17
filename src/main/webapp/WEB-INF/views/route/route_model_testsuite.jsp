@@ -16,8 +16,11 @@
   <div id="qunit-fixture"></div>
   <script type="application/javascript" src="/scripts/test/qunitjs/qunit/qunit.js"></script>
   <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+
+
+  <%--PROD CODE--%>
+  <script type="application/javascript" src="/scripts/route/route_model.js"></script>
   <%--TESTS--%>
-  <script type="application/javascript" src="/scripts/routepart.js"></script>
-  <script type="application/javascript" src="/scripts/test/route_tests.js"></script>
+  <script type="application/javascript" src="/scripts/test/route/route_model_tests.js"></script>
 </body>
 </html>

@@ -1,5 +1,9 @@
 var routeParts = {}
 
+function Content(description, image) {
+    return {description:description, image:image};
+}
+
 function getContentFor(multipolyLine) {
     var result = "empty";
 
