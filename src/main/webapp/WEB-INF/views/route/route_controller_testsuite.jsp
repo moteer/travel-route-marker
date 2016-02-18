@@ -23,7 +23,11 @@
 <div>
     <input id="descriptionTextBox" type="text"/>
     <input id="image" type="text"/>
+    <button id="saveButton" type="button" style="display: block;">save</button>
 </div>
+    <p id="latLng"/>
+<ul id="routeParts">
 
+</ul>
 </body>
 </html>
