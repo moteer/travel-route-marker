@@ -1,4 +1,8 @@
-var routeParts = {}
+var routeParts = {};
+
+function clearRouteParts() {
+    routeParts = {};
+}
 
 function Content(description, image) {
     return {description:description, image:image};

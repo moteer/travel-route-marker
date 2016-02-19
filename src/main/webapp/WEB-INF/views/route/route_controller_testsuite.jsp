@@ -26,7 +26,7 @@
     <button id="saveButton" type="button" style="display: block;">save</button>
 </div>
     <p id="latLng"/>
-<ul id="routeParts">
+<ul id="routePartList">
 
 </ul>
 </body>
