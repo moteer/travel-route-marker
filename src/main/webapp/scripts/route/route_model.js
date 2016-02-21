@@ -1,15 +1,15 @@
 function RouteParts() {
-    var routePartElements = {};
+    var routePartElements = new Map();
 
     this.add = function (multiPolyLine, content) {
-        routePartElements[multiPolyLine.getLatLngs().toString()] = content;
+        routePartElements.set(multiPolyLine.getLatLngs().toString(), content);
     };
 
     this.getContentFor = function (multipolyLine) {
         var result = "empty";
 
-        if (multipolyLine !== undefined && routePartElements[multipolyLine.getLatLngs().toString()] !== undefined) {
-            result = routePartElements[multipolyLine.getLatLngs().toString()];
+        if (multipolyLine !== undefined && routePartElements.get(multipolyLine.getLatLngs().toString()) !== undefined) {
+            result = routePartElements.get(multipolyLine.getLatLngs().toString());
         }
         return result;
     };
@@ -21,17 +21,26 @@ function RouteParts() {
     this.getIterator = function () {
         return new RoutePartIterator(routePartElements);
     };
+
+    Object.prototype.toString = function () {
+        var iterator = routeParts.getIterator();
+        var result = "[";
+        while (iterator.hasNext()) {
+            result = iterator.next().value.toString() + ", ";
+        }
+        return result + "]";
+    }
 }
 
 function RoutePartIterator(routePartElements) {
     var nextIndex = 0;
 
     this.hasNext = function () {
-        return nextIndex < routePartElements.length ? false : true;
+        return nextIndex < routePartElements.size ? true : false;
     };
 
     this.next = function () {
-        return nextIndex < routePartElements.length ?
+        return nextIndex < routePartElements.size ?
         {value: routePartElements[nextIndex++], done: false} :
         {done: true};
     };

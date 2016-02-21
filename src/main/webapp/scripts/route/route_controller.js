@@ -28,9 +28,7 @@ function clearRoutePartList() {
 function updateRoutePartList(routeParts) {
     clearRoutePartList();
     var iterator = routeParts.getIterator();
-    //while(iterator.hasNext()) {
-    //    addNewListEntrie(iterator.next().value);
-    //}
-    iterator.hasNext();
-    addNewListEntrie(iterator.next().value);
+    while(iterator.hasNext()) {
+        addNewListEntrie(iterator.next().value);
+    }
 }
