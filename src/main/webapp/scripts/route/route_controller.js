@@ -8,7 +8,7 @@ function addNewListEntrie(description) {
 function displayControllFor(multiPolyLine) {
     var descriptionTextBox = document.getElementById("descriptionTextBox");
     descriptionTextBox.style.visibility = "visible";
-    descriptionTextBox.value = getContentFor(multiPolyLine).description;
+    descriptionTextBox.value = routeParts.getContentFor(multiPolyLine).getDescription();
 
     var image = document.getElementById("image");
     image.style.visibility = "visible";
@@ -27,7 +27,10 @@ function clearRoutePartList() {
 
 function updateRoutePartList(routeParts) {
     clearRoutePartList();
-    for (var routePart in routeParts) {
-        addNewListEntrie(routePart.toString());
-    }
+    var iterator = routeParts.getIterator();
+    //while(iterator.hasNext()) {
+    //    addNewListEntrie(iterator.next().value);
+    //}
+    iterator.hasNext();
+    addNewListEntrie(iterator.next().value);
 }
