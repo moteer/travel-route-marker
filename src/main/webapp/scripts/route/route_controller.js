@@ -1,7 +1,7 @@
-function addNewListEntrie(description) {
+function addNewListEntrie(lngLat, content) {
     var routePartList = document.getElementById("routePartList");
     var li = document.createElement("li");
-    li.appendChild(document.createTextNode(description));
+    li.appendChild(document.createTextNode(lngLat + " | " + content.toString()));
     routePartList.appendChild(li);
 }
 
@@ -15,7 +15,7 @@ function displayControllFor(multiPolyLine) {
 
     var latLng = document.getElementById("latLng");
     latLng.innerHTML = multiPolyLine.getLatLngs().toString();
-    addNewListEntrie();
+    updateRoutePartList();
 }
 
 function clearRoutePartList() {
@@ -25,10 +25,9 @@ function clearRoutePartList() {
     }
 }
 
-function updateRoutePartList(routeParts) {
+function updateRoutePartList() {
     clearRoutePartList();
-    var iterator = routeParts.getIterator();
-    while(iterator.hasNext()) {
-        addNewListEntrie(iterator.next().value);
-    }
+    routeParts.getMap().forEach(function(value, key, map) {
+        addNewListEntrie(key, value);
+    });
 }

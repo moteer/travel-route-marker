@@ -14,36 +14,23 @@ function RouteParts() {
         return result;
     };
 
-    this.clearRouteParts = function () {
-        routePartElements = {};
-    };
+    this.clear = function () {
+        routePartElements.clear();
+    }
 
-    this.getIterator = function () {
-        return new RoutePartIterator(routePartElements);
+    this.getMap = function () {
+        return routePartElements;
     };
 
     Object.prototype.toString = function () {
-        var iterator = routeParts.getIterator();
-        var result = "[";
-        while (iterator.hasNext()) {
-            result = iterator.next().value.toString() + ", ";
-        }
-        return result + "]";
+        var result;
+        routePartElements.forEach(function(value, key, map) {
+            var mapEntry = "m[" + key + "] = " + value;
+            console.log(mapEntry);
+            result = mapEntry;
+        });
+        return result;
     }
-}
-
-function RoutePartIterator(routePartElements) {
-    var nextIndex = 0;
-
-    this.hasNext = function () {
-        return nextIndex < routePartElements.size ? true : false;
-    };
-
-    this.next = function () {
-        return nextIndex < routePartElements.size ?
-        {value: routePartElements[nextIndex++], done: false} :
-        {done: true};
-    };
 }
 
 function Content(description, image) {

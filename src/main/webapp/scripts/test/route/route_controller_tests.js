@@ -46,23 +46,19 @@ QUnit.test("switch from one selection to another", function (assert) {
 //
 //list all entries
 QUnit.test("display a list of all entries", function (assert) {
-
-    //clearRouteParts();
-    updateRoutePartList(routeParts);
+    routeParts.clear();
+    updateRoutePartList();
     var multiPolyLine = L.multiPolyline([[L.latLng(99.4, 0.5)], [L.latLng(60.5, 40.5)]]);
     var content = new Content("desc C", "image C");
     routeParts.add(multiPolyLine, content);
 
-    updateRoutePartList(routeParts);
+    updateRoutePartList();
 
-    var list = document.getElementById("routePartList");
+    var listElements = document.getElementById("routePartList").getElementsByTagName("li");
 
-    assert.equal(list.hasChildNodes(), true, "List has child nodes");
+    assert.equal(listElements.length, 1, "List has entry nodes");
 
-    assert.equal(list.childElementCount, 1, "List has 1 entries.");
-    assert.equal(list.childNodes[0].description, "desc C", "description is present");
-
-
+    assert.equal(listElements[0].textContent, "LatLng(99.4, 0.5),LatLng(60.5, 40.5) | Description: desc C, image: image C", "description is present");
 });
 
 
