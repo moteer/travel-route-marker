@@ -1,3 +1,8 @@
+QUnit.testStart(function () {
+  console.log("NEW TEST STARTED!");
+  routeParts.clear();
+});
+
 //editing mode
 QUnit.test("display control elements for a certain route part", function (assert) {
     var multiPolyLine = L.multiPolyline([[L.latLng(50.5, 30.5)], [L.latLng(60.5, 40.5)]]);
@@ -22,8 +27,6 @@ QUnit.test("display control elements for a certain route part", function (assert
 
 //switch
 QUnit.test("switch from one selection to another", function (assert) {
-    //clearRouteParts();
-
     var multiPolyLine = L.multiPolyline([[L.latLng(111.4, 0.5)], [L.latLng(60.5, 40.5)]]);
     var content = new Content("desc B", "image B");
     routeParts.add(multiPolyLine, content);
@@ -42,11 +45,20 @@ QUnit.test("switch from one selection to another", function (assert) {
 
     var save = document.getElementById("saveButton");
     assert.equal(save.style.display, "block", "save button is visible");
+
+    // now another
+    var multiPolyLineAnother = L.multiPolyline([[L.latLng(77.4, 0.5)], [L.latLng(60.5, 40.5)]]);
+    var contentAnother = new Content("just Another Description", "just Another image");
+    routeParts.add(multiPolyLineAnother, contentAnother);
+
+    displayControllFor(multiPolyLineAnother);
+    assert.equal(descriptionTextBox.value, contentAnother.getDescription(), "descriptionTextBox has text " + contentAnother.getDescription());
+    assert.equal(latLng.innerHTML, "LatLng(77.4, 0.5),LatLng(60.5, 40.5)");
+
 });
 //
 //list all entries
 QUnit.test("display a list of all entries", function (assert) {
-    routeParts.clear();
     updateRoutePartList();
     var multiPolyLine = L.multiPolyline([[L.latLng(99.4, 0.5)], [L.latLng(60.5, 40.5)]]);
     var content = new Content("desc C", "image C");
@@ -62,8 +74,6 @@ QUnit.test("display a list of all entries", function (assert) {
 });
 
 
-//
-//
 ////drawing mode
 //QUnit.test("only show text elements but not editable", function (assert) {
 //
