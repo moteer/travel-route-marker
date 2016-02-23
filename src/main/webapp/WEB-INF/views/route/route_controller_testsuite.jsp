@@ -25,9 +25,26 @@
     <input id="image" type="text"/>
     <button id="saveButton" type="button" style="display: block;">save</button>
 </div>
-    <p id="latLng"/>
+<p id="latLng"/>
 <ul id="routePartList">
-
 </ul>
+
+    <div id="tableDiv">
+        <table id="routePartTable">
+            <thead>
+              <tr>
+                <th id="header">lnglat to lnglat</th>
+                <th>Description</th>
+                <th>action</th>
+              </tr>
+             </thead>
+            </tr>
+<%--            <tr>
+                <td>asdas</td>
+                <td>grdsf</td>
+                <td>sfsdf</td>
+            </tr>--%>
+        </table>
+    </div>
 </body>
 </html>

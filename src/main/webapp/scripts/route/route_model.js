@@ -22,12 +22,12 @@ function RouteParts() {
         return routePartElements;
     };
 
-    Object.prototype.toString = function () {
-        var result;
+    this.toString = function () {
+        var result = routePartElements.size === 0 ? "EMPTY": "";
         routePartElements.forEach(function(value, key, map) {
             var mapEntry = "m[" + key + "] = " + value;
             console.log(mapEntry);
-            result = mapEntry;
+            result = result + " | " + mapEntry;
         });
         return result;
     }
@@ -45,7 +45,7 @@ function Content(description, image) {
         return image;
     };
 
-    Object.prototype.toString = function () {
+    this.toString = function () {
         return "Description: " + description + ", image: " + image;
     }
 }

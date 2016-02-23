@@ -1,8 +1,9 @@
 function addNewListEntrie(lngLat, content) {
-    var routePartList = document.getElementById("routePartList");
-    var li = document.createElement("li");
-    li.appendChild(document.createTextNode(lngLat + " | " + content.toString()));
-    routePartList.appendChild(li);
+    var routePartList = document.getElementById("routePartTable");
+    var row = routePartList.insertRow(routePartList.rows.length);
+    row.insertCell(0).innerHTML = lngLat;
+    row.insertCell(1).innerHTML = content.toString();
+    row.insertCell(2).innerHTML = "<button>edit</button><button>delete</button>";
 }
 
 function displayControllFor(multiPolyLine) {
@@ -19,15 +20,15 @@ function displayControllFor(multiPolyLine) {
 }
 
 function clearRoutePartList() {
-    var routePartList = document.getElementById("routePartList");
-    for(var i=0; i < routePartList.childElementCount; i++) {
-        routePartList.removeChild(routePartList.childNodes[i]);
+    var routePartTable = document.getElementById("routePartTable");
+    for(var i = routePartTable.rows.length - 1; i > 0; i--) {
+        routePartTable.deleteRow(i);
     }
 }
 
 function updateRoutePartList() {
     clearRoutePartList();
-    routeParts.getMap().forEach(function(value, key, map) {
+    routeParts.getMap().forEach(function (value, key, map) {
         addNewListEntrie(key, value);
     });
 }

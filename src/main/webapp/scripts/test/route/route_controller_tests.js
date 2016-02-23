@@ -1,10 +1,18 @@
 QUnit.testStart(function () {
-  console.log("NEW TEST STARTED!");
-  routeParts.clear();
+    console.log("testSetup");
+    console.log("==============before update");
+    console.log(routeParts.toString());
+    routeParts.clear();
+    updateRoutePartList();
+    console.log("==============after update");
+    console.log(routeParts.toString());
+    console.log("===========================");
+
 });
 
 //editing mode
 QUnit.test("display control elements for a certain route part", function (assert) {
+    console.log("TEST: display control elements for a certain route part");
     var multiPolyLine = L.multiPolyline([[L.latLng(50.5, 30.5)], [L.latLng(60.5, 40.5)]]);
     var content = new Content("desc A", "image A");
     routeParts.add(multiPolyLine, content);
@@ -27,6 +35,7 @@ QUnit.test("display control elements for a certain route part", function (assert
 
 //switch
 QUnit.test("switch from one selection to another", function (assert) {
+    console.log("TEST: switch from one selection to another");
     var multiPolyLine = L.multiPolyline([[L.latLng(111.4, 0.5)], [L.latLng(60.5, 40.5)]]);
     var content = new Content("desc B", "image B");
     routeParts.add(multiPolyLine, content);
@@ -58,25 +67,33 @@ QUnit.test("switch from one selection to another", function (assert) {
 });
 //
 //list all entries
-QUnit.test("display a list of all entries", function (assert) {
-    updateRoutePartList();
+QUnit.test("display a table of all entries", function (assert) {
+    console.log("TEST: display a table of all entries");
+    //updateRoutePartList();
     var multiPolyLine = L.multiPolyline([[L.latLng(99.4, 0.5)], [L.latLng(60.5, 40.5)]]);
     var content = new Content("desc C", "image C");
     routeParts.add(multiPolyLine, content);
-
     updateRoutePartList();
 
-    var listElements = document.getElementById("routePartList").getElementsByTagName("li");
+    var tableRows = document.getElementById("routePartTable");
+    assert.equal(tableRows.rows.length, 2, "Table has entry row and a header");
 
-    assert.equal(listElements.length, 1, "List has entry nodes");
+    var multiPolyLine2 = L.multiPolyline([[L.latLng(30.4, 0.5)], [L.latLng(60.5, 40.5)]]);
+    var content2 = new Content("hello descr", "hello Image");
+    routeParts.add(multiPolyLine2, content2);
+    assert.equal(tableRows.rows.length, 2, "Table has still entry row and a header");
 
-    assert.equal(listElements[0].textContent, "LatLng(99.4, 0.5),LatLng(60.5, 40.5) | Description: desc C, image: image C", "description is present");
+    updateRoutePartList();
+    assert.equal(tableRows.rows.length, 3, "Table has even one more entry and a row and a header");
+
+    //assert.equal(tableRows[1].textContent, "LatLng(99.4, 0.5),LatLng(60.5, 40.5) | Description: desc C, image: image C", "description is present");
 });
 
 
-////drawing mode
-//QUnit.test("only show text elements but not editable", function (assert) {
-//
+//drawing mode
+//QUnit.test("select routePart and make table row editable", function (assert) {
+//    var listElements = document.getElementById("routePartTable").getElementsByTagName("tr");
+//    assert.equal(listElements.length, 2, "Table has entry row and a header");
 //});
 
 
