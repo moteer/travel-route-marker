@@ -35,6 +35,7 @@
               <tr>
                 <th id="header">lnglat to lnglat</th>
                 <th>Description</th>
+                  <th>Image</th>
                 <th>action</th>
               </tr>
              </thead>
