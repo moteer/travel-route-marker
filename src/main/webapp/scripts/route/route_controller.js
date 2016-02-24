@@ -1,26 +1,34 @@
 function Controller() {
 
-    function insertContentIntoRow(row, multiPolyLine, content) {
-        row.insertCell(0).innerHTML = multiPolyLine.getLatLngs().toString();
+    function insertContentIntoRow(row, multiPolyLineString, content) {
+        row.insertCell(0).innerHTML = multiPolyLineString;
         row.insertCell(1).innerHTML = content.getDescription();
         row.insertCell(2).innerHTML = content.getImage();
         row.insertCell(3).innerHTML = '<button id="edit">edit</button><button id="delete">delete</button>';
     }
 
-    function insertRowIntoTable(multiPolyLine) {
+    function insertRowIntoTable(multiPolyLineString) {
         var routePartList = document.getElementById("routePartTable");
         var row = routePartList.insertRow(routePartList.rows.length);
-        row.id = multiPolyLine.getLatLngs().toString();
+        row.id = multiPolyLineString;
         return row;
     }
 
-    function insertRowWithContentIntoTable(multiPolyLine, content) {
-        var row = insertRowIntoTable(multiPolyLine);
-        insertContentIntoRow(row, multiPolyLine, content);
+    function insertRowWithContentIntoTable(multiPolyLineString, content) {
+        var row = insertRowIntoTable(multiPolyLineString);
+        insertContentIntoRow(row, multiPolyLineString, content);
+    }
+
+    function updateTable() {
+        deleteAllEntriesFromTable();
+        routeParts.getMap().forEach(function(value, key, map) {
+            insertRowWithContentIntoTable(key, value);
+        });
     }
 
     this.showEditRowForNewSelection = function (multiPolyLine) {
-        var row = insertRowIntoTable(multiPolyLine);
+        updateTable();
+        var row = insertRowIntoTable(multiPolyLine.getLatLngs().toString());
         row.insertCell(0).innerHTML = multiPolyLine.getLatLngs().toString();
         row.insertCell(1).innerHTML = '<input type="text" id="description"/>';
         row.insertCell(2).innerHTML = '<input type="text" id="image"/>';
@@ -29,7 +37,7 @@ function Controller() {
 
     this.addRoutePart = function (multiPolyLine, content) {
         routeParts.add(multiPolyLine, content);
-        insertRowWithContentIntoTable(multiPolyLine, content);
+        insertRowWithContentIntoTable(multiPolyLine.getLatLngs().toString(), content);
     };
 
     //TODO: implement remove method
@@ -48,7 +56,7 @@ function Controller() {
         updateRoutePartList();
     };
 
-    function updateTable() {
+    function deleteAllEntriesFromTable() {
         var routePartTable = document.getElementById("routePartTable");
         for (var i = routePartTable.rows.length - 1; i > 0; i--) {
             routePartTable.deleteRow(i);
@@ -57,7 +65,7 @@ function Controller() {
 
     this.clear = function () {
         routeParts.clear();
-        updateTable();
+        deleteAllEntriesFromTable();
     };
 }
 

@@ -2,7 +2,6 @@ QUnit.testStart(function () {
     controller.clear();
 });
 
-//editing mode
 QUnit.test("save new routePart should display a new entry in the routePart table", function (assert) {
     var multiPolyLine;
     var content;
@@ -23,8 +22,7 @@ QUnit.test("save new routePart should display a new entry in the routePart table
     }
 });
 
-//add new empty row
-QUnit.test("add new empty row for a coresponding routePart selection on the map in the routePart table", function (assert) {
+QUnit.test("add new editable empty row for a coresponding routePart selection on the map in the routePart table", function (assert) {
     var multiPolyLine;
     var content;
     var routePartTableRow;
@@ -57,35 +55,34 @@ QUnit.test("add new empty row for a coresponding routePart selection on the map 
 
 });
 
-//switch
-//QUnit.test("switch from one selection to another", function (assert) {
-//    console.log("TEST: switch from one selection to another");
-//    var multiPolyLine = L.multiPolyline([[L.latLng(111.4, 0.5)], [L.latLng(60.5, 40.5)]]);
-//    var content = new Content("desc B", "image B");
-//    controller.addRoutePart(multiPolyLine, content);
-//
-//    var descriptionTextBox = document.getElementById("descriptionTextBox");
-//    assert.equal(descriptionTextBox.style.visibility, "visible", "descriptionTextBox is visible");
-//    assert.equal(descriptionTextBox.value, content.getDescription(), "descriptionTextBox has text " + content.getDescription());
-//
-//    var image = document.getElementById("image");
-//    assert.equal(image.style.visibility, "visible", "image is visible");
-//
-//    var latLng = document.getElementById("latLng");
-//    assert.equal(latLng.innerHTML, "LatLng(111.4, 0.5),LatLng(60.5, 40.5)");
-//
-//    var save = document.getElementById("saveButton");
-//    assert.equal(save.style.display, "block", "save button is visible");
-//
-//    // now another
-//    var multiPolyLineAnother = L.multiPolyline([[L.latLng(77.4, 0.5)], [L.latLng(60.5, 40.5)]]);
-//    var contentAnother = new Content("just Another Description", "just Another image");
-//    controller.addRoutePart(multiPolyLineAnother, contentAnother);
-//
-//    assert.equal(descriptionTextBox.value, contentAnother.getDescription(), "descriptionTextBox has text " + contentAnother.getDescription());
-//    assert.equal(latLng.innerHTML, "LatLng(77.4, 0.5),LatLng(60.5, 40.5)");
-//
-//});
+QUnit.test("switch from one selection to another", function (assert) {
+
+    //prepare
+    var preSavedMultiPolyLine = L.multiPolyline([[L.latLng(10.20, 30.40)], [L.latLng(9.1, 11.12)]]);
+    var preSavedContent = new Content("some descr", "some image");
+    controller.addRoutePart(preSavedMultiPolyLine, preSavedContent);
+    var preSavedRoutePartTableRow = document.getElementById(preSavedMultiPolyLine.getLatLngs().toString());
+    assert.ok(preSavedRoutePartTableRow !== null, "pre saved entry is present in routepart table");
+
+    //show new edit row
+    var multiPolyLine = L.multiPolyline([[L.latLng(12.34, 56.78)], [L.latLng(9.1, 11.12)]]);
+    controller.showEditRowForNewSelection(multiPolyLine);
+
+    var routePartTableEditRow = document.getElementById(multiPolyLine.getLatLngs().toString());
+    assert.ok(preSavedRoutePartTableRow !== null, "pre saved entry is still present in routepart table");
+    assert.ok(routePartTableEditRow !== null, "edit row is present in routepart table");
+    assert.ok(routePartTableEditRow.cells[0].innerHTML === multiPolyLine.getLatLngs().toString(), "first column contains lnglats");
+    assert.ok(routePartTableEditRow.cells[1].children[0].id === "description", "second column contains input field for Description");
+    assert.ok(routePartTableEditRow.cells[2].children[0].id === "image", "third column contains input field for Image");
+    assert.ok(routePartTableEditRow.cells[3].children[0].id === "save", "fourths column contains save button");
+
+    //switch to new selection
+    var brandNewmultiPolyLine = L.multiPolyline([[L.latLng(2.2, 2.2)], [L.latLng(3.3, 3.3)]]);
+    controller.showEditRowForNewSelection(brandNewmultiPolyLine);
+    assert.ok(preSavedRoutePartTableRow !== null, "pre saved entry is still present in routepart table");
+    assert.ok(document.getElementById(multiPolyLine.getLatLngs().toString()) === null, "edit row is now disappeared from routepart table");
+
+});
 //
 //list all entries
 QUnit.test("display a table of all entries", function (assert) {
