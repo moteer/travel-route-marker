@@ -30,7 +30,7 @@
 </ul>
 
     <div id="tableDiv">
-        <table id="routePartTable">
+        <table id="routePartTable" border="1">
             <thead>
               <tr>
                 <th id="header">lnglat to lnglat</th>

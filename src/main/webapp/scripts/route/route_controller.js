@@ -43,24 +43,28 @@ function Controller() {
         deleteAllEntriesFromTable();
     };
 
-    this.showEditRowForNewSelection = function (multiPolyLine) {
+    function setSelectionOn (multiPolyLine) {
+
+        var routePartRow = document.getElementById(multiPolyLine.getLatLngs().toString());
+        routePartRow.deleteCell(1);
+        routePartRow.deleteCell(1);
+        routePartRow.deleteCell(1);
+
+        routePartRow.insertCell(1).innerHTML = '<input type="text" id="description"/>';
+        routePartRow.insertCell(2).innerHTML = '<input type="text" id="image"/>';
+        routePartRow.insertCell(3).innerHTML = '<button id="save">save</button>';
+    }
+
+    this.addEmptyRoutePart = function (multiPolyLine) {
+        this.addRoutePart(multiPolyLine, new Content(undefined, undefined));
         updateTable();
-        var row = insertRowIntoTable(multiPolyLine.getLatLngs().toString());
-        row.insertCell(0).innerHTML = multiPolyLine.getLatLngs().toString();
-        row.insertCell(1).innerHTML = '<input type="text" id="description"/>';
-        row.insertCell(2).innerHTML = '<input type="text" id="image"/>';
-        row.insertCell(3).innerHTML = '<button id="save">save</button>';
+        setSelectionOn(multiPolyLine);
     };
 
     this.addRoutePart = function (multiPolyLine, content) {
         routeParts.saveRoutePartElement(multiPolyLine.getLatLngs().toString(), content);
         insertRowWithContentIntoTable(multiPolyLine.getLatLngs().toString(), content);
     };
-
-    this.addEmptyRoutePart = function (multiPolyLine) {
-        this.addRoutePart(multiPolyLine, new Content(undefined, undefined));
-    };
-
 }
 
 var controller = new Controller();
