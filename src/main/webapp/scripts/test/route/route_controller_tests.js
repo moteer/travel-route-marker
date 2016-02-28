@@ -1,5 +1,5 @@
 QUnit.testStart(function () {
-    controller.clear();
+    controller.clearAllRoutePartElements();
 });
 
 QUnit.test("save new routePart should display a new entry in the routePart table", function (assert) {
@@ -55,6 +55,17 @@ QUnit.test("add new editable empty row for a coresponding routePart selection on
 
 });
 
+//QUnit.test("save empty route part", function (assert) {
+//    var multiPolyLine = L.multiPolyline([[L.latLng(55, 55.5)], [L.latLng(55, 55.5)]]);
+//    controller.addEmptyRoutePart(multiPolyLine);
+//    routePartTableRow = document.getElementById(multiPolyLine.getLatLngs().toString());
+//    assert.ok(routePartTableRow !== null, "row is present");
+//    assert.ok(routePartTableRow.cells[0].innerHTML === multiPolyLine.getLatLngs().toString(), "first column contains lnglats");
+//    assert.ok(routePartTableRow.cells[1].children[0].id === "description", "second column contains input field for Description");
+//    assert.ok(routePartTableRow.cells[2].children[0].id === "image", "third column contains input field for Image");
+//    assert.ok(routePartTableRow.cells[3].children[0].id === "save", "fourths column contains save button");
+//});
+
 QUnit.test("switch from one selection to another", function (assert) {
 
     //prepare
@@ -81,6 +92,12 @@ QUnit.test("switch from one selection to another", function (assert) {
     controller.showEditRowForNewSelection(brandNewmultiPolyLine);
     assert.ok(preSavedRoutePartTableRow !== null, "pre saved entry is still present in routepart table");
     assert.ok(document.getElementById(multiPolyLine.getLatLngs().toString()) === null, "edit row is now disappeared from routepart table");
+
+    //switch to one another already existing routpart selection
+    //var brandNewmultiPolyLine = L.multiPolyline([[L.latLng(2.2, 2.2)], [L.latLng(3.3, 3.3)]]);
+    controller.showEditRowForNewSelection(preSavedMultiPolyLine);
+    assert.ok(preSavedRoutePartTableRow !== null, "pre saved entry is still present in routepart table");
+    assert.ok(document.getElementById(brandNewmultiPolyLine.getLatLngs().toString()) === null, "edit row is now disappeared from routepart table");
 
 });
 //

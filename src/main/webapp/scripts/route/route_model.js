@@ -1,22 +1,22 @@
 function RouteParts() {
     var routePartElements = new Map();
 
-    this.add = function (multiPolyLine, content) {
-        routePartElements.set(multiPolyLine.getLatLngs().toString(), content);
+    this.saveRoutePartElement = function (multiPolyLine, content) {
+        routePartElements.set(multiPolyLine, content);
     };
 
-    this.getContentFor = function (multipolyLine) {
+    this.getRoutePartElementFor = function (multipolyLine) {
         var result = "empty";
 
-        if (multipolyLine !== undefined && routePartElements.get(multipolyLine.getLatLngs().toString()) !== undefined) {
-            result = routePartElements.get(multipolyLine.getLatLngs().toString());
+        if (multipolyLine !== undefined && routePartElements.get(multipolyLine) !== undefined) {
+            result = routePartElements.get(multipolyLine);
         }
         return result;
     };
 
-    this.clear = function () {
+    this.clearAllRoutePartElements = function () {
         routePartElements.clear();
-    }
+    };
 
     this.getMap = function () {
         return routePartElements;

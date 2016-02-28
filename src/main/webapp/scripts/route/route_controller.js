@@ -21,10 +21,27 @@ function Controller() {
 
     function updateTable() {
         deleteAllEntriesFromTable();
+        //TODO: define callback without getting the map
         routeParts.getMap().forEach(function(value, key, map) {
             insertRowWithContentIntoTable(key, value);
         });
     }
+
+
+    //TODO: implement remove method
+    this.remove = undefined;
+
+    function deleteAllEntriesFromTable() {
+        var routePartTable = document.getElementById("routePartTable");
+        for (var i = routePartTable.rows.length - 1; i > 0; i--) {
+            routePartTable.deleteRow(i);
+        }
+    }
+
+    this.clearAllRoutePartElements = function () {
+        routeParts.clearAllRoutePartElements();
+        deleteAllEntriesFromTable();
+    };
 
     this.showEditRowForNewSelection = function (multiPolyLine) {
         updateTable();
@@ -36,46 +53,14 @@ function Controller() {
     };
 
     this.addRoutePart = function (multiPolyLine, content) {
-        routeParts.add(multiPolyLine, content);
+        routeParts.saveRoutePartElement(multiPolyLine.getLatLngs().toString(), content);
         insertRowWithContentIntoTable(multiPolyLine.getLatLngs().toString(), content);
     };
 
-    //TODO: implement remove method
-    this.remove = undefined;
-
-    this.select = function (multiPolyLine) {
-        var descriptionTextBox = document.getElementById("descriptionTextBox");
-        descriptionTextBox.style.visibility = "visible";
-        descriptionTextBox.value = routeParts.getContentFor(multiPolyLine).getDescription();
-
-        var image = document.getElementById("image");
-        image.style.visibility = "visible";
-
-        var latLng = document.getElementById("latLng");
-        latLng.innerHTML = multiPolyLine.getLatLngs().toString();
-        updateRoutePartList();
+    this.addEmptyRoutePart = function (multiPolyLine) {
+        this.addRoutePart(multiPolyLine, new Content(undefined, undefined));
     };
 
-    function deleteAllEntriesFromTable() {
-        var routePartTable = document.getElementById("routePartTable");
-        for (var i = routePartTable.rows.length - 1; i > 0; i--) {
-            routePartTable.deleteRow(i);
-        }
-    }
-
-    this.clear = function () {
-        routeParts.clear();
-        deleteAllEntriesFromTable();
-    };
 }
 
 var controller = new Controller();
-
-
-//
-//function updateRoutePartList() {
-//    clearRoutePartList();
-//    routeParts.getMap().forEach(function (value, key, map) {
-//        addNewListEntrie(key, value);
-//    });
-//}
