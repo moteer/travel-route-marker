@@ -8,7 +8,7 @@ function Controller() {
     }
 
     function insertRowIntoTable(multiPolyLineString) {
-        var routePartList = document.getElementById("routePartTable");
+        var routePartList = document.getElementById("routePartTableBody");
         var row = routePartList.insertRow(routePartList.rows.length);
         row.id = multiPolyLineString;
         return row;
@@ -44,7 +44,7 @@ function Controller() {
     };
 
     this.selectOn = function (multiPolyLine) {
-
+        updateTable();
         var routePartRow = document.getElementById(multiPolyLine.getLatLngs().toString());
         routePartRow.deleteCell(1);
         routePartRow.deleteCell(1);

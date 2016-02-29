@@ -39,12 +39,13 @@
                 <th>action</th>
               </tr>
              </thead>
-            </tr>
+            <tbody id="routePartTableBody">
 <%--            <tr>
                 <td>asdas</td>
                 <td>grdsf</td>
                 <td>sfsdf</td>
             </tr>--%>
+            </tbody>
         </table>
     </div>
 </body>

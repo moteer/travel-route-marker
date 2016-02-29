@@ -69,8 +69,29 @@ QUnit.test("save empty route part", function (assert) {
 
 });
 
-function callControllerSelectOnMethodAndAssert(multiPolyLine, content, assert) {
+function assertThatNoOtherRowHasEditElements(multiPolyLine, content, assert) {
+    var routePartTableRows = document.getElementById("routePartTable");
+    var tBodies = routePartTableRows.tBodies;
+
+
+    for (var i = 0; i < tBodies.length; i++) {
+        console.log(tBodies.item(i).childNodes[1].cells[0].innerHTML);
+        if (tBodies.item(i).childNodes[1].id !== multiPolyLine.getLatLngs().toString()) {
+            assert.ok(tBodies.item(i).childNodes[1].cells[1].innerHTML.toLowerCase().indexOf("input") === -1, "Should not have an input field.");
+            assert.ok(tBodies.item(i).childNodes[1].cells[2].innerHTML.toLowerCase().indexOf("input") === -1, "Should not have an input field.");
+
+            assert.ok(tBodies.item(i).childNodes[1].cells[3].children[0].id !== "save", "fourths column does NOT contain save button");
+            assert.ok(tBodies.item(i).childNodes[1].cells[3].children[0].id === "edit", "fourths column contains edit button");
+            assert.ok(tBodies.item(i).childNodes[1].cells[3].children[1].id === "delete", "fourths column contains delete button");
+        }
+    }
+
+}
+
+function assertSelectOnControllerMethod(multiPolyLine, content, assert) {
     controller.selectOn(multiPolyLine);
+
+    assertThatNoOtherRowHasEditElements(multiPolyLine, content, assert);
     var routePartTableEditRow = document.getElementById(multiPolyLine.getLatLngs().toString());
     assert.ok(routePartTableEditRow !== null, "edit row is present in routepart table");
     assert.ok(routePartTableEditRow.cells[0].innerHTML === multiPolyLine.getLatLngs().toString(), "first column contains lnglats");
@@ -85,16 +106,17 @@ QUnit.test("select multipolyline on map", function (assert) {
     var multiPolyLineA = L.multiPolyline([[L.latLng(10.20, 30.40)], [L.latLng(9.1, 11.12)]]);
     var contentA = new Content("some descr", "some image");
     controller.addRoutePart(multiPolyLineA, contentA);
-    callControllerSelectOnMethodAndAssert(multiPolyLineA, contentA, assert);
+    assertSelectOnControllerMethod(multiPolyLineA, contentA, assert);
 
     var multiPolyLineB = L.multiPolyline([[L.latLng(12.34, 56.78)], [L.latLng(9.1, 11.12)]]);
     var contentB = new Content("some descr", "some image");
     controller.addRoutePart(multiPolyLineB, contentB);
-    callControllerSelectOnMethodAndAssert(multiPolyLineB, contentB, assert);
+    assertSelectOnControllerMethod(multiPolyLineB, contentB, assert);
 
     var emptyMultiPolyLine = L.multiPolyline([[L.latLng(33.34, 33.78)], [L.latLng(33.1, 33.12)]]);
     controller.addEmptyRoutePart(emptyMultiPolyLine);
-    callControllerSelectOnMethodAndAssert(emptyMultiPolyLine, new Content("undefined", "undefined"), assert);
+    assertSelectOnControllerMethod(emptyMultiPolyLine, new Content("undefined", "undefined"), assert);
+    //TODO: not selected entries should not be editable.
 });
 
 //list all entries
