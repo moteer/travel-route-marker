@@ -22,7 +22,7 @@ function Controller() {
     function updateTable() {
         deleteAllEntriesFromTable();
         //TODO: define callback without getting the map
-        routeParts.getMap().forEach(function(value, key, map) {
+        routeParts.getMap().forEach(function (value, key, map) {
             insertRowWithContentIntoTable(key, value);
         });
     }
@@ -43,22 +43,24 @@ function Controller() {
         deleteAllEntriesFromTable();
     };
 
-    function setSelectionOn (multiPolyLine) {
+    this.selectOn = function (multiPolyLine) {
 
         var routePartRow = document.getElementById(multiPolyLine.getLatLngs().toString());
         routePartRow.deleteCell(1);
         routePartRow.deleteCell(1);
         routePartRow.deleteCell(1);
 
-        routePartRow.insertCell(1).innerHTML = '<input type="text" id="description"/>';
-        routePartRow.insertCell(2).innerHTML = '<input type="text" id="image"/>';
+        var content = routeParts.getRoutePartElementFor(multiPolyLine.getLatLngs().toString());
+        routePartRow.insertCell(1).innerHTML = '<input type="text" id="description" value="' + content.getDescription() + '"/>';
+
+        routePartRow.insertCell(2).innerHTML = '<input type="text" id="image" value="' + content.getImage() + '"/>';
         routePartRow.insertCell(3).innerHTML = '<button id="save">save</button>';
-    }
+    };
 
     this.addEmptyRoutePart = function (multiPolyLine) {
         this.addRoutePart(multiPolyLine, new Content(undefined, undefined));
         updateTable();
-        setSelectionOn(multiPolyLine);
+        //setSelectionOn(multiPolyLine);
     };
 
     this.addRoutePart = function (multiPolyLine, content) {

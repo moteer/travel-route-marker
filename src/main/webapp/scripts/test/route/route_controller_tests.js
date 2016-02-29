@@ -49,62 +49,56 @@ QUnit.test("add new editable empty row for a coresponding routePart selection on
     routePartTableRow = document.getElementById(multiPolyLine.getLatLngs().toString());
     assert.ok(routePartTableRow !== null, "row is present");
     assert.ok(routePartTableRow.cells[0].innerHTML === multiPolyLine.getLatLngs().toString(), "first column contains lnglats");
-    assert.ok(routePartTableRow.cells[1].children[0].id === "description", "second column contains input field for Description");
-    assert.ok(routePartTableRow.cells[2].children[0].id === "image", "third column contains input field for Image");
-    assert.ok(routePartTableRow.cells[3].children[0].id === "save", "fourths column contains save button");
+    assert.ok(routePartTableRow.cells[1].innerHTML === "undefined", "second column contains input field for Description");
+    assert.ok(routePartTableRow.cells[2].innerHTML === "undefined", "third column contains input field for Image");
+    assert.ok(routePartTableRow.cells[3].children[0].id === "edit", "fourths column contains edit button");
+    assert.ok(routePartTableRow.cells[3].children[1].id === "delete", "fourths column contains delete button");
 
 });
 
 QUnit.test("save empty route part", function (assert) {
     var multiPolyLine = L.multiPolyline([[L.latLng(55, 55.5)], [L.latLng(55, 55.5)]]);
     controller.addEmptyRoutePart(multiPolyLine);
-    routePartTableRow = document.getElementById(multiPolyLine.getLatLngs().toString());
+    var routePartTableRow = document.getElementById(multiPolyLine.getLatLngs().toString());
     assert.ok(routePartTableRow !== null, "row is present");
     assert.ok(routePartTableRow.cells[0].innerHTML === multiPolyLine.getLatLngs().toString(), "first column contains lnglats");
-    assert.ok(routePartTableRow.cells[1].children[0].id === "description", "second column contains input field for Description");
-    assert.ok(routePartTableRow.cells[2].children[0].id === "image", "third column contains input field for Image");
-    assert.ok(routePartTableRow.cells[3].children[0].id === "save", "fourths column contains save button");
+    assert.ok(routePartTableRow.cells[1].innerHTML === "undefined", "second column contains input field for Description");
+    assert.ok(routePartTableRow.cells[2].innerHTML === "undefined", "third column contains input field for Image");
+    assert.ok(routePartTableRow.cells[3].children[0].id === "edit", "fourths column contains edit button");
+    assert.ok(routePartTableRow.cells[3].children[1].id === "delete", "fourths column contains delete button");
+
 });
 
-QUnit.test("switch from one selection to another", function (assert) {
-
-    //prepare
-    var preSavedMultiPolyLine = L.multiPolyline([[L.latLng(10.20, 30.40)], [L.latLng(9.1, 11.12)]]);
-    var preSavedContent = new Content("some descr", "some image");
-    controller.addRoutePart(preSavedMultiPolyLine, preSavedContent);
-    var preSavedRoutePartTableRow = document.getElementById(preSavedMultiPolyLine.getLatLngs().toString());
-    assert.ok(preSavedRoutePartTableRow !== null, "pre saved entry is present in routepart table");
-
-    //show new edit row
-    var multiPolyLine = L.multiPolyline([[L.latLng(12.34, 56.78)], [L.latLng(9.1, 11.12)]]);
-    controller.addEmptyRoutePart(multiPolyLine);
-
+function callControllerSelectOnMethodAndAssert(multiPolyLine, content, assert) {
+    controller.selectOn(multiPolyLine);
     var routePartTableEditRow = document.getElementById(multiPolyLine.getLatLngs().toString());
-    assert.ok(preSavedRoutePartTableRow !== null, "pre saved entry is still present in routepart table");
     assert.ok(routePartTableEditRow !== null, "edit row is present in routepart table");
     assert.ok(routePartTableEditRow.cells[0].innerHTML === multiPolyLine.getLatLngs().toString(), "first column contains lnglats");
     assert.ok(routePartTableEditRow.cells[1].children[0].id === "description", "second column contains input field for Description");
+    assert.ok(routePartTableEditRow.cells[1].children[0].value === content.getDescription(), "Description");
     assert.ok(routePartTableEditRow.cells[2].children[0].id === "image", "third column contains input field for Image");
+    assert.ok(routePartTableEditRow.cells[2].children[0].value === content.getImage(), "Image");
     assert.ok(routePartTableEditRow.cells[3].children[0].id === "save", "fourths column contains save button");
+}
 
-    //switch to new selection
-    var brandNewmultiPolyLine = L.multiPolyline([[L.latLng(2.2, 2.2)], [L.latLng(3.3, 3.3)]]);
-    controller.addEmptyRoutePart(brandNewmultiPolyLine);
-    assert.ok(preSavedRoutePartTableRow !== null, "pre saved entry is still present in routepart table");
-    assert.ok(document.getElementById(multiPolyLine.getLatLngs().toString()) !== null, "edit row is still present as well at routepart table");
+QUnit.test("select multipolyline on map", function (assert) {
+    var multiPolyLineA = L.multiPolyline([[L.latLng(10.20, 30.40)], [L.latLng(9.1, 11.12)]]);
+    var contentA = new Content("some descr", "some image");
+    controller.addRoutePart(multiPolyLineA, contentA);
+    callControllerSelectOnMethodAndAssert(multiPolyLineA, contentA, assert);
 
-    //switch to one another already existing routpart selection
-    //var brandNewmultiPolyLine = L.multiPolyline([[L.latLng(2.2, 2.2)], [L.latLng(3.3, 3.3)]]);
-    controller.addEmptyRoutePart(preSavedMultiPolyLine);
-    assert.ok(preSavedRoutePartTableRow !== null, "pre saved entry is still present in routepart table");
-    assert.ok(document.getElementById(brandNewmultiPolyLine.getLatLngs().toString()) !== null, "edit row is still present as well at routepart table");
+    var multiPolyLineB = L.multiPolyline([[L.latLng(12.34, 56.78)], [L.latLng(9.1, 11.12)]]);
+    var contentB = new Content("some descr", "some image");
+    controller.addRoutePart(multiPolyLineB, contentB);
+    callControllerSelectOnMethodAndAssert(multiPolyLineB, contentB, assert);
 
+    var emptyMultiPolyLine = L.multiPolyline([[L.latLng(33.34, 33.78)], [L.latLng(33.1, 33.12)]]);
+    controller.addEmptyRoutePart(emptyMultiPolyLine);
+    callControllerSelectOnMethodAndAssert(emptyMultiPolyLine, new Content("undefined", "undefined"), assert);
 });
-//
+
 //list all entries
 QUnit.test("display a table of all entries", function (assert) {
-    console.log("TEST: display a table of all entries");
-    //updateRoutePartList();
     var multiPolyLine = L.multiPolyline([[L.latLng(99.4, 0.5)], [L.latLng(60.5, 40.5)]]);
     var content = new Content("desc C", "image C");
     controller.addRoutePart(multiPolyLine, content);
