@@ -43,6 +43,7 @@ function Controller() {
         deleteAllEntriesFromTable();
     };
 
+
     this.selectOn = function (multiPolyLine) {
         updateTable();
         var routePartRow = document.getElementById(multiPolyLine.getLatLngs().toString());
@@ -66,6 +67,11 @@ function Controller() {
     this.addRoutePart = function (multiPolyLine, content) {
         routeParts.saveRoutePartElement(multiPolyLine.getLatLngs().toString(), content);
         insertRowWithContentIntoTable(multiPolyLine.getLatLngs().toString(), content);
+    };
+
+    this.onSave = function (multiPolyLine, description, image) {
+        routeParts.saveRoutePartElement(multiPolyLine.getLatLngs().toString(), new Content(description, image));
+        updateTable();
     };
 }
 
