@@ -15,7 +15,7 @@ public class MyRouteController {
     @RequestMapping("/route")
     public String greeting(Model model) {
         model.addAttribute("route", route);
-        return "route";
+        return "route/route";
     }
 
     @RequestMapping("/testsuite")

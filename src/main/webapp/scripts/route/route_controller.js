@@ -22,7 +22,7 @@ function Controller() {
     function updateTable() {
         deleteAllEntriesFromTable();
         //TODO: define callback without getting the map
-        routeParts.getMap().forEach(function (value, key, map) {
+        routeParts.getMap().forEach(function (value, key, mapy) {
             insertRowWithContentIntoTable(key, value);
         });
     }
