@@ -8,6 +8,7 @@ function addModusIsActive() {
 function Leafletcontroller() {
 
     var latLngs = [];
+    var currentSelectedPolyLines = [];
 
     function isInitialLatLngPresent() {
         return latLngs.length > 0;
@@ -27,10 +28,31 @@ function Leafletcontroller() {
         return latLng;
     }
 
+    function showMessage(msg) {
+        document.getElementById("notifier").textContent = msg;
+    }
+
+    function markRoutePartAsSelected(polyLine) {
+        polyLine.setStyle({color: "orange"});
+    }
+
+    this.checkBoxChange = function (checkBox) {
+        for (var i=0; i< currentSelectedPolyLines.length; i++) {
+            currentSelectedPolyLines[i].setStyle({color: "blue"});
+        }
+        currentSelectedPolyLines = [];
+    }
+
+    function selectRoutePart(polyLine) {
+        markRoutePartAsSelected(polyLine);
+        currentSelectedPolyLines.push(polyLine);
+        controller.addEmptyRoutePart(L.multiPolyline(currentSelectedPolyLines));
+    }
+
     function createAndDisplayNewPolyLine(startLatLng, endLatLng) {
         var myNewPolyLine = L.polyline([startLatLng, endLatLng], {
             color: 'red',
-            weight: 3,
+            weight: 9,
             opacity: 0.5,
             smoothFactor: 1
 
@@ -39,15 +61,17 @@ function Leafletcontroller() {
         L.featureGroup([myNewPolyLine])
             .on('click', function () {
                 if (addModusIsActive()) {
-                    alert("check checkbox to change to select mode");
+                    showMessage("to select route parts turn off edit mode");
                 } else {
-                    controller.addEmptyRoutePart(L.multiPolyline([startLatLng], [endLatLng]));
+                    showMessage("you can select multiple route parts");
+                    selectRoutePart(myNewPolyLine);
                 }
             }).addTo(map);
     }
 
     function onMapClick(e) {
         if (addModusIsActive()) {
+            showMessage("click on Map to add Route Parts");
             if (isInitialLatLngPresent()) {
                 var oldLatLng = getLatestLatLng(e);
                 var newLatLng = createAndSaveNewLatLng(e);
@@ -55,6 +79,8 @@ function Leafletcontroller() {
             } else {
                 createAndSaveNewLatLng(e);
             }
+        } else {
+            showMessage("check checkbox to change to add mode or select Route Parts to edit them");
         }
     }
 
@@ -67,16 +93,18 @@ function Leafletcontroller() {
             'Imagery © <a href="http://mapbox.com">Mapbox</a>',
             id: 'mapbox.streets'
         }).addTo(map);
+
+        //TODO: set bounds to an initial country
         var points = [[51.343392, 12.532735]];
-        var selectedPoints = [];
         var polyline = L.polyline(points, {color: 'red'}).addTo(map);
         map.fitBounds(polyline.getBounds());
         map.on('click', onMapClick);
         return map;
     };
-
-
 }
 
 var leafletController = new Leafletcontroller();
 var map = leafletController.createAndDisplay();
+
+
+

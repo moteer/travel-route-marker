@@ -13,10 +13,15 @@ public class MyRouteController {
     Route route = new Route();
 
     @RequestMapping("/route")
-    public String greeting(Model model) {
-        model.addAttribute("route", route);
+    public String route(Model model) {
         return "route/route";
     }
+
+    @RequestMapping("/table")
+    public String tableWidget() {
+        return "tableWidget";
+    }
+
 
     @RequestMapping("/testsuite")
     public String qunitTests() {

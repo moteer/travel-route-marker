@@ -8,8 +8,8 @@ function Controller() {
     }
 
     function insertRowIntoTable(multiPolyLineString) {
-        var routePartList = document.getElementById("routePartTableBody");
-        var row = routePartList.insertRow(routePartList.rows.length);
+        var routePartTableBody = document.getElementById("routePartTableBody");
+        var row = routePartTableBody.insertRow(routePartTableBody.rows.length);
         row.id = multiPolyLineString;
         return row;
     }
