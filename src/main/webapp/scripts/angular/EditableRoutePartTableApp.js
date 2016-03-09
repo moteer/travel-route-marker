@@ -1,7 +1,28 @@
-var myEditAbleTableApp = angular.module('EditableRoutePartTableApp', []);
-myEditAbleTableApp.controller('EditableRoutePartTableController', ['$scope', function($scope) {
-    $scope.elements = 0;
-    $scope.addRow = function () {
-        $scope.elements = 2;
+var myEditAbleTableApp = angular.module('editableRoutePartTableApp', []);
+
+var controllers = {};
+
+
+controllers.MyEditTableTableController = function ($scope) {
+
+    $scope.rows = [];
+
+    $scope.elements = function () {
+        return $scope.rows.length;
     };
-}]);
+
+    $scope.addRow = function () {
+        $scope.rows.push($scope.newRow);
+    };
+
+    $scope.deleteRow = function (content) {
+        var index = $scope.rows.indexOf(content);
+        if (index > -1) {
+            $scope.rows.splice(index, 1);
+        }
+    };
+
+};
+
+myEditAbleTableApp.controller(controllers);
+
