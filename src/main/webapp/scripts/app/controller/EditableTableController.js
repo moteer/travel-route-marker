@@ -1,9 +1,4 @@
-var myEditAbleTableApp = angular.module('editableRoutePartTableApp', []);
-
-var controllers = {};
-
-
-controllers.MyEditTableTableController = function ($scope) {
+editableRoutePartTableApp.controller('EditableRoutePartTableController', function ($scope) {
 
     $scope.rows = [];
 
@@ -22,7 +17,5 @@ controllers.MyEditTableTableController = function ($scope) {
         }
     };
 
-};
-
-myEditAbleTableApp.controller(controllers);
+});
 

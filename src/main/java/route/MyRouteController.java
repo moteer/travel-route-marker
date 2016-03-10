@@ -17,11 +17,16 @@ public class MyRouteController {
         return "route/route";
     }
 
-    @RequestMapping("/table")
+    @RequestMapping("/mainView")
     public String tableWidget() {
-        return "tableWidget";
+        return "mainView";
     }
 
+    @RequestMapping(value = "/routeparts", method = RequestMethod.GET)
+    public String displayRoutPartTable(Model m) {
+//        /home/development/Desktop/ehoelzel/playground/src/main/webapp/scripts/app/partials/tableWidget.html
+        return "partials/tableWidget";
+    }
 
     @RequestMapping("/testsuite")
     public String qunitTests() {

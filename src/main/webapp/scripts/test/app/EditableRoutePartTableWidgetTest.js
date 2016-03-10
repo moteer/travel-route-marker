@@ -1,4 +1,4 @@
-describe('EditableRoutePartTableController Unit Test', function () {
+describe('EditTableController simple Unit Test', function () {
     beforeEach(module('editableRoutePartTableApp'));
 
     var EditableRoutePartTableController,
@@ -6,7 +6,7 @@ describe('EditableRoutePartTableController Unit Test', function () {
 
     beforeEach(inject(function ($rootScope, $controller) {
         scope = $rootScope.$new();
-        EditableRoutePartTableController = $controller('MyEditTableTableController', {
+        EditableRoutePartTableController = $controller('EditableRoutePartTableController', {
             $scope: scope
         });
     }));
@@ -41,8 +41,6 @@ describe('EditableRoutePartTableController Unit Test', function () {
         expect(scope.elements()).toBe(1);
         expect(scope.rows).toEqual(["one"]);
     });
-
-
 });
 
 
