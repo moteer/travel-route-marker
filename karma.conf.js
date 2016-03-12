@@ -15,11 +15,16 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
-            '/home/development/Desktop/ehoelzel/playground/node_modules/angular/angular.js',
-            '/home/development/Desktop/ehoelzel/playground/node_modules/angular-mocks/angular-mocks.js',
-            '/home/development/Desktop/ehoelzel/playground/src/main/webapp/scripts/test/app/EditableRoutePartTableAppTest.js',
-            '/home/development/Desktop/ehoelzel/playground/src/main/webapp/scripts/app/controller/EditableTableController.js',
-            '/home/development/Desktop/ehoelzel/playground/src/main/webapp/scripts/test/app/EditableRoutePartTableWidgetTest.js',
+            // '/home/development/Desktop/ehoelzel/playground/node_modules/angular/angular.js',
+            // '/home/development/Desktop/ehoelzel/playground/node_modules/angular-mocks/angular-mocks.js',
+            // '/home/development/Desktop/ehoelzel/playground/src/main/webapp/scripts/test/app/EditableRoutePartTableAppTest.js',
+            // '/home/development/Desktop/ehoelzel/playground/src/main/webapp/scripts/app/controller/EditableTableController.js',
+            // '/home/development/Desktop/ehoelzel/playground/src/main/webapp/scripts/test/app/EditableRoutePartTableWidgetTest.js',
+            '**/angular.js',
+            '**/angular-mocks.js',
+            '**/EditableRoutePartTableAppTest.js',
+            '**/EditableTableController.js',
+            '**/EditableRoutePartTableWidgetTest.js'
         ],
 
 
@@ -58,7 +63,7 @@ module.exports = function (config) {
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
         browsers: ['PhantomJS'],
-        //browsers: ['Firefox'],
+        // browsers: ['Firefox'],
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
