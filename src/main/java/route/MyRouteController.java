@@ -12,45 +12,45 @@ public class MyRouteController {
 
     Route route = new Route();
 
-    @RequestMapping("/route")
-    public String route(Model model) {
-        return "route/route";
-    }
+    // @RequestMapping("/route")
+    // public String route(Model model) {
+    //     return "route/route";
+    // }
 
     @RequestMapping("/mainView")
-    public String tableWidget() {
+    public String mainView() {
         return "mainView";
     }
 
-    @RequestMapping(value = "/routeparts", method = RequestMethod.GET)
+    @RequestMapping(value = "/route", method = RequestMethod.GET)
     public String displayRoutPartTable(Model m) {
 //        /home/development/Desktop/ehoelzel/playground/src/main/webapp/scripts/app/partials/tableWidget.html
-        return "partials/tableWidget";
+        return "partials/routetable";
     }
 
-    @RequestMapping("/testsuite")
-    public String qunitTests() {
-        return "testsuite";
-    }
+    // @RequestMapping("/testsuite")
+    // public String qunitTests() {
+    //     return "testsuite";
+    // }
 
-    @RequestMapping("/route_model_testsuite")
-    public String routeModelTests() {
-        return "route/route_model_testsuite";
-    }
+    // @RequestMapping("/route_model_testsuite")
+    // public String routeModelTests() {
+    //     return "route/route_model_testsuite";
+    // }
 
-    @RequestMapping("/route_controller_testsuite")
-    public String routeControllerTests() {
-        return "route/route_controller_testsuite";
-    }
+    // @RequestMapping("/route_controller_testsuite")
+    // public String routeControllerTests() {
+    //     return "route/route_controller_testsuite";
+    // }
 
 
-    @RequestMapping(value = "route/safe", method = RequestMethod.POST)
-    @ResponseBody
-    public RoutePoint post(@RequestBody RoutePoint routePoint) {
+    // @RequestMapping(value = "route/safe", method = RequestMethod.POST)
+    // @ResponseBody
+    // public RoutePoint post(@RequestBody RoutePoint routePoint) {
 
-        route.addPoint(routePoint);
-        System.out.println(route);
-        return routePoint;
-    }
+    //     route.addPoint(routePoint);
+    //     System.out.println(route);
+    //     return routePoint;
+    // }
 
 }

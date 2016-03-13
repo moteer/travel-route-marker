@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-ng-app="editableRoutePartTableApp">
+<html data-ng-app="RouteTableApp">
 
 <head>
 </head>
@@ -14,8 +14,9 @@
 <script src="../../scripts/angular-route/angular-route.min.js"></script>
 
 <%--routepart scripts--%>
-<script src="../../scripts/app/EditableRoutePartTableApp.js"></script>
-<script src="../../scripts/app/controller/EditableTableController.js"></script>
+<script src="../../scripts/app/model/RouteModel.js"></script>
+<script src="../../scripts/app/RouteTableApp.js"></script>
+<script src="../../scripts/app/controller/RouteTableController.js"></script>
 
 
 </body>
