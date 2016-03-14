@@ -1,7 +1,0 @@
-function Route() {
-	
-}
-
-function Content() {
-	
-}
