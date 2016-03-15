@@ -1,7 +1,10 @@
-routeTableApp.controller('RouteTableController', function ($scope) {
+mapApp.controller('RouteTableController', function ($scope, RouteFactory) {
 
-    $scope.route = {};
+    //$scope.route = {};
     $scope.newDescription, $scope.newImage;
+
+    $scope.routeFactory = RouteFactory;
+
 
     $scope.titel = function () {
         return $scope.route.titel;
@@ -32,9 +35,16 @@ routeTableApp.controller('RouteTableController', function ($scope) {
         return $scope.route.getRouteParts();
     };
 
-    $scope.saveRoutePart = function () {
-        $scope.route.addRoutePart(new RoutePart(
-            new Content($scope.newDescription, $scope.newImage), new GeoCoordinates(arguments)));
+
+    $scope.saveRoutePart = function (cities) {
+        if (arguments.length == 1) {
+            RouteFactory.saveRoutePointByName(cities);
+        } else {
+            RouteFactory.saveRoutePartByName(arguments[0], arguments[1]);
+        }
+
+        //$scope.route.addRoutePart(new RoutePart(
+        //    new Content($scope.newDescription, $scope.newImage), new GeoCoordinates(arguments)));
     };
 
     $scope.selectRoutePoint = function () {

@@ -23,10 +23,15 @@ public class MyRouteController {
     }
 
     @RequestMapping(value = "/route", method = RequestMethod.GET)
-    public String displayRoutPartTable(Model m) {
-//        /home/development/Desktop/ehoelzel/playground/src/main/webapp/scripts/app/partials/tableWidget.html
+    public String displayRoutPartTable() {
         return "partials/routetable";
     }
+
+    @RequestMapping(value = "/map/leaflet", method = RequestMethod.GET)
+    public String displayLeafletMap() {
+        return "partials/map/leaflet";
+    }
+
 
     // @RequestMapping("/testsuite")
     // public String qunitTests() {

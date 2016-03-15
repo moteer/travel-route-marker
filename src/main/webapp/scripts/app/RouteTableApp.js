@@ -1,11 +1,15 @@
-var routeTableApp = angular.module('RouteTableApp', ['ngRoute']);
+//var routeTableApp = angular.module('RouteTableApp', ['ngRoute']);
+var mapApp = angular.module('RouteApp', ['ngRoute']);
+
 
 //Routes
-routeTableApp.config(function ($routeProvider) {
+mapApp.config(function ($routeProvider) {
     $routeProvider
-        .when('/',
-        {
+        .when('/', {
             controller: 'RouteTableController',
             templateUrl: '/route'
-        }).otherwise({ redirectTo: '/'});
+        }).when('/map', {
+            controller: 'MapController',
+            templateUrl: '/map/leaflet'
+        }).otherwise({redirectTo: '/'});
 });

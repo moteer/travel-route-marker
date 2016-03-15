@@ -23,11 +23,15 @@ module.exports = function (config) {
             //'**/angular.js',
             //'**/angular-mocks.js',
             '**/RouteTableAppTest.js',
-            '**/RouteTableController.js',
-            '**/MapControllerTest.js',
-            '**/RouteTableControllerTest.js',
+
+            '**/RouteModel.js',
+            '**/RouteFactory.js',
             '**/MapController.js',
-            '**/RouteModel.js'
+            '**/RouteTableController.js',
+
+            '**/RouteFactoryTest.js',
+            '**/MapControllerTest.js',
+            '**/RouteTableControllerTest.js'
         ],
 
 
