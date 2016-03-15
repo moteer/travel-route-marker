@@ -15,17 +15,17 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
-            // '/home/development/Desktop/ehoelzel/playground/node_modules/angular/angular.js',
-            // '/home/development/Desktop/ehoelzel/playground/node_modules/angular-mocks/angular-mocks.js',
+             '/home/development/Desktop/ehoelzel/playground/node_modules/angular/angular.js',
+             '/home/development/Desktop/ehoelzel/playground/node_modules/angular-mocks/angular-mocks.js',
             // '/home/development/Desktop/ehoelzel/playground/src/main/webapp/scripts/test/app/EditableRoutePartTableAppTest.js',
             // '/home/development/Desktop/ehoelzel/playground/src/main/webapp/scripts/app/controller/EditableTableController.js',
             // '/home/development/Desktop/ehoelzel/playground/src/main/webapp/scripts/test/app/EditableRoutePartTableWidgetTest.js',
-            '**/angular.js',
-            '**/angular-mocks.js',
+            //'**/angular.js',
+            //'**/angular-mocks.js',
             '**/RouteTableAppTest.js',
             '**/RouteTableController.js',
             '**/MapControllerTest.js',
-            '**/RouteTableTest.js',
+            '**/RouteTableControllerTest.js',
             '**/MapController.js',
             '**/RouteModel.js'
         ],
@@ -65,9 +65,9 @@ module.exports = function (config) {
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ['PhantomJS'],
+        //browsers: ['PhantomJS'],
         // browsers: ['Firefox'],
-        // browsers: ['Chrome'],
+         browsers: ['Chrome'],
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits

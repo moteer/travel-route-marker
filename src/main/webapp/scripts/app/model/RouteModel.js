@@ -1,10 +1,6 @@
 function Route(titel) {
 	var routeParts = [];
-	var titel;
-
-	(function init(titel, obj) {
-		obj.titel = titel;
-	})(titel, this);
+	this.titel=titel;
 
 	this.getRouteParts = function() {
 		return routeParts;
@@ -17,13 +13,8 @@ function Route(titel) {
 
 function Content(description, image) {
 	
-	var description, image;
-
-	(function init(description, image, obj) {
-		obj.description = description;
-		obj.image = image;
-	})(description, image, this);
-
+	this.description=description;
+	this.image=image;
 
 	this.toString = function() {
 		return this.description + " | " + this.image
@@ -35,20 +26,21 @@ function TimePeriod() {
 }
 
 function GeoCoordinates() {
+	this.geoCoordinates = [];
 
+	for (var i=0; i<arguments[0].length; i++) {
+		this.geoCoordinates.push(new GeoCoordinate(arguments[0][i]));
+	}
 }
 
-function GeoCoordinate() {
-
+function GeoCoordinate(latLng) {
+	this.lat = latLng.lat;
+	this.lng = latLng.lng;
 }
 
-function RoutePart(content) {
-
-	var content;
-
-	(function init(content, obj) {
-		obj.content = content;
-	})(content, this);
+function RoutePart(content, geoCoordinates) {
+	this.content = content;
+	this.geoCoordinates = geoCoordinates;
 
 
 	this.toString = function() {

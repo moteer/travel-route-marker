@@ -33,9 +33,16 @@ routeTableApp.controller('RouteTableController', function ($scope) {
     };
 
     $scope.saveRoutePart = function () {
-        console.log($scope.newDescription + " | "+ $scope.newImage);
         $scope.route.addRoutePart(new RoutePart(
-            new Content($scope.newDescription, $scope.newImage)));
+            new Content($scope.newDescription, $scope.newImage), new GeoCoordinates(arguments)));
+    };
+
+    $scope.selectRoutePoint = function () {
+
+    };
+
+    $scope.selectRoutePart = function() {
+
     };
 
     $scope.deleteRow = function (content) {
