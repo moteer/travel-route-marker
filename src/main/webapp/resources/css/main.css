@@ -1,0 +1,20 @@
+.partial-parent {
+    width: 100%;
+    border: 1px solid black;
+    overflow: hidden; /* will contain if #first is longer than #second */
+}
+.map-partial {
+    width: 40%;
+    float:left; /* add this */
+    background: orange;
+    border: 1px solid red;
+}
+.table-partial {
+    border: 1px solid green;
+    background: yellow;
+    overflow: hidden; /* if you don't want #second to wrap below #first */
+}
+.map {
+    width: 950px;
+    height: 800px;
+}

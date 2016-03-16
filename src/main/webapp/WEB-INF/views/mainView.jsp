@@ -2,27 +2,25 @@
 <html data-ng-app="RouteApp">
 
 <head>
-<script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
-                           
-<link rel="stylesheet" href="css/leaflet.css"></link>
+    <%--angular libs--%>
+    <script src="../../scripts/angular/angular.min.js"></script>
+    <script src="../../scripts/angular-route/angular-route.min.js"></script>
+
+    <%--leaflet map lib --%>
+    <script src="../../scripts/leaflet/leaflet.js"></script>
+    <script src="../../scripts/angular-leaflet-directive/angular-leaflet-directive.min.js"></script>
+    <link rel="stylesheet" href="/resources/css/leaflet.css"/>
+    <link rel="stylesheet" href="/resources/css/main.css"/>
+
+    <%--<link rel="stylesheet" href="../css/main.css"/>--%>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<!--     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css"/> -->
 </head>
 
 <body>
 <div>
-  <div data-ng-view=""></div>
+    <div data-ng-view="" class="partial-parent"></div>
 </div>
-
-
-<%--leaflet map custums --%>
-<!-- <script type="text/javascript" src="../../scripts/app/leaflet/leafletcontroller.js"></script> -->
-
-<%--angular libs--%>
-<script src="../../scripts/angular/angular.min.js"></script>
-<script src="../../scripts/angular-leaflet-directive/angular-leaflet-directive.min.js"></script>
-<script src="../../scripts/angular-route/angular-route.min.js"></script>
 
 <%--routepart scripts--%>
 <script src="../../scripts/app/RouteTableApp.js"></script>

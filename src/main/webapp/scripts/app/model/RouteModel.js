@@ -26,6 +26,8 @@ function TimePeriod() {
 }
 
 function GeoCoordinates(geoCoordinates) {
+    //this.geoCoordinates = [];
+    console.log("geoCoordinates.length:" + geoCoordinates.length);
     this.geoCoordinates = geoCoordinates;
 }
 
@@ -39,6 +41,9 @@ function RoutePart(content, geoCoordinates) {
     this.content = content;
     this.geoCoordinates = geoCoordinates;
 
+    this.getGeoCoordinatesAsArray = function (){
+        return this.geoCoordinates.geoCoordinates;
+    };
 
     this.toString = function () {
         return this.content.toString();

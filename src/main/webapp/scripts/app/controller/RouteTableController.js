@@ -5,7 +5,6 @@ mapApp.controller('RouteTableController', function ($scope, RouteFactory) {
 
     $scope.routeFactory = RouteFactory;
 
-
     $scope.titel = function () {
         return $scope.route.titel;
     };
@@ -34,7 +33,7 @@ mapApp.controller('RouteTableController', function ($scope, RouteFactory) {
 
     };
 
-    $scope.selectRoutePart = function() {
+    $scope.selectRoutePart = function () {
 
     };
 
