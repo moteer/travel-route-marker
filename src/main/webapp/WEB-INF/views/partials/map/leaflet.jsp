@@ -1,11 +1,11 @@
 <div data-ng-controller="MapController">
     <h1>Map</h1>
-    <div id="map" style="width: 1024px; height: 600px; float: left; background-color: #41ffd3;"></div>
+<leaflet center="center" defaults="defaults" events="events" id="header"></leaflet>
 </div>
 <%--<script type="text/javascript" src="../../../../scripts/app/leaflet/leafletcontroller.js"></script>--%>
 
 
-<div data-ng-controller="RouteTableController">
+<!-- <div data-ng-controller="RouteTableController">
     <h1>{{ titel() }}</h1>
 
     <h2>This route has {{ getNumberOfRouteParts() }} sections</h2>
@@ -36,3 +36,4 @@
     </table>
 </div>
 
+ -->

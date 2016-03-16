@@ -2,11 +2,12 @@
 <html data-ng-app="RouteApp">
 
 <head>
-    <script type="text/javascript" src="../../scripts/jquery-2.1.4.js"></script>
-    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+<script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
+                           
+<link rel="stylesheet" href="css/leaflet.css"></link>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css"/>
+<!--     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css"/> -->
 </head>
 
 <body>
@@ -16,10 +17,11 @@
 
 
 <%--leaflet map custums --%>
-<script type="text/javascript" src="../../scripts/app/leaflet/leafletcontroller.js"></script>
+<!-- <script type="text/javascript" src="../../scripts/app/leaflet/leafletcontroller.js"></script> -->
 
 <%--angular libs--%>
 <script src="../../scripts/angular/angular.min.js"></script>
+<script src="../../scripts/angular-leaflet-directive/angular-leaflet-directive.min.js"></script>
 <script src="../../scripts/angular-route/angular-route.min.js"></script>
 
 <%--routepart scripts--%>

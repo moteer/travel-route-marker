@@ -1,4 +1,9 @@
 mapApp.controller('MapController', function ($scope, RouteFactory) {
+    angular.extend($scope, {
+        defaults: {
+            scrollWheelZoom: false
+        }
+    });
     $scope.from;
     $scope.to;
     $scope.routeFactory = RouteFactory;
