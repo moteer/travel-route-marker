@@ -6,16 +6,12 @@ describe('Map Controller', function () {
             $provide.value('RouteFactory', mockRouteFactory);
         });
 
-        mockRouteFactory.saveRoutePart = function (routePart) {
-            console.log("mock mockRouteTableController.saveRoutePart was called with routePart" + routePart);
+        mockRouteFactory.selectRoutePartByLatLngs = function (routePoint) {
+            console.log("mock mockRouteTableController.selectRoutePartByLatLngs was called with routePart" + routePoint);
         };
 
-        mockRouteFactory.selectRoutePoint = function (routePoint) {
-            console.log("mock mockRouteTableController.selectRoutePoint was called with routePart" + routePoint);
-        };
-
-        mockRouteFactory.selectRoutePart = function (routePartArray) {
-            console.log("mock mockRouteTableController.selectRoutePart was called with routePart" + routePartArray);
+        mockRouteFactory.saveRoutePartByLatLngs = function (routePartArray) {
+            console.log("mock mockRouteTableController.saveRoutePartByLatLng was called with routePart" + routePartArray);
         };
     });
 
@@ -29,24 +25,24 @@ describe('Map Controller', function () {
     }));
 
     it('should call save RoutePart on RouteFactory when two points added to Map', function () {
-        spyOn(RouteFactory, 'saveRoutePart');
+        spyOn(RouteFactory, 'saveRoutePartByLatLngs');
         scope.onMapClick({lat:"11.11", lng:"11.11"});
         scope.onMapClick({lat:"22.22", lng:"22.22"});
-        expect(RouteFactory.saveRoutePart).toHaveBeenCalledWith(
+        expect(RouteFactory.saveRoutePartByLatLngs).toHaveBeenCalledWith(
             {
                 from: {lat: "11.11", lng: "11.11"},
                 to: {lat: "22.22", lng: "22.22"}
             });
 
         scope.onMapClick({lat:"33.33", lng:"33.33"});
-        expect(RouteFactory.saveRoutePart).toHaveBeenCalledWith(
+        expect(RouteFactory.saveRoutePartByLatLngs).toHaveBeenCalledWith(
             {
                 from: {lat: "22.22", lng: "22.22"},
                 to: {lat: "33.33", lng: "33.33"}
             });
 
         scope.onMapClick({lat:"44.44", lng:"44.44"});
-        expect(RouteFactory.saveRoutePart).toHaveBeenCalledWith(
+        expect(RouteFactory.saveRoutePartByLatLngs).toHaveBeenCalledWith(
             {
                 from: {lat: "33.33", lng: "33.33"},
                 to: {lat: "44.44", lng: "44.44"}
@@ -54,19 +50,20 @@ describe('Map Controller', function () {
     });
 
     it('it should set focus in RouteFactory when point in Map selected', function () {
-        spyOn(RouteFactory, 'selectRoutePoint');
+        spyOn(RouteFactory, 'selectRoutePartByLatLngs');
         //select Point
-        scope.onMapSelectPoint({lat: "11.11", lng: "11.11"});
-        expect(RouteFactory.selectRoutePoint).toHaveBeenCalledWith({lat: "11.11", lng: "11.11"});
+        scope.onMapSelectRoutePartByLatLngs({lat: "11.11", lng: "11.11"});
+        expect(RouteFactory.selectRoutePartByLatLngs).toHaveBeenCalledWith({lat: "11.11", lng: "11.11"});
     });
 
     it('it should set focus to selected RoutePart in RouteFactory when path in Map selected', function () {
-        spyOn(RouteFactory, 'selectRoutePart');
-        //select RoutePart
-        var routePart = [{lat: "11.11", lng: "11.11"}, {lat: "22.22", lng: "22.22"}];
-
-        scope.onMapSelectRoutePart(routePart);
-        expect(RouteFactory.selectRoutePart).toHaveBeenCalledWith(routePart);
+        //spyOn(RouteFactory, 'saveRoutePartByLatLngsByLatLng');
+        ////select RoutePart
+        //var routePart = [{lat: "11.11", lng: "11.11"}, {lat: "22.22", lng: "22.22"}];
+        //
+        //scope.onMapselectRoutePartByLatLngs(routePart);
+        //expect(RouteFactory.selectRoutePartByLatLngs).toHaveBeenCalledWith(routePart);
+        fail('not implemented yet');
     });
 
 })

@@ -6,14 +6,9 @@ describe('RouteTableController', function () {
             $provide.value('RouteFactory', mockRouteFactory);
         });
 
-        mockRouteFactory.saveRoutePointByName = function (city) {
+        mockRouteFactory.saveRoutePartByName = function (city) {
             console.log("mock mockRouteFactory.saveRoutePointByName was called with city" + city);
         };
-
-        mockRouteFactory.saveRoutePartByName = function (cities) {
-            console.log("mock mockRouteFactory.saveRoutePointByName was called with city" + cities);
-        };
-
     });
 
     beforeEach(inject(function ($rootScope, $controller, _RouteFactory_) {
@@ -26,11 +21,11 @@ describe('RouteTableController', function () {
     }));
 
     it('should call save RoutePart on RouteFactory when new routePart is inserted', function () {
-        spyOn(RouteFactory, 'saveRoutePointByName');
-        scope.saveRoutePart("Leipzig");
-        expect(RouteFactory.saveRoutePointByName).toHaveBeenCalledWith("Leipzig");
-
         spyOn(RouteFactory, 'saveRoutePartByName');
+
+        scope.saveRoutePart("Leipzig");
+        expect(RouteFactory.saveRoutePartByName).toHaveBeenCalledWith("Leipzig");
+
         scope.saveRoutePart("Leipzig", "Sydney");
         expect(RouteFactory.saveRoutePartByName).toHaveBeenCalledWith("Leipzig", "Sydney");
     });

@@ -11,7 +11,7 @@ mapApp.controller('MapController', function ($scope, RouteFactory) {
             }
             $scope.to = latLng;
 
-            $scope.routeFactory.saveRoutePart(
+            $scope.routeFactory.saveRoutePartByLatLngs(
                 {from: {lng: $scope.from.lng, lat: $scope.from.lat},
                     to: {lng: $scope.to.lng, lat: $scope.to.lat}});
         } else {
@@ -19,11 +19,7 @@ mapApp.controller('MapController', function ($scope, RouteFactory) {
         }
     };
 
-    $scope.onMapSelectPoint = function (latLng) {
-        $scope.routeFactory.selectRoutePoint(latLng);
-    };
-
-    $scope.onMapSelectRoutePart= function (routePartArray) {
-        $scope.routeFactory.selectRoutePart(routePartArray);
+    $scope.onMapSelectRoutePartByLatLngs = function (routePartArray) {
+        $scope.routeFactory.selectRoutePartByLatLngs(routePartArray);
     };
 });

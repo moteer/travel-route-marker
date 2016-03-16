@@ -1,4 +1,3 @@
-//var routeTableApp = angular.module('RouteTableApp', ['ngRoute']);
 var mapApp = angular.module('RouteApp', ['ngRoute']);
 
 

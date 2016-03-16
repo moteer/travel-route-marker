@@ -95,9 +95,9 @@ function Leafletcontroller() {
         }).addTo(map);
 
         ////TODO: set bounds to an initial country
-        //var points = [[51.343392, 12.532735]];
-        //var polyline = L.polyline(points, {color: 'red'}).addTo(map);
-        //map.fitBounds(polyline.getBounds());
+        var points = [[51.343392, 12.532735]];
+        var polyline = L.polyline(points, {color: 'red'}).addTo(map);
+        map.fitBounds(polyline.getBounds());
         //map.on('click', onMapClick);
         return map;
     };
