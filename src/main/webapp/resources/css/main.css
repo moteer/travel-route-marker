@@ -18,3 +18,9 @@
     width: 950px;
     height: 800px;
 }
+
+.selected {
+    background-color:black;
+    color:white;
+    font-weight:bold;
+}

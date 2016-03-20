@@ -58,9 +58,7 @@ describe('Map Controller', function () {
 
     it('it should set focus to selected RoutePart in RouteDataService when path in Map selected', function () {
         spyOn(RouteDataService, 'selectRoutePartByLatLngs');
-        ////select RoutePart
         var routePart = [{lat: "11.11", lng: "11.11"}, {lat: "22.22", lng: "22.22"}];
-        //
         scope.onMapSelectRoutePartByLatLngs(routePart);
         expect(RouteDataService.selectRoutePartByLatLngs).toHaveBeenCalledWith(routePart);
     });

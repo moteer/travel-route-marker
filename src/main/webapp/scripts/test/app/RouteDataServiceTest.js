@@ -8,8 +8,6 @@ describe('RouteDataServiceTest', function () {
         RouteDataService = _RouteDataService_;
     }));
 
-
-// RouteDataService test
     it('displays Route in table', function () {
         var route = new Route("My first travel experience.");
         var content = new Content("some description", "some image");

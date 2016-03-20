@@ -5,6 +5,8 @@ mapApp.controller('RouteTableController', function ($scope, RouteDataService) {
 
     $scope.routeDataService = RouteDataService;
 
+    $scope.selectedRow = null;
+
     $scope.titel = function () {
         return $scope.route.titel;
     };
@@ -33,8 +35,9 @@ mapApp.controller('RouteTableController', function ($scope, RouteDataService) {
 
     };
 
-    $scope.selectRoutePart = function () {
-
+    $scope.onSelectRoutePart = function(index) {
+        $scope.selectedRow = index;
+        $scope.routeDataService.selectRoutePart(index);
     };
 
     $scope.deleteRow = function (content) {
