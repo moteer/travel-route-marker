@@ -25,11 +25,11 @@ module.exports = function (config) {
             '**/RouteTableAppTest.js',
 
             '**/RouteModel.js',
-            '**/RouteFactory.js',
+            '**/RouteDataService.js',
             '**/MapController.js',
             '**/RouteTableController.js',
 
-            '**/RouteFactoryTest.js',
+            '**/RouteDataServiceTest.js',
             '**/MapControllerTest.js',
             '**/RouteTableControllerTest.js'
         ],
@@ -69,9 +69,9 @@ module.exports = function (config) {
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ['PhantomJS'],
+        //browsers: ['PhantomJS'],
         // browsers: ['Firefox'],
-        // browsers: ['Chrome'],
+         browsers: ['Chrome'],
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits

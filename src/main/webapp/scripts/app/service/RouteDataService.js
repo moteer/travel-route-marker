@@ -1,31 +1,31 @@
-mapApp.factory('RouteFactory', function () {
+mapApp.service('RouteDataService', function () {
 
     this.route = {};
 
-    var fakeRoute = new Route("My first travel experience.");
-    var content = new Content("some description", "some image");
-    //var timePeriod = new TimePeriod("1.1.2016", "1.2.2016");
-    var geoCoordinates = new GeoCoordinates(
-        [
-            new GeoCoordinate({lat:"11.11", lng:"11.11"}),
-            new GeoCoordinate({lat:"22.22", lng:"22.22"})
-        ]
-    );
-    var rp = new RoutePart(content, geoCoordinates);
-    fakeRoute.addRoutePart(rp);
-    fakeRoute.addRoutePart(new RoutePart(new Content("new description", "new image"),
-        new GeoCoordinates(
-            [
-                new GeoCoordinate({lat:"12.11", lng:"11.11"}, "Hamburg"),
-                new GeoCoordinate({lat:"13.11", lng:"11.11"}, "Dresden")
-            ]
-        )));
+    //var fakeRoute = new Route("My first travel experience.");
+    //var content = new Content("some description", "some image");
+    ////var timePeriod = new TimePeriod("1.1.2016", "1.2.2016");
+    //var geoCoordinates = new GeoCoordinates(
+    //    [
+    //        new GeoCoordinate({lat:"11.11", lng:"11.11"}),
+    //        new GeoCoordinate({lat:"22.22", lng:"22.22"})
+    //    ]
+    //);
+    //var rp = new RoutePart(content, geoCoordinates);
+    //fakeRoute.addRoutePart(rp);
+    //fakeRoute.addRoutePart(new RoutePart(new Content("new description", "new image"),
+    //    new GeoCoordinates(
+    //        [
+    //            new GeoCoordinate({lat:"12.11", lng:"11.11"}, "Hamburg"),
+    //            new GeoCoordinate({lat:"13.11", lng:"11.11"}, "Dresden")
+    //        ]
+    //    )));
+
+    //this.init(fakeRoute);
 
     this.init = function (route) {
         this.route = route;
     };
-
-    this.init(fakeRoute);
 
     this.getRoute = function () {
         return this.route;
@@ -78,6 +78,4 @@ mapApp.factory('RouteFactory', function () {
                     geoCoordinates
                 )));
     };
-
-    return this;
 });

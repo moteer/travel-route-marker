@@ -1,9 +1,9 @@
-mapApp.controller('RouteTableController', function ($scope, RouteFactory) {
+mapApp.controller('RouteTableController', function ($scope, RouteDataService) {
 
-    $scope.route = RouteFactory.getRoute();
+    $scope.route = RouteDataService.getRoute();
     $scope.newDescription, $scope.newImage;
 
-    $scope.routeFactory = RouteFactory;
+    $scope.routeDataService = RouteDataService;
 
     $scope.titel = function () {
         return $scope.route.titel;
@@ -18,11 +18,11 @@ mapApp.controller('RouteTableController', function ($scope, RouteFactory) {
     };
 
 
-    $scope.saveRoutePart = function (cities) {
+    $scope.saveRoutePartByName = function (cities) {
         if (arguments.length == 1) {
-            RouteFactory.saveRoutePartByName(cities);
+            RouteDataService.saveRoutePartByName(cities);
         } else {
-            RouteFactory.saveRoutePartByName(arguments[0], arguments[1]);
+            RouteDataService.saveRoutePartByName(arguments[0], arguments[1]);
         }
 
         //$scope.route.addRoutePart(new RoutePart(

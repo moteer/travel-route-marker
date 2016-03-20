@@ -25,7 +25,7 @@
 <%--routepart scripts--%>
 <script src="../../scripts/app/RouteTableApp.js"></script>
 <script src="../../scripts/app/model/RouteModel.js"></script>
-<script src="../../scripts/app/factory/RouteFactory.js"></script>
+<script src="../../scripts/app/service/RouteDataService.js"></script>
 <script src="../../scripts/app/controller/RouteTableController.js"></script>
 <script src="../../scripts/app/controller/MapController.js"></script>
 

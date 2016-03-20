@@ -1,33 +1,56 @@
 describe('RouteTableController', function () {
 
     beforeEach(function () {
-        var mockRouteFactory = {};
+        var mockRouteDataService = {};
         module('RouteApp', function ($provide) {
-            $provide.value('RouteFactory', mockRouteFactory);
+            $provide.value('RouteDataService', mockRouteDataService);
         });
 
-        mockRouteFactory.saveRoutePartByName = function (city) {
-            console.log("mock mockRouteFactory.saveRoutePointByName was called with city" + city);
+        mockRouteDataService.saveRoutePartByName = function (city) {
+            console.log("mock mockRouteDataService.saveRoutePointByName was called with city" + city);
+        };
+
+        mockRouteDataService.getRoute = function () {
+            console.log("mock mockRouteDataService.getRoute was called");
+            var testRoute = new Route("My first travel experience.");
+            var content = new Content("some description", "some image");
+            //var timePeriod = new TimePeriod("1.1.2016", "1.2.2016");
+            var geoCoordinates = new GeoCoordinates(
+                [
+                    new GeoCoordinate({lat: "11.11", lng: "11.11"}),
+                    new GeoCoordinate({lat: "22.22", lng: "22.22"})
+                ]
+            );
+            var rp = new RoutePart(content, geoCoordinates);
+            testRoute.addRoutePart(rp);
+            testRoute.addRoutePart(new RoutePart(new Content("new description", "new image"),
+                new GeoCoordinates(
+                    [
+                        new GeoCoordinate({lat: "12.11", lng: "11.11"}, "Hamburg"),
+                        new GeoCoordinate({lat: "13.11", lng: "11.11"}, "Dresden")
+                    ]
+                )));
+            return testRoute;
         };
     });
 
-    beforeEach(inject(function ($rootScope, $controller, _RouteFactory_) {
+    beforeEach(inject(function ($rootScope, $controller, _RouteDataService_) {
         scope = $rootScope.$new();
-        RouteFactory = _RouteFactory_;
+        RouteDataService = _RouteDataService_;
         RouteTableController = $controller('RouteTableController', {
             $scope: scope,
-            routeFactory: RouteFactory
+            routeDataService: RouteDataService
         });
     }));
 
-    it('should call save RoutePart on RouteFactory when new routePart is inserted', function () {
-        spyOn(RouteFactory, 'saveRoutePartByName');
+    it('should call save RoutePart on RouteDataService when new routePart is inserted', function () {
+        spyOn(RouteDataService, 'saveRoutePartByName');
 
-        scope.saveRoutePart("Leipzig");
-        expect(RouteFactory.saveRoutePartByName).toHaveBeenCalledWith("Leipzig");
+        scope.saveRoutePartByName("Leipzig");
+        expect(RouteDataService.saveRoutePartByName).toHaveBeenCalledWith("Leipzig");
 
-        scope.saveRoutePart("Leipzig", "Sydney");
-        expect(RouteFactory.saveRoutePartByName).toHaveBeenCalledWith("Leipzig", "Sydney");
+        scope.saveRoutePartByName("Leipzig", "Sydney");
+        expect(RouteDataService.saveRoutePartByName).toHaveBeenCalledWith("Leipzig", "Sydney");
     });
 });
 

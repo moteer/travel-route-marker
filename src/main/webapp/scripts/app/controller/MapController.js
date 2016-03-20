@@ -1,4 +1,4 @@
-mapApp.controller('MapController', function ($scope, RouteFactory) {
+mapApp.controller('MapController', function ($scope, RouteDataService) {
     angular.extend($scope, {
         defaults: {
             scrollWheelZoom: false
@@ -6,7 +6,7 @@ mapApp.controller('MapController', function ($scope, RouteFactory) {
     });
     $scope.from;
     $scope.to;
-    $scope.routeFactory = RouteFactory;
+    $scope.routeDataService = RouteDataService;
 
     $scope.onMapClick = function (latLng) {
 
@@ -16,7 +16,7 @@ mapApp.controller('MapController', function ($scope, RouteFactory) {
             }
             $scope.to = latLng;
 
-            $scope.routeFactory.saveRoutePartByLatLngs(
+            $scope.routeDataService.saveRoutePartByLatLngs(
                 {from: {lng: $scope.from.lng, lat: $scope.from.lat},
                     to: {lng: $scope.to.lng, lat: $scope.to.lat}});
         } else {
@@ -25,6 +25,6 @@ mapApp.controller('MapController', function ($scope, RouteFactory) {
     };
 
     $scope.onMapSelectRoutePartByLatLngs = function (routePartArray) {
-        $scope.routeFactory.selectRoutePartByLatLngs(routePartArray);
+        $scope.routeDataService.selectRoutePartByLatLngs(routePartArray);
     };
 });
