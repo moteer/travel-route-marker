@@ -9,6 +9,10 @@ function Route(titel) {
     this.addRoutePart = function (routePart) {
         routeParts.push(routePart);
     };
+
+    this.getTitel = function () {
+        return this.titel;
+    };
 }
 
 function Content(description, image) {

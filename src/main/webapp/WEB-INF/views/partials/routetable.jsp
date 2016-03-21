@@ -1,5 +1,7 @@
-<div data-ng-controller="RouteTableController">
-    <h1>{{ titel() }}</h1>
+<div data-ng-controller="RouteTableController" class="table-partial-div">
+    <h1>{{ getTitel() }}</h1>
+    enter Titel ... <input type="text" data-ng-model="newTitel"/><button ng-click="createNewRoute()">create new Route</button>
+
 
     <h2>This route has {{ getNumberOfRouteParts() }} sections</h2>
     <table border="1">
@@ -29,10 +31,13 @@
             <input type="text" data-ng-model="newImage"/>
         </td>
         <td>
+            <input type="text" data-ng-model="newCity"/>
+        </td>
+        <td>
             <input type="text" value="geoCoordinate" contenteditable="false"/>
         </td>
         <td>
-            <button ng-click="saveRoutePart()">Add</button>
+            <button ng-click="addRoutePart()">Add</button>
         </td>
         </tfoot>
     </table>

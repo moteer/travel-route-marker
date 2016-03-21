@@ -1,6 +1,10 @@
 mapApp.service('RouteDataService', function () {
 
-    this.route = {};
+    this.route = null;
+
+    this.createNewRoute = function (titel) {
+        this.route = new Route(titel);
+    };
 
     this.init = function (route) {
         this.route = route;
@@ -11,15 +15,21 @@ mapApp.service('RouteDataService', function () {
     };
 
     this.getNumberOfRouteParts = function () {
-        return this.route.getRouteParts().length;
+        return this.getRouteParts().length;
     };
 
     this.getRouteParts = function () {
+        if (this.route === null) {
+            return [];
+        }
         return this.route.getRouteParts();
     };
 
     this.getTitel = function () {
-        return this.route.titel;
+        if (this.route === null) {
+            return "...";
+        }
+        return this.route.getTitel();
     };
 
     this.saveRoutePartByName = function (cityName, description, image) {

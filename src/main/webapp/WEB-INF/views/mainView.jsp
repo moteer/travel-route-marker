@@ -18,8 +18,8 @@
 </head>
 
 <body>
-<div>
-    <div data-ng-view="" class="partial-parent"></div>
+<div class="main-div">
+    <div data-ng-view="" class="partial-parent-div"></div>
 </div>
 
 <%--routepart scripts--%>

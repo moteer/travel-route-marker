@@ -44,6 +44,10 @@ describe('RouteTableController', function () {
         mockRouteDataService.resetCurrentSelection = function () {
             console.log("mock mockRouteDataService.resetCurrentSelection");
         };
+
+        mockRouteDataService.createNewRoute = function () {
+            console.log("mock mockRouteDataService.createNewRoute");
+        };
     });
 
     beforeEach(inject(function ($rootScope, $controller, _RouteDataService_) {
@@ -55,6 +59,14 @@ describe('RouteTableController', function () {
         });
     }));
 
+    it('should create a new route when Titel is entered and button is presses', function () {
+        spyOn(RouteDataService, 'createNewRoute');
+
+        scope.newTitel = "My very first travel experience";
+        scope.createNewRoute();
+        expect(RouteDataService.createNewRoute).toHaveBeenCalledWith("My very first travel experience");
+    });
+
     it('should call save RoutePart on RouteDataService when new routePart is inserted', function () {
         spyOn(RouteDataService, 'saveRoutePartByName');
 
@@ -63,6 +75,19 @@ describe('RouteTableController', function () {
 
         scope.saveRoutePartByName("Leipzig", "Sydney");
         expect(RouteDataService.saveRoutePartByName).toHaveBeenCalledWith("Leipzig", "Sydney");
+    });
+
+    it('should add new Route Part when city is entered and add button is pressed', function () {
+        spyOn(RouteDataService, 'saveRoutePartByName');
+
+        scope.newCity = null;
+        scope.addRoutePart();
+        expect(RouteDataService.saveRoutePartByName).not.toHaveBeenCalled();
+
+        scope.newCity = "Dortmund";
+        scope.addRoutePart();
+        expect(RouteDataService.saveRoutePartByName).toHaveBeenCalledWith("Dortmund");
+        //TODO: should also be able to add multiple cities through the table
     });
 
     it('it should set focus to selected RoutePart in RouteDataService when row in table selected', function () {

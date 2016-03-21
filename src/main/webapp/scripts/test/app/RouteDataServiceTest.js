@@ -50,10 +50,23 @@ describe('RouteDataServiceTest', function () {
 
     });
 
+    it('should create a new route when method called', function () {
+        expect(RouteDataService.route).toBe(null);
+        RouteDataService.createNewRoute("some great Titel");
+        expect(RouteDataService.route).not.toBe(null);
+        expect(RouteDataService.getTitel()).toBe("some great Titel");
+    });
+
+
     it('should get titel and no RouteParts on initialisation of RouteDataService', function () {
         RouteDataService.init(new Route("My route where I save something"));
         expect(RouteDataService.getTitel()).toBe("My route where I save something");
         expect(RouteDataService.getRouteParts().length).toBe(0);
+    });
+
+    it('should return 0 for getNumberOfRouteParts when no RoutePart is been inserted yet', function () {
+        expect(RouteDataService.getNumberOfRouteParts()).toBe(0);
+
     });
 
     it('should save RoutePart to RouteDataService by given city, description and image in case of manually added in the table', function () {
