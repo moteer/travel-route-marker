@@ -40,6 +40,10 @@ describe('RouteTableController', function () {
         mockRouteDataService.selectRoutePart = function (id) {
             console.log("mock mockRouteDataService.selectRoutePart was called with id" + id);
         };
+
+        mockRouteDataService.resetCurrentSelection = function () {
+            console.log("mock mockRouteDataService.resetCurrentSelection");
+        };
     });
 
     beforeEach(inject(function ($rootScope, $controller, _RouteDataService_) {
@@ -81,6 +85,7 @@ describe('RouteTableController', function () {
                             new GeoCoordinate({lat: "13.99", lng: "55.55"}, "Moskau")]
                     ))];
         });
+        spyOn(RouteDataService, 'resetCurrentSelection');
 
         scope.onSelectRoutePart(0);
         expect(RouteDataService.selectRoutePart).toHaveBeenCalledWith(0);
@@ -89,6 +94,10 @@ describe('RouteTableController', function () {
         scope.onSelectRoutePart(1);
         expect(RouteDataService.selectRoutePart).toHaveBeenCalledWith(1);
         expect(scope.selectedRow).toBe(1);
+
+        scope.onResetSelection();
+        expect(RouteDataService.resetCurrentSelection).toHaveBeenCalled();
+        expect(scope.selectedRow).toBe(null);
     });
 });
 

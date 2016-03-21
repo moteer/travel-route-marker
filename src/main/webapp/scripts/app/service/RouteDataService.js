@@ -10,10 +10,6 @@ mapApp.service('RouteDataService', function () {
         return this.route;
     };
 
-    this.getNumberOfRouteParts = function (route) {
-        return this.route;
-    };
-
     this.getNumberOfRouteParts = function () {
         return this.route.getRouteParts().length;
     };
@@ -22,7 +18,7 @@ mapApp.service('RouteDataService', function () {
         return this.route.getRouteParts();
     };
 
-    this.titel = function () {
+    this.getTitel = function () {
         return this.route.titel;
     };
 
@@ -56,5 +52,17 @@ mapApp.service('RouteDataService', function () {
                 new GeoCoordinates(
                     geoCoordinates
                 )));
+    };
+
+    this.selectRoutePart = function (index) {
+        this.currenSelectionIndex = index;
+    };
+
+    this.getCurrentlySelectedRoutePart = function () {
+        return this.getRouteParts()[this.currenSelectionIndex];
+    };
+
+    this.resetCurrentSelection = function () {
+        this.currenSelectionIndex = undefined;
     };
 });

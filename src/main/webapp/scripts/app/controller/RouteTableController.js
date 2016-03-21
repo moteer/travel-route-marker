@@ -1,6 +1,5 @@
 mapApp.controller('RouteTableController', function ($scope, RouteDataService) {
 
-    $scope.route = RouteDataService.getRoute();
     $scope.newDescription, $scope.newImage;
 
     $scope.routeDataService = RouteDataService;
@@ -8,15 +7,15 @@ mapApp.controller('RouteTableController', function ($scope, RouteDataService) {
     $scope.selectedRow = null;
 
     $scope.titel = function () {
-        return $scope.route.titel;
+        return $scope.routeDataService.getTitel();
     };
 
     $scope.getNumberOfRouteParts = function () {
-        return $scope.route.getRouteParts().length;
+        return $scope.routeDataService.getNumberOfRouteParts();
     };
 
     $scope.getRouteParts = function() {
-        return $scope.route.getRouteParts();
+        return $scope.routeDataService.getRouteParts();
     };
 
 
@@ -26,18 +25,16 @@ mapApp.controller('RouteTableController', function ($scope, RouteDataService) {
         } else {
             RouteDataService.saveRoutePartByName(arguments[0], arguments[1]);
         }
-
-        //$scope.route.addRoutePart(new RoutePart(
-        //    new Content($scope.newDescription, $scope.newImage), new GeoCoordinates(arguments)));
-    };
-
-    $scope.selectRoutePoint = function () {
-
     };
 
     $scope.onSelectRoutePart = function(index) {
         $scope.selectedRow = index;
         $scope.routeDataService.selectRoutePart(index);
+    };
+
+    $scope.onResetSelection = function () {
+        $scope.selectedRow = null;
+        $scope.routeDataService.resetCurrentSelection();
     };
 
     $scope.deleteRow = function (content) {
