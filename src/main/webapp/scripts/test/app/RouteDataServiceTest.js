@@ -88,11 +88,11 @@ describe('RouteDataServiceTest', function () {
     it('should call save method on Factory when latitude longitude is added via map for a single point', function () {
         RouteDataService.init(new Route("My Route I drew on the map"));
         var singleRoutePoint = {lat: "11.11", lng: "22.22"};
-        RouteDataService.saveRoutePartByLatLngs(singleRoutePoint);
-        expect(RouteDataService.getRouteParts().length).toBe(1);
+        RouteDataService.saveRoutePointByLatLng(singleRoutePoint);
+        expect(RouteDataService.getRoutePoints().length).toBe(1);
 
-        expect(RouteDataService.getRouteParts()[0].geoCoordinates.geoCoordinates[0].lat).toEqual("11.11");
-        expect(RouteDataService.getRouteParts()[0].geoCoordinates.geoCoordinates[0].lng).toEqual("22.22");
+        expect(RouteDataService.getRoutePoints()[0].getLatLngs().lat).toEqual("11.11");
+        expect(RouteDataService.getRoutePoints()[0].getLatLngs().lng).toEqual("22.22");
     });
 
     it('should call save method on Factory when latitude longitude is added via map for a routepart with two points', function () {

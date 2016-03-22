@@ -18,6 +18,13 @@ mapApp.service('RouteDataService', function () {
         return this.getRouteParts().length;
     };
 
+    this.getRoutePoints = function () {
+        if (this.route === null) {
+            return [];
+        }
+        return this.route.getRoutePoints();
+    };
+
     this.getRouteParts = function () {
         if (this.route === null) {
             return [];
@@ -43,6 +50,11 @@ mapApp.service('RouteDataService', function () {
                 new GeoCoordinates(
                     geoCoordinates
                 )));
+    };
+
+    this.saveRoutePointByLatLng = function (latLng) {
+        var routePoint = new RoutePoint(latLng);
+        this.route.addRoutePoint(routePoint);
     };
 
     function extractGeoCoordinatesFromLatLngs(arguments) {

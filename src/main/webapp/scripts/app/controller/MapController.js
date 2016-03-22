@@ -19,6 +19,7 @@ mapApp.controller('MapController', function ($scope, RouteDataService) {
     $scope.routeDataService = RouteDataService;
 
     $scope.onMapClick = function (latLng) {
+        $scope.routeDataService.saveRoutePointByLatLng(latLng);
 
         if ($scope.from !== undefined) {
             if ($scope.to !== undefined) {
@@ -46,7 +47,7 @@ mapApp.controller('MapController', function ($scope, RouteDataService) {
             lng: leafEvent.latlng.lng,
             draggable: true
         });
-        RouteDataService.saveRoutePartByLatLngs({lat:leafEvent.latlng.lat, lng:leafEvent.latlng.lng});
+        $scope.onMapClick({lat:leafEvent.latlng.lat, lng:leafEvent.latlng.lng});
     });
 
 

@@ -1,6 +1,15 @@
 function Route(titel) {
+    var routePoints = new Array();
     var routeParts = [];
     this.titel = titel;
+
+    this.addRoutePoint = function(point) {
+        routePoints.push(point);
+    };
+
+    this.getRoutePoints = function() {
+        return routePoints;
+    };
 
     this.getRouteParts = function () {
         return routeParts;
@@ -39,6 +48,14 @@ function GeoCoordinate(latLng, city) {
     this.lat = latLng.lat;
     this.lng = latLng.lng;
     this.city = city;
+}
+
+function RoutePoint(latLng) {
+    var latLng = latLng;
+
+    this.getLatLngs = function () {
+        return latLng;
+    };
 }
 
 function RoutePart(content, geoCoordinates) {
