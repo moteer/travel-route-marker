@@ -1,9 +1,19 @@
 mapApp.controller('MapController', function ($scope, RouteDataService) {
+
     angular.extend($scope, {
-        defaults: {
-            scrollWheelZoom: false
-        }
-    });
+           //bounds: $scope.regions.sydney,
+           center: {},
+           defaults: {
+               scrollWheelZoom: false
+           },
+           events: {
+               map: {
+                   enable: ['click'],
+                   logic: 'emit'
+               }
+           }
+       });
+
     $scope.from;
     $scope.to;
     $scope.routeDataService = RouteDataService;
@@ -27,4 +37,17 @@ mapApp.controller('MapController', function ($scope, RouteDataService) {
     $scope.onMapSelectRoutePartByLatLngs = function (routePartArray) {
         $scope.routeDataService.selectRoutePartByLatLngs(routePartArray);
     };
+
+    $scope.markers = new Array();
+    $scope.$on("leafletDirectiveMap.click", function(event, args){
+        var leafEvent = args.leafletEvent;
+        $scope.markers.push({
+            lat: leafEvent.latlng.lat,
+            lng: leafEvent.latlng.lng,
+            draggable: true
+        });
+        RouteDataService.saveRoutePartByLatLngs({lat:leafEvent.latlng.lat, lng:leafEvent.latlng.lng});
+    });
+
+
 });

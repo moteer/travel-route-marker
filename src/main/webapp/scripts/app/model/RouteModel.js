@@ -49,6 +49,8 @@ function RoutePart(content, geoCoordinates) {
         return this.geoCoordinates.geoCoordinates;
     };
 
+    //getCities
+
     this.toString = function () {
         return this.content.toString();
     };

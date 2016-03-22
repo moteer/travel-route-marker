@@ -26,7 +26,7 @@ mapApp.controller('RouteTableController', function ($scope, RouteDataService) {
     };
 
     $scope.addRoutePart = function () {
-        if ($scope.newCity !== null) {
+        if ($scope.routeDataService.getRoute() !== null && $scope.newCity !== null) {
             $scope.saveRoutePartByName($scope.newCity);
         }
     };

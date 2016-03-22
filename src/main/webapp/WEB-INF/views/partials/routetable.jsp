@@ -14,6 +14,7 @@
         <tr ng-repeat="routePart in getRouteParts()" ng-class="{'selected':$index == selectedRow}"  ng-click="setClickedRow($index)">
             <td>{{routePart.content.description}}</td>
             <td>{{routePart.content.image}}</td>
+            <td>{{routePart.getCities()}}</td>
             <td>
                 <span ng-repeat="geoCoordinate in routePart.geoCoordinates.geoCoordinates">
                 {{geoCoordinate.city}} lat: {{geoCoordinate.lat}} lng {{geoCoordinate.lng}}
