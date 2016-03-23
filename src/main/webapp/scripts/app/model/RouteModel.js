@@ -1,26 +1,30 @@
 function Route(titel) {
-    var routePoints = new Array();
-    var routeParts = [];
+    this.routePoints = new Array();
+    this.routeParts = [];
     this.titel = titel;
-
-    this.addRoutePoint = function(point) {
-        routePoints.push(point);
-    };
-
-    this.getRoutePoints = function() {
-        return routePoints;
-    };
-
-    this.getRouteParts = function () {
-        return routeParts;
-    };
-
-    this.addRoutePart = function (routePart) {
-        routeParts.push(routePart);
-    };
 
     this.getTitel = function () {
         return this.titel;
+    };
+
+    this.addRoutePoint = function (point) {
+        this.routePoints.push(point);
+    };
+
+    this.getRoutePoints = function () {
+        return this.routePoints;
+    };
+
+    this.getRouteParts = function () {
+        return this.routeParts;
+    };
+
+    this.addRoutePart = function (routePart) {
+        this.routeParts.push(routePart);
+    };
+
+    this.addConnection(routePoint, routePoint) {
+
     };
 }
 
@@ -34,8 +38,12 @@ function Content(description, image) {
     };
 }
 
-function TimePeriod() {
+function TimePeriod(time) {
+    this.time = time;
 
+    this.getTime = function () {
+        return this.time;
+    };
 }
 
 function GeoCoordinates(geoCoordinates) {
@@ -50,11 +58,27 @@ function GeoCoordinate(latLng, city) {
     this.city = city;
 }
 
-function RoutePoint(latLng) {
-    var latLng = latLng;
+function LatLng(latLng) {
+    this.lat = latLng.lat;
+    this.lng = latLng.lng;
+}
 
-    this.getLatLngs = function () {
-        return latLng;
+
+function RoutePoint(latLng, content, timePeriod) {
+    this.latLng = latLng;
+    this.content = content;
+    this.timePeriod = timePeriod;
+
+    this.getLatLng = function () {
+        return this.latLng;
+    };
+
+    this.getContent = function () {
+        return this.content;
+    };
+
+    this.getTimePeriod = function () {
+        return this.timePeriod;
     };
 }
 
@@ -62,7 +86,7 @@ function RoutePart(content, geoCoordinates) {
     this.content = content;
     this.geoCoordinates = geoCoordinates;
 
-    this.getGeoCoordinatesAsArray = function (){
+    this.getGeoCoordinatesAsArray = function () {
         return this.geoCoordinates.geoCoordinates;
     };
 

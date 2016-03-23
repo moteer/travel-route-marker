@@ -29,9 +29,11 @@ module.exports = function (config) {
             '**/MapController.js',
             '**/RouteTableController.js',
 
+            '**/RouteModelTest.js',
             '**/RouteDataServiceTest.js',
             '**/MapControllerTest.js',
             '**/RouteTableControllerTest.js'
+
         ],
 
 
