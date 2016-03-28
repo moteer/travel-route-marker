@@ -20,8 +20,8 @@ module.exports = function (config) {
             // '/home/development/Desktop/ehoelzel/playground/src/main/webapp/scripts/test/app/EditableRoutePartTableAppTest.js',
             // '/home/development/Desktop/ehoelzel/playground/src/main/webapp/scripts/app/controller/EditableTableController.js',
             // '/home/development/Desktop/ehoelzel/playground/src/main/webapp/scripts/test/app/EditableRoutePartTableWidgetTest.js',
-            //'**/angular.js',
-            //'**/angular-mocks.js',
+            '**/angular.js',
+            '**/angular-mocks.js',
             '**/RouteTableAppTest.js',
 
             '**/RouteModel.js',
@@ -71,9 +71,9 @@ module.exports = function (config) {
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        //browsers: ['PhantomJS'],
+        browsers: ['PhantomJS'],
         // browsers: ['Firefox'],
-         browsers: ['Chrome'],
+         // browsers: ['Chrome'],
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits

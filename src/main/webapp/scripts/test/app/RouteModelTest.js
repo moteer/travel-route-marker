@@ -40,7 +40,22 @@ describe('Route Model Test', function () {
         expect(route.getRoutePoints()[0].getTimePeriod()).toEqual(timePeriod);
     });
 
-    it('routepoints should be conected via routeparts', function () {
+    it('routepoints should hold city, content and timeperiod', function () {
+        var route = new Route("My first Route");
+
+        var latLng = new LatLng({lat: 1.2, lng: 3.4}, "Amsterdam");
+        var content = new Content("some description", "some image");
+        var timePeriod = new TimePeriod();
+        var routePoint = new RoutePoint(latLng, content, timePeriod);
+
+        route.addRoutePoint(routePoint);
+        expect(route.getRoutePoints()[0].getLatLng()).toEqual(latLng);
+        expect(route.getRoutePoints()[0].getContent()).toEqual(content);
+        expect(route.getRoutePoints()[0].getTimePeriod()).toEqual(timePeriod);
+    });
+
+
+    it('routepoints should be conected via routesection', function () {
         var route = new Route("My first Route");
 
         var content = new Content("some description", "some image");
@@ -55,54 +70,21 @@ describe('Route Model Test', function () {
 
         route.addRoutePoint(routePoint);
         route.addRoutePoint(routePoint2);
-        route.addConnection(routePoint, routePoint2);
+
+        var sectionContent = new Content("This is my way from point one to point two", "including some images");
+        var routeSection = new RouteSection(routePoint, routePoint2, sectionContent);
+        route.addRouteSection(routeSection);
 
         expect(route.getRoutePoints().length).toBe(2);
-        expect(route.getRouteParts().length).toBe(1);
+        expect(route.getRouteSections().length).toBe(1);
 
+        expect(route.getRouteSections()[0]).toBe(routeSection);
+        expect(routeSection.getContent()).toBe(sectionContent);
+        expect(routeSection.getFromRoutePoint()).toBe(routePoint);
+        expect(routeSection.getToRoutePoint()).toBe(routePoint2);
     });
 
 
-    //it('create route', function () {
-    //    var route = new Route("My first travel experience.");
-    //    var content = new Content("some description", "some image");
-    //    //var timePeriod = new TimePeriod("1.1.2016", "1.2.2016");
-    //    var geoCoordinates = new GeoCoordinates([
-    //        new GeoCoordinate({lat: "1", lng: "2"}, "Kopenhagen"),
-    //        new GeoCoordinate({lat: "2", lng: "3"}, "Brisbane")]);
-    //    var rp = new RoutePart(content, geoCoordinates);
-    //    route.addRoutePart(rp);
-    //
-    //    RouteDataService.init(route);
-    //    expect(RouteDataService.getRoute()).toEqual(route);
-    //    expect(RouteDataService.getRouteParts()).toEqual([rp]);
-    //    expect(RouteDataService.getRouteParts()).toContain(rp);
-    //    expect(RouteDataService.getNumberOfRouteParts()).toBe(1);
-    //
-    //    expect(RouteDataService.getRouteParts()[0].toString()).toBe("some description | some image");
-    //
-    //    // add another routePart
-    //    var rpNew = new RoutePart(new Content("new description", "new image"),
-    //        new TimePeriod(),
-    //        new GeoCoordinates(
-    //            new GeoCoordinate({lat: "5", lng: "6"}, "Dubai"),
-    //            new GeoCoordinate({lat: "7", lng: "8"}, "Phnom Phen")));
-    //
-    //    route.addRoutePart(rpNew);
-    //
-    //    expect(RouteDataService.getRoute()).toEqual(route);
-    //    expect(RouteDataService.getRouteParts()).toContain(rp);
-    //    expect(RouteDataService.getRouteParts()).toContain(rpNew);
-    //    expect(RouteDataService.getNumberOfRouteParts()).toBe(2);
-    //
-    //    expect(RouteDataService.getRouteParts()[0].toString()).toBe("some description | some image");
-    //    expect(RouteDataService.getRouteParts()[0].content.description).toBe("some description");
-    //    expect(RouteDataService.getRouteParts()[0].content.image).toBe("some image");
-    //
-    //    expect(RouteDataService.getRouteParts()[1].toString()).toBe("new description | new image");
-    //    expect(RouteDataService.getRouteParts()[1].content.description).toBe("new description");
-    //    expect(RouteDataService.getRouteParts()[1].content.image).toBe("new image");
-    //
-    //});
+    
 
 });

@@ -48,7 +48,6 @@ describe('Map Controller', function () {
         expect(RouteDataService.saveRoutePointByLatLng).toHaveBeenCalledWith({lat: "12.34", lng: "56.78"});
     });
 
-
     it('should call save RoutePart on RouteDataService when two points added to Map', function () {
         spyOn(RouteDataService, 'saveRoutePartByLatLngs');
         scope.onMapClick({lat: "11.11", lng: "11.11"});
