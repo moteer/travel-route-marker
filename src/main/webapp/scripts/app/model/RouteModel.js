@@ -2,10 +2,7 @@ function Route(titel) {
     this.routePoints = new Array();
     this.routeSections  = new Array();
     this.titel = titel;
-    
-    //TODO: deprecated
-    this.routeParts = [];
-    
+
     this.getTitel = function () {
         return this.titel;
     };
@@ -16,14 +13,6 @@ function Route(titel) {
 
     this.getRoutePoints = function () {
         return this.routePoints;
-    };
-
-    this.getRouteParts = function () {
-        return this.routeParts;
-    };
-
-    this.addRoutePart = function (routePart) {
-        this.routeParts.push(routePart);
     };
 
     this.addRouteSection = function (routeSection) {
@@ -61,24 +50,11 @@ function TimePeriod(time) {
     };
 }
 
-function GeoCoordinates(geoCoordinates) {
-    //this.geoCoordinates = [];
-    console.log("geoCoordinates.length:" + geoCoordinates.length);
-    this.geoCoordinates = geoCoordinates;
-}
-
-function GeoCoordinate(latLng, city) {
-    this.lat = latLng.lat;
-    this.lng = latLng.lng;
-    this.city = city;
-}
-
 function LatLng(latLng, city) {
     this.lat = latLng.lat;
     this.lng = latLng.lng;
     this.city = city;
 }
-
 
 function RoutePoint(latLng, content, timePeriod) {
     this.latLng = latLng;
@@ -117,17 +93,3 @@ function RouteSection(fromRoutePoint, toRoutePoint, content) {
 
 }
 
-function RoutePart(content, geoCoordinates) {
-    this.content = content;
-    this.geoCoordinates = geoCoordinates;
-
-    this.getGeoCoordinatesAsArray = function () {
-        return this.geoCoordinates.geoCoordinates;
-    };
-
-    //getCities
-
-    this.toString = function () {
-        return this.content.toString();
-    };
-}

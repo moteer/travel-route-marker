@@ -83,8 +83,4 @@ describe('Route Model Test', function () {
         expect(routeSection.getFromRoutePoint()).toBe(routePoint);
         expect(routeSection.getToRoutePoint()).toBe(routePoint2);
     });
-
-
-    
-
 });

@@ -6,39 +6,27 @@ describe('RouteTableController', function () {
             $provide.value('RouteDataService', mockRouteDataService);
         });
 
-        mockRouteDataService.saveRoutePartByName = function (city) {
+        mockRouteDataService.saveRoutePointByName = function (city) {
             console.log("mock mockRouteDataService.saveRoutePointByName was called with city" + city);
         };
 
         mockRouteDataService.getRoute = function () {
             console.log("mock mockRouteDataService.getRoute was called");
             var testRoute = new Route("My first travel experience.");
-            var content = new Content("some description", "some image");
-            //var timePeriod = new TimePeriod("1.1.2016", "1.2.2016");
-            var geoCoordinates = new GeoCoordinates(
-                [
-                    new GeoCoordinate({lat: "11.11", lng: "11.11"}),
-                    new GeoCoordinate({lat: "22.22", lng: "22.22"})
-                ]
-            );
-            var rp = new RoutePart(content, geoCoordinates);
-            testRoute.addRoutePart(rp);
-            testRoute.addRoutePart(new RoutePart(new Content("new description", "new image"),
-                new GeoCoordinates(
-                    [
-                        new GeoCoordinate({lat: "12.11", lng: "11.11"}, "Hamburg"),
-                        new GeoCoordinate({lat: "13.11", lng: "11.11"}, "Dresden")
-                    ]
-                )));
+            var rp1 = new RoutePoint(new LatLng({lat:1.1, lng:1.1}, "Warschau"), new Content("rp1", "rp1"), new TimePeriod());
+            var rp2 = new RoutePoint(new LatLng({lat:2.2, lng:2.2}, "Leipzig"), new Content("rp2", "rp2"), new TimePeriod());
+
+            var routeSection1 = new RouteSection(rp1, rp2, new Content("desc of routesection A", "desc A"));
+            testRoute.addRouteSection(routeSection1);
             return testRoute;
         };
 
-        mockRouteDataService.getRouteParts = function () {
-            console.log("mock mockRouteDataService.getRouteParts");
+        mockRouteDataService.getRouteTableEntries = function () {
+            console.log("mock mockRouteDataService.getRouteTableEntries");
         };
 
-        mockRouteDataService.selectRoutePart = function (id) {
-            console.log("mock mockRouteDataService.selectRoutePart was called with id" + id);
+        mockRouteDataService.selectRouteTableEntry = function (id) {
+            console.log("mock mockRouteDataService.selectRoutePoint was called with id" + id);
         };
 
         mockRouteDataService.resetCurrentSelection = function () {
@@ -67,57 +55,55 @@ describe('RouteTableController', function () {
         expect(RouteDataService.createNewRoute).toHaveBeenCalledWith("My very first travel experience");
     });
 
-    it('should call save RoutePart on RouteDataService when new routePart is inserted', function () {
-        spyOn(RouteDataService, 'saveRoutePartByName');
+    it('should call save RoutePoint on RouteDataService when new routePart is inserted', function () {
+        spyOn(RouteDataService, 'saveRoutePointByName');
 
-        scope.saveRoutePartByName("Leipzig");
-        expect(RouteDataService.saveRoutePartByName).toHaveBeenCalledWith("Leipzig");
+        scope.saveRoutePointByName("Krakau");
+        expect(RouteDataService.saveRoutePointByName).toHaveBeenCalledWith("Krakau");
 
-        scope.saveRoutePartByName("Leipzig", "Sydney");
-        expect(RouteDataService.saveRoutePartByName).toHaveBeenCalledWith("Leipzig", "Sydney");
+        scope.saveRoutePointByName("Bangkok", "Sydney");
+        expect(RouteDataService.saveRoutePointByName).toHaveBeenCalledWith("Bangkok", "Sydney");
     });
 
-    it('should add new Route Part when city is entered and add button is pressed', function () {
-        spyOn(RouteDataService, 'saveRoutePartByName');
+    it('should add new Route Point when city is entered and add button is pressed', function () {
+        spyOn(RouteDataService, 'saveRoutePointByName');
 
         scope.newCity = null;
-        scope.addRoutePart();
-        expect(RouteDataService.saveRoutePartByName).not.toHaveBeenCalled();
+        scope.addRoutePoint();
+        expect(RouteDataService.saveRoutePointByName).not.toHaveBeenCalled();
 
         scope.newCity = "Dortmund";
-        scope.addRoutePart();
-        expect(RouteDataService.saveRoutePartByName).toHaveBeenCalledWith("Dortmund");
-        //TODO: should also be able to add multiple cities through the table
+        scope.addRoutePoint();
+        expect(RouteDataService.saveRoutePointByName).toHaveBeenCalledWith("Dortmund");
     });
 
-    it('it should set focus to selected RoutePart in RouteDataService when row in table selected', function () {
+    it('it should set focus to selected RoutePoint or RouteSection in RouteDataService when row in table selected', function () {
         expect(scope.selectedRow).toBe(null);
 
-        spyOn(RouteDataService, 'selectRoutePart');
-        spyOn(RouteDataService, 'getRouteParts').and.callFake(function () {
-
-            return [
-
-                new RoutePart(new Content("RoutePart Desc A", "RoutePart Image A"),
-                    new GeoCoordinates([new GeoCoordinate({lat: "12.11", lng: "11.11"}, "Hamburg"),
-                        new GeoCoordinate({lat: "13.11", lng: "11.11"}, "Dresden")])),
-
-                new RoutePart(new Content("RoutePart Desc B", "RoutePart Image B"),
-                    new GeoCoordinates([new GeoCoordinate({lat: "13.11", lng: "11.11"}, "Paris")])),
-
-                new RoutePart(new Content("RoutePart Desc C", "RoutePart Image C"),
-                    new GeoCoordinates([new GeoCoordinate({lat: "12.99", lng: "44.44"}, "Pag"),
-                            new GeoCoordinate({lat: "13.99", lng: "55.55"}, "Moskau")]
-                    ))];
-        });
+        spyOn(RouteDataService, 'selectRouteTableEntry');
         spyOn(RouteDataService, 'resetCurrentSelection');
 
-        scope.onSelectRoutePart(0);
-        expect(RouteDataService.selectRoutePart).toHaveBeenCalledWith(0);
+        spyOn(RouteDataService, 'getRouteTableEntries').and.callFake(function () {
+            var rp1 = new RoutePoint(new LatLng({lat:0.0, lng:0.0}, "Hamburg"), new Content("rp1", "rp1"), new TimePeriod());
+            var rp2 = new RoutePoint(new LatLng({lat:1.1, lng:1.1}, "Berlin"), new Content("rp2", "rp2"), new TimePeriod());
+            var rp3 = new RoutePoint(new LatLng({lat:2.2, lng:2.2}, "Leipzig"), new Content("rp3", "rp3"), new TimePeriod());
+
+            var routeSection1 = new RouteSection(rp1, rp2, new Content("desc of routesection A", "desc A"));
+            var routeSection2 = new RouteSection(rp2, rp3, new Content("desc of routesection B", "desc B"));
+
+            route.addRouteSection(routeSection1);
+            route.addRouteSection(routeSection2);
+
+
+            return [rp1, routeSection1, rp2, routeSection2, rp3];
+        });
+
+        scope.onSelectTableEntry(0);
+        expect(RouteDataService.selectRouteTableEntry).toHaveBeenCalledWith(0);
         expect(scope.selectedRow).toBe(0);
 
-        scope.onSelectRoutePart(1);
-        expect(RouteDataService.selectRoutePart).toHaveBeenCalledWith(1);
+        scope.onSelectTableEntry(1);
+        expect(RouteDataService.selectRouteTableEntry).toHaveBeenCalledWith(1);
         expect(scope.selectedRow).toBe(1);
 
         scope.onResetSelection();

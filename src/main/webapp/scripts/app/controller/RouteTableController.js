@@ -25,23 +25,23 @@ mapApp.controller('RouteTableController', function ($scope, RouteDataService) {
         return $scope.routeDataService.getRouteParts();
     };
 
-    $scope.addRoutePart = function () {
+    $scope.addRoutePoint = function () {
         if ($scope.routeDataService.getRoute() !== null && $scope.newCity !== null) {
-            $scope.saveRoutePartByName($scope.newCity);
+            $scope.saveRoutePointByName($scope.newCity);
         }
     };
 
-    $scope.saveRoutePartByName = function (cities) {
+    $scope.saveRoutePointByName = function (cities) {
         if (arguments.length == 1) {
-            RouteDataService.saveRoutePartByName(cities);
+            RouteDataService.saveRoutePointByName(cities);
         } else {
-            RouteDataService.saveRoutePartByName(arguments[0], arguments[1]);
+            RouteDataService.saveRoutePointByName(arguments[0], arguments[1]);
         }
     };
 
-    $scope.onSelectRoutePart = function(index) {
+    $scope.onSelectTableEntry = function(index) {
         $scope.selectedRow = index;
-        $scope.routeDataService.selectRoutePart(index);
+        $scope.routeDataService.selectRouteTableEntry(index);
     };
 
     $scope.onResetSelection = function () {
