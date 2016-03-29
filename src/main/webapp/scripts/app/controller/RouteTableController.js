@@ -17,14 +17,6 @@ mapApp.controller('RouteTableController', function ($scope, RouteDataService) {
         return $scope.routeDataService.getTitel();
     };
 
-    $scope.getNumberOfRouteParts = function () {
-        return $scope.routeDataService.getNumberOfRouteParts();
-    };
-
-    $scope.getRouteParts = function() {
-        return $scope.routeDataService.getRouteParts();
-    };
-
     $scope.addRoutePoint = function () {
         if ($scope.routeDataService.getRoute() !== null && $scope.newCity !== null) {
             $scope.saveRoutePointByName($scope.newCity);

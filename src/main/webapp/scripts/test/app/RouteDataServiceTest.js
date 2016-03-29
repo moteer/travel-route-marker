@@ -120,4 +120,51 @@ describe('RouteDataServiceTest', function () {
         RouteDataService.selectRouteTableEntry();
         expect(RouteDataService.getCurrentlySelectedRouteTableEntry()).toEqual(undefined);
     });
+
+    it('should set select on clicking on Map Point selectRoutePointByLatLngs', function () {
+        var route = new Route("My way through Asia");
+        var rp1 = new RoutePoint(new LatLng({lat:0.0, lng:0.0}, "Hamburg"), new Content("rp1", "rp1"), new TimePeriod());
+        var rp2 = new RoutePoint(new LatLng({lat:1.1, lng:1.1}, "Berlin"), new Content("rp2", "rp2"), new TimePeriod());
+        var rp3 = new RoutePoint(new LatLng({lat:2.2, lng:2.2}, "Leipzig"), new Content("rp3", "rp3"), new TimePeriod());
+
+        var routeSection1 = new RouteSection(rp1, rp2, new Content("desc of routesection A", "desc A"));
+        var routeSection2 = new RouteSection(rp2, rp3, new Content("desc of routesection B", "desc B"));
+
+        route.addRouteSection(routeSection1);
+        route.addRouteSection(routeSection2);
+        RouteDataService.init(route);
+
+        RouteDataService.selectRoutePointByLatLngs({lat:0.0, lng:0.0});
+        expect(RouteDataService.getCurrentlySelectedRouteTableEntry()).toEqual(rp1);
+
+        RouteDataService.selectRoutePointByLatLngs({lat: 1.1, lng: 1.1});
+        expect(RouteDataService.getCurrentlySelectedRouteTableEntry()).toEqual(rp2);
+
+        RouteDataService.selectRoutePointByLatLngs({lat:2.2, lng:2.2});
+        expect(RouteDataService.getCurrentlySelectedRouteTableEntry()).toEqual(rp3);
+
+    });
+
+    it('should set select on clicking on Map Element selectRouteSectionByLatLngs', function () {
+        var route = new Route("My way through Asia");
+        var rp1 = new RoutePoint(new LatLng({lat:0.0, lng:0.0}, "Hamburg"), new Content("rp1", "rp1"), new TimePeriod());
+        var rp2 = new RoutePoint(new LatLng({lat:1.1, lng:1.1}, "Berlin"), new Content("rp2", "rp2"), new TimePeriod());
+        var rp3 = new RoutePoint(new LatLng({lat:2.2, lng:2.2}, "Leipzig"), new Content("rp3", "rp3"), new TimePeriod());
+
+        var routeSection1 = new RouteSection(rp1, rp2, new Content("desc of routesection A", "desc A"));
+        var routeSection2 = new RouteSection(rp2, rp3, new Content("desc of routesection B", "desc B"));
+
+        route.addRouteSection(routeSection1);
+        route.addRouteSection(routeSection2);
+        RouteDataService.init(route);
+
+        RouteDataService.selectRouteSectionByLatLngs([{lat: 0.0, lng: 0.0}, {lat: 1.1, lng: 1.1}]);
+        expect(RouteDataService.getCurrentlySelectedRouteTableEntry()).toEqual(routeSection1);
+
+        RouteDataService.selectRouteSectionByLatLngs([{lat: 1.1, lng: 1.1}, {lat: 2.2, lng: 2.2}]);
+        expect(RouteDataService.getCurrentlySelectedRouteTableEntry()).toEqual(routeSection2);
+    });
+
+
+
 });

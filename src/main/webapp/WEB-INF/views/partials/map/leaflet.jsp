@@ -10,7 +10,7 @@
     <button ng-click="createNewRoute()">create new Route</button>
 
 
-    <h2>This route has {{ getNumberOfRouteParts() }} sections</h2>
+    <h2>This route has {{ getNumberOfRouteSections() }} sections</h2>
     <table border="1">
         <thead>
         <td>Description</td>
@@ -19,18 +19,18 @@
         <td>Geo locations</td>
         <td>Action</td>
         </thead>
-        <tr ng-repeat="routePart in getRouteParts()" ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index)">
-            <td>{{routePart.content.description}}</td>
-            <td>{{routePart.content.image}}</td>
+        <tr ng-repeat="routeTableEntrie in getRouteTableEntries()" ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index)">
+            <td>{{routeTableEntrie.getContent().getDescription}}</td>
+            <td>{{routePart.getContent().getImage()}}</td>
             <td>
-                <span ng-repeat="geoCoordinate in routePart.geoCoordinates.geoCoordinates">
-                {{geoCoordinate.city}}
-                </span>
+                <%--<span ng-repeat="geoCoordinate in routePart.geoCoordinates.geoCoordinates">--%>
+                <%--{{geoCoordinate.city}}--%>
+                <%--</span>--%>
             </td>
             <td>
-                <span ng-repeat="geoCoordinate in routePart.geoCoordinates.geoCoordinates">
-                lat: {{geoCoordinate.lat}} lng {{geoCoordinate.lng}}
-                </span>
+                <%--<span ng-repeat="geoCoordinate in routePart.geoCoordinates.geoCoordinates">--%>
+                <%--lat: {{geoCoordinate.lat}} lng {{geoCoordinate.lng}}--%>
+                <%--</span>--%>
             </td>
             <td>
                 <button ng-click="deleteRow(row)">Delete</button>
@@ -50,7 +50,7 @@
             <input type="text" value="geoCoordinate" contenteditable="false"/>
         </td>
         <td>
-            <button ng-click="addRoutePart()">Add</button>
+            <button ng-click="addRoutePoint()">Add</button>
         </td>
         </tfoot>
     </table>
