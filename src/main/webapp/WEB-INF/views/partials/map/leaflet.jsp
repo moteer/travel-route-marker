@@ -13,15 +13,14 @@
     <h2>This route has {{ getNumberOfRouteSections() }} sections</h2>
     <table border="1">
         <thead>
+        <td>toString</td>
         <td>Description</td>
         <td>Image</td>
         <td>City</td>
-        <td>Geo locations</td>
         <td>Action</td>
         </thead>
-        <tr ng-repeat="routeTableEntrie in getRouteTableEntries()" ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index)">
-            <td>{{routeTableEntrie.getContent().getDescription}}</td>
-            <td>{{routePart.getContent().getImage()}}</td>
+        <tr ng-repeat="routeTableEntry in routeDataService.routeTableEntries" ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index)">
+            <td>{{routeTableEntry.toString()}}</td>
             <td>
                 <%--<span ng-repeat="geoCoordinate in routePart.geoCoordinates.geoCoordinates">--%>
                 <%--{{geoCoordinate.city}}--%>
@@ -32,25 +31,26 @@
                 <%--lat: {{geoCoordinate.lat}} lng {{geoCoordinate.lng}}--%>
                 <%--</span>--%>
             </td>
+            <td>{{routeTableEntry.getLatLng().getCity()}}</td>
             <td>
                 <button ng-click="deleteRow(row)">Delete</button>
             </td>
         </tr>
         <tfoot>
         <td>
-            <input type="text" data-ng-model="newDescription"/>
+            <%--<input type="text" data-ng-model="newDescription"/>--%>
         </td>
         <td>
-            <input type="text" data-ng-model="newImage"/>
+            <%--<input type="text" data-ng-model="newImage"/>--%>
+        </td>
+        <td>
+            <%--<input type="text" data-ng-model="newImage"/>--%>
         </td>
         <td>
             <input type="text" data-ng-model="newCity"/>
         </td>
         <td>
-            <input type="text" value="geoCoordinate" contenteditable="false"/>
-        </td>
-        <td>
-            <button ng-click="addRoutePoint()">Add</button>
+            <button ng-click="addRoutePoint(); ">Add</button>
         </td>
         </tfoot>
     </table>

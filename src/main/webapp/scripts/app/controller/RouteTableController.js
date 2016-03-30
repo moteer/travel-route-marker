@@ -18,20 +18,23 @@ mapApp.controller('RouteTableController', function ($scope, RouteDataService) {
     };
 
     $scope.addRoutePoint = function () {
+            console.log($scope.newCity + " saved to route");
         if ($scope.routeDataService.getRoute() !== null && $scope.newCity !== null) {
             $scope.saveRoutePointByName($scope.newCity);
+            console.log("route: " + $scope.routeDataService.route);
+
         }
     };
 
     $scope.saveRoutePointByName = function (cities) {
         if (arguments.length == 1) {
-            RouteDataService.saveRoutePointByName(cities);
+            RouteDataService.saveRoutePointByName(new LatLng(null, cities), new Content(null, null), new TimePeriod(null));
         } else {
             RouteDataService.saveRoutePointByName(arguments[0], arguments[1]);
         }
     };
 
-    $scope.onSelectTableEntry = function(index) {
+    $scope.onSelectTableEntry = function (index) {
         $scope.selectedRow = index;
         $scope.routeDataService.selectRouteTableEntry(index);
     };

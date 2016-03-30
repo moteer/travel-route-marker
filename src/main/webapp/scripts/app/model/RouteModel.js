@@ -1,6 +1,6 @@
 function Route(titel) {
     this.routePoints = new Array();
-    this.routeSections  = new Array();
+    this.routeSections = new Array();
     this.titel = titel;
 
     this.getTitel = function () {
@@ -21,7 +21,13 @@ function Route(titel) {
 
     this.getRouteSections = function () {
         return this.routeSections;
-    };    
+    };
+
+    this.toString = function () {
+        return "titel: " + this.titel + " | "
+            + "routePoints: " + this.routePoints.toString() + " | "
+            + "routeSections: " + this.routeSections.toString() + " | "
+    };
 }
 
 function Content(description, image) {
@@ -51,9 +57,25 @@ function TimePeriod(time) {
 }
 
 function LatLng(latLng, city) {
-    this.lat = latLng.lat;
-    this.lng = latLng.lng;
+    this.lat;
+    this.lng;
     this.city = city;
+
+    if (latLng !== null) {
+        this.lat = latLng.lat;
+        this.lng = latLng.lng;
+    }
+
+    this.getCity = function () {
+        return this.city;
+    };
+
+    this.toString = function () {
+        return
+        // "lat: " + this.lat + " | "
+        //    + "lng: " + this.lng + " | "
+        +"city: " + this.city + " | "
+    };
 }
 
 function RoutePoint(latLng, content, timePeriod) {
@@ -72,13 +94,19 @@ function RoutePoint(latLng, content, timePeriod) {
     this.getTimePeriod = function () {
         return this.timePeriod;
     };
+
+    this.toString = function () {
+        return "latLng: " + this.latLng.toString() + " | "
+        //+ "content: "+ this.content.toString() + " | "
+        //+ "timePeriod: "+ this.timePeriod.toString() + " | "
+    };
 }
 
 function RouteSection(fromRoutePoint, toRoutePoint, content) {
     this.content = content;
     this.fromRoutePoint = fromRoutePoint;
     this.toRoutePoint = toRoutePoint;
-    
+
     this.getContent = function () {
         return this.content;
     };

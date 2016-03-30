@@ -92,9 +92,31 @@ describe('RouteDataServiceTest', function () {
         RouteDataService.selectRouteTableEntry(4);
         expect(RouteDataService.getCurrentlySelectedRouteTableEntry()).toEqual(rp3);
         //expect(RouteDataService.getCurrentlySelectedRouteTableEntry()).toEqual(routeSection2.getToRoutePoint());
-
-
     });
+
+    //TODO: costum matcher for failing tests
+    //RouteSection({ content: desc of routesection A | desc A,
+    //    fromRoutePoint: RoutePoint({ latLng: LatLng({ lat: 0, lng: 0, city: 'Hamburg' }),
+    //        content: rp1 | rp1,
+    //        timePeriod: TimePeriod({ time: undefined, getTime: Function }),
+    //        getLatLng: Function, getContent: Function, getTimePeriod: Function }),
+    //    toRoutePoint: RoutePoint({ latLng: LatLng({ lat: 1.1, lng: 1.1, city: 'Berlin' }),
+    //        content: rp2 | rp2,
+    //        timePeriod: TimePeriod({ time: undefined, getTime: Function }),
+    //        getLatLng: Function, getContent: Function, getTimePeriod: Function }),
+    //    getContent: Function, getFromRoutePoint: Function, getToRoutePoint: Function }) to equal
+    //
+    //RouteSection({ content: desc of routesection A | desc A,
+    //    fromRoutePoint: RoutePoint({ latLng: LatLng({ lat: 0, lng: 0, city: 'Hamburg' }),
+    //        content: rp1 | rp1,
+    //        timePeriod: TimePeriod({ time: undefined, getTime: Function }),
+    //        getLatLng: Function, getContent: Function, getTimePeriod: Function }),
+    //    toRoutePoint: RoutePoint({ latLng: LatLng({ lat: 1.1, lng: 1.1, city: 'Berlin' }),
+    //        content: rp2 | rp2,
+    //        timePeriod: TimePeriod({ time: undefined, getTime: Function }),
+    //        getLatLng: Function, getContent: Function, getTimePeriod: Function }),
+    //    getContent: Function, getFromRoutePoint: Function, getToRoutePoint: Function })
+
 
     it('should deselect all selections when deselect is been called', function () {
         var route = new Route("My way through Asia");

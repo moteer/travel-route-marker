@@ -3,13 +3,20 @@ mapApp.service('RouteDataService', function () {
     this.route = null;
     this.routeTableEntries = new Array();
     this.currentSelectionIndex = null;
+    this.routeTableEntries = new Array();
 
     this.createNewRoute = function (titel) {
         this.route = new Route(titel);
     };
 
     this.init = function (route) {
-        this.route = route;
+        this.createNewRoute(route.getTitel());
+        var routeSections = route.getRouteSections();
+        for (var i = 0; i < routeSections.length; i++) {
+            this.saveRouteSection(routeSections[i].getFromRoutePoint(),
+                routeSections[i].getToRoutePoint(),
+                routeSections[i].getContent());
+        }
     };
 
     this.getRoute = function () {
@@ -46,17 +53,25 @@ mapApp.service('RouteDataService', function () {
         this.route.addRoutePoint(routePointA);
         this.route.addRoutePoint(routePointB);
         this.route.addRouteSection(routeSection);
+
+        if (this.routeTableEntries.length === 0 ) {
+            this.routeTableEntries.push(routePointA);
+        }
+        this.routeTableEntries.push(routeSection);
+        this.routeTableEntries.push(routePointB);
     };
 
     this.saveRoutePointByName = function (latLng, content, timePeriod) {
         var routePoint = new RoutePoint(latLng, content, timePeriod);
         this.route.addRoutePoint(routePoint);
+        this.routeTableEntries.push(routePoint);
     };
 
 
     this.saveRoutePointByLatLng = function (latLng) {
         var routePoint = new RoutePoint(latLng);
         this.route.addRoutePoint(routePoint);
+        this.routeTableEntries.push(routePoint);
     };
 
     this.selectRouteTableEntry = function (index) {
@@ -93,18 +108,7 @@ mapApp.service('RouteDataService', function () {
     };
 
     this.getRouteTableEntries = function () {
-        var routeSections = this.getRouteSections();
-        var tableEntries = new Array();
-        var i = 0;
-        for (; i < routeSections.length; i++) {
-            tableEntries.push(routeSections[i].getFromRoutePoint());
-            tableEntries.push(routeSections[i]);
-        }
-        if (routeSections.length !== 0) {
-            tableEntries.push(routeSections[i - 1].getToRoutePoint());
-        }
-
-        return tableEntries;
+        return this.routeTableEntries;
     };
 
     this.getCurrentlySelectedRouteTableEntry = function () {
