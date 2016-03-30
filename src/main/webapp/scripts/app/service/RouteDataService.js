@@ -1,7 +1,6 @@
 mapApp.service('RouteDataService', function () {
 
     this.route = null;
-    this.routeTableEntries = new Array();
     this.currentSelectionIndex = null;
     this.routeTableEntries = new Array();
 

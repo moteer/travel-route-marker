@@ -13,26 +13,16 @@ mapApp.controller('MapController', function ($scope, RouteDataService) {
             }
         }
     });
-
-    $scope.from;
-    $scope.to;
     $scope.routeDataService = RouteDataService;
 
     $scope.onMapClick = function (latLng) {
         if ($scope.routeDataService.getRoute() !== null) {
-        var newRoutePoint = new RoutePoint(new LatLng(latLng, null), null, null);
+            var newRoutePoint = new RoutePoint(new LatLng(latLng, null), new Content(null, null), new TimePeriod(null));
             $scope.routeDataService.saveRoutePointByLatLng(newRoutePoint);
 
-            if ($scope.from !== undefined) {
-                if ($scope.to !== undefined) {
-                    $scope.from = $scope.to;
-                }
-                $scope.to = newRoutePoint;
-
-                $scope.routeDataService.saveRoutePointByLatLng($scope.to, newRoutePoint)
-
-            } else {
-                $scope.from = newRoutePoint;
+            var lastRouteTableEntry = $scope.routeDataService.getLastRouteTableEntry();
+            if (lastRouteTableEntry !== null) {
+                $scope.routeDataService.saveRouteSectionByLatLngs(lastRouteTableEntry, newRoutePoint, new Content(null, null)) ;
             }
         }
     };

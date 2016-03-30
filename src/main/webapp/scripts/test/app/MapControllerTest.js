@@ -25,6 +25,11 @@ describe('Map Controller', function () {
         mockRouteDataService.getRoute = function () {
             console.log("mock mockRouteTableController.getRoute was called");
         };
+
+        mockRouteDataService.getLastRouteTableEntry = function () {
+            console.log("mock mockRouteTableController.getLastRouteTableEntry was called");
+        };
+
     });
 
     beforeEach(inject(function ($rootScope, $controller, _RouteDataService_) {
@@ -35,6 +40,29 @@ describe('Map Controller', function () {
             routeDataService: RouteDataService
         });
     }));
+
+    //TODO: enhance matcher to deal with multiple arguments
+    beforeEach(function () {
+        jasmine.addMatchers({
+            toEqualJSONyFied: function (util, customTesters) {
+                return {
+                    compare: function (actual, expected) {
+                        var result = {};
+                        result.pass = util.equals(JSON.stringify(actual), JSON.stringify(expected), customTesters);
+                        if (!result.pass) {
+                            result.message = "Expected: " + JSON.stringify(expected) + "\n" +
+                                "to Equal: " + JSON.stringify(actual);
+                        } else {
+                            result.message = "Expected: " + JSON.stringify(expected) + "\n" +
+                                "is Equal: " + JSON.stringify(actual) + "\n" +
+                                "but should not be equal";
+                        }
+                        return result;
+                    }
+                }
+            }
+        });
+    });
 
     it('should not call save Route and not draw marker when route is still null', function () {
         spyOn(RouteDataService, 'saveRoutePointByLatLng');
@@ -57,24 +85,30 @@ describe('Map Controller', function () {
         expect(RouteDataService.saveRoutePointByLatLng).toHaveBeenCalled();
     });
 
-    //[ RoutePoint({ latLng: LatLng({ lat: '12.34', lng: '56.78', city: null }), content: null, timePeriod: null, getLatLng: Function, getContent: Function, getTimePeriod: Function }) ] but actual calls were
-    //[ RoutePoint({ latLng: LatLng({ lat: '12.34', lng: '56.78', city: null }), content: null, timePeriod: null, getLatLng: Function, getContent: Function, getTimePeriod: Function }) ]
 
-    //it('should call save RouteSection on RouteDataService when two points added to Map', function () {
-    //    spyOn(RouteDataService, 'saveRouteSectionByLatLngs');
-    //    scope.onMapClick({lat: "11.11", lng: "11.11"});
-    //    scope.onMapClick({lat: "22.22", lng: "22.22"});
-    //
-    //    expect(RouteDataService.saveRouteSectionByLatLngs).toHaveBeenCalledWith(
-    //        new RoutePoint(new LatLng({lat: "11.11", lng: "11.11"}, null), null, null),
-    //        new RoutePoint(new LatLng({lat: "22.22", lng: "22.22"}, null), null, null), null);
-    //
-    //    scope.onMapClick({lat: "44.44", lng: "44.44"});
-    //
-    //    expect(RouteDataService.saveRouteSectionByLatLngs).toHaveBeenCalledWith(
-    //        new RoutePoint(new LatLng({lat: "22.22", lng: "22.22"}, null), null, null),
-    //        new RoutePoint(new LatLng({lat: "44.44", lng: "44.44"}, null), null, null), null);
-    //});
+    it('should call save RouteSection on RouteDataService when previous point exists already', function () {
+        spyOn(RouteDataService, 'saveRouteSectionByLatLngs');
+        spyOn(RouteDataService, 'getRoute').and.callFake(function () {
+            return new Route("something");
+        });
+        spyOn(RouteDataService, 'getLastRouteTableEntry').and.callFake(function () {
+            return new RoutePoint(new LatLng({lat:11.11, lng:11.11}, null), new Content(null, null), new TimePeriod(null));
+        });
+
+        scope.onMapClick({lat: 22.22, lng: 22.22});
+
+        expect(RouteDataService.saveRouteSectionByLatLngs.calls.argsFor(0)).toEqualJSONyFied([
+            new RoutePoint(new LatLng({lat: 11.11, lng: 11.11}, null), new Content(null, null), new TimePeriod(null)),
+            new RoutePoint(new LatLng({lat: 22.22, lng: 22.22}, null), new Content(null, null), new TimePeriod(null)),
+            new Content(null, null)]);
+
+        scope.onMapClick({lat: 44.44, lng: 44.44});
+
+        expect(RouteDataService.saveRouteSectionByLatLngs.calls.argsFor(1)).toEqualJSONyFied([
+            new RoutePoint(new LatLng({lat:11.11, lng:11.11}, null), new Content(null, null), new TimePeriod(null)),
+            new RoutePoint(new LatLng({lat: 44.44, lng: 44.44}, null), new Content(null, null), new TimePeriod(null)),
+            new Content(null, null)]);
+    });
 
     it('it should set focus in RouteDataService when point in Map selected', function () {
         spyOn(RouteDataService, 'selectRoutePointByLatLngs');
