@@ -47,6 +47,29 @@ describe('RouteTableController', function () {
         });
     }));
 
+    //TODO: enhance matcher to deal with multiple arguments
+    beforeEach(function () {
+           jasmine.addMatchers({
+               toEqualJSONyFied: function (util, customTesters) {
+                   return {
+                       compare: function (actual, expected) {
+                           var result = {};
+                           result.pass = util.equals(JSON.stringify(actual), JSON.stringify(expected), customTesters);
+                           if (!result.pass) {
+                               result.message = "Expected: " + JSON.stringify(expected) + "\n" +
+                                   "notEqual: " + JSON.stringify(actual);
+                           } else {
+                               result.message = "Expected: " + JSON.stringify(expected) + "\n" +
+                                   "is Equal: " + JSON.stringify(actual) + "\n" +
+                                   "but should not be equal";
+                           }
+                           return result;
+                       }
+                   }
+               }
+           });
+       });
+
     it('should create a new route when Titel is entered and button is presses', function () {
         spyOn(RouteDataService, 'createNewRoute');
 
@@ -59,7 +82,7 @@ describe('RouteTableController', function () {
         spyOn(RouteDataService, 'saveRoutePointByName');
 
         scope.saveRoutePointByName("Krakau");
-        expect(RouteDataService.saveRoutePointByName).toHaveBeenCalledWith("Krakau");
+        expect(RouteDataService.saveRoutePointByName.calls.argsFor(0)).toEqualJSONyFied([new LatLng(null, "Krakau"), new Content(null, null), new TimePeriod(null)]);
 
         scope.saveRoutePointByName("Bangkok", "Sydney");
         expect(RouteDataService.saveRoutePointByName).toHaveBeenCalledWith("Bangkok", "Sydney");
@@ -74,7 +97,7 @@ describe('RouteTableController', function () {
 
         scope.newCity = "Dortmund";
         scope.addRoutePoint();
-        expect(RouteDataService.saveRoutePointByName).toHaveBeenCalledWith("Dortmund");
+        expect(RouteDataService.saveRoutePointByName.calls.argsFor(0)).toEqualJSONyFied([new LatLng(null, "Dortmund"), new Content(null, null), new TimePeriod(null)]);
     });
 
     it('it should set focus to selected RoutePoint or RouteSection in RouteDataService when row in table selected', function () {

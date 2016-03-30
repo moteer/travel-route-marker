@@ -27,7 +27,7 @@ mapApp.controller('RouteTableController', function ($scope, RouteDataService) {
     };
 
     $scope.saveRoutePointByName = function (cities) {
-        if (arguments.length == 1) {
+        if (arguments.length === 1) {
             RouteDataService.saveRoutePointByName(new LatLng(null, cities), new Content(null, null), new TimePeriod(null));
         } else {
             RouteDataService.saveRoutePointByName(arguments[0], arguments[1]);
