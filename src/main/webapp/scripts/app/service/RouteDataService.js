@@ -47,30 +47,33 @@ mapApp.service('RouteDataService', function () {
         return this.route.getTitel();
     };
 
-    this.saveRouteSection = function (routePointA, routePointB, content) {
-        var routeSection = new RouteSection(routePointA, routePointB, content);
-        this.route.addRoutePoint(routePointA);
-        this.route.addRoutePoint(routePointB);
-        this.route.addRouteSection(routeSection);
-
-        if (this.routeTableEntries.length === 0 ) {
+    function addRouteTableEntries(routePointA, routeSection, routePointB) {
+        if (this.routeTableEntries.length === 0) {
             this.routeTableEntries.push(routePointA);
         }
         this.routeTableEntries.push(routeSection);
         this.routeTableEntries.push(routePointB);
+    }
+
+    this.saveRouteSection = function (routePointA, routePointB, content) {
+        var routeSection = new RouteSection(routePointA, routePointB, content);
+        this.route.addRouteSection(routeSection);
+        addRouteTableEntries.call(this, routePointA, routeSection, routePointB);
+    };
+
+    this.saveRoutePoint = function (routePoint) {
+        this.route.addRoutePoint(routePoint);
     };
 
     this.saveRoutePointByName = function (latLng, content, timePeriod) {
         var routePoint = new RoutePoint(latLng, content, timePeriod);
-        this.route.addRoutePoint(routePoint);
-        this.routeTableEntries.push(routePoint);
+        this.saveRoutePoint(routePoint);
     };
 
-
     this.saveRoutePointByLatLng = function (latLng) {
-        var routePoint = new RoutePoint(latLng);
-        this.route.addRoutePoint(routePoint);
-        this.routeTableEntries.push(routePoint);
+        var routePoint = new RoutePoint(latLng, new Content(null, null), new TimePeriod(null));
+        this.saveRoutePoint(routePoint);
+        return routePoint;
     };
 
     this.selectRouteTableEntry = function (index) {
@@ -117,4 +120,9 @@ mapApp.service('RouteDataService', function () {
     this.resetCurrentSelection = function () {
         this.currentSelectionIndex = undefined;
     };
+
+    // TODO: not tested
+    this.getLastRouteTableEntry = function () {
+        return this.routeTableEntries[this.routeTableEntries.length - 1];
+    }
 });

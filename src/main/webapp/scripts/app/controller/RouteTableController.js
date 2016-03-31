@@ -18,11 +18,10 @@ mapApp.controller('RouteTableController', function ($scope, RouteDataService) {
     };
 
     $scope.addRoutePoint = function () {
-            console.log($scope.newCity + " saved to route");
+        console.log($scope.newCity + " saved to route");
         if ($scope.routeDataService.getRoute() !== null && $scope.newCity !== null) {
             $scope.saveRoutePointByName($scope.newCity);
-            console.log("route: " + $scope.routeDataService.route);
-
+            console.log("route: " + $scope.routeDataService.getRoute());
         }
     };
 

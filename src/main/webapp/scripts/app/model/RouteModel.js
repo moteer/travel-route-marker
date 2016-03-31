@@ -24,7 +24,7 @@ function Route(titel) {
     };
 
     this.toString = function () {
-        return JSON.stringify(this);
+        return "Route:" + JSON.stringify(this);
     };
 }
 
@@ -42,7 +42,7 @@ function Content(description, image) {
     };
 
     this.toString = function () {
-        return JSON.stringify(this);
+        return "Content:" + JSON.stringify(this);
     };
 }
 
@@ -51,6 +51,10 @@ function TimePeriod(time) {
 
     this.getTime = function () {
         return this.time;
+    };
+
+    this.toString = function () {
+        return "TimePeriod:" + JSON.stringify(this);
     };
 }
 
@@ -69,7 +73,7 @@ function LatLng(latLng, city) {
     };
 
     this.toString = function () {
-        return JSON.stringify(this);
+        return "LatLng:" + JSON.stringify(this);
     };
 }
 
@@ -91,7 +95,7 @@ function RoutePoint(latLng, content, timePeriod) {
     };
 
     this.toString = function () {
-        return JSON.stringify(this);
+        return "RoutePoint:" + JSON.stringify(this);
     };
 }
 
@@ -112,5 +116,8 @@ function RouteSection(fromRoutePoint, toRoutePoint, content) {
         return this.toRoutePoint;
     };
 
+    this.toString = function () {
+        return "RouteSection:" + JSON.stringify(this);
+    };
 }
 

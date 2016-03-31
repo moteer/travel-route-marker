@@ -70,11 +70,14 @@ describe('RouteDataServiceTest', function () {
         var rp1 = new RoutePoint(new LatLng({}, "Hamburg"), new Content("rp1", "rp1"), new TimePeriod());
         var rp2 = new RoutePoint(new LatLng({lat: 1.1, lng: 2.2}, "Berlin"), new Content("rp2", "rp2"), new TimePeriod());
         var content = new Content("this is my way from rp1 to rp2", "with some travel images");
+
+        RouteDataService.saveRoutePoint(rp1);
+        RouteDataService.saveRoutePoint(rp2);
         RouteDataService.saveRouteSection(rp1, rp2, content);
 
         expect(RouteDataService.getRoutePoints().length).toBe(2);
-        expect(RouteDataService.getRoutePoints()[0]).toBe(rp1);
-        expect(RouteDataService.getRoutePoints()[1]).toBe(rp2);
+        expect(RouteDataService.getRoutePoints()[0]).toEqualJSONyFied(rp1);
+        expect(RouteDataService.getRoutePoints()[1]).toEqualJSONyFied(rp2);
 
         expect(RouteDataService.getRouteSections().length).toBe(1);
         expect(RouteDataService.getRouteSections()[0].getContent()).toBe(content);

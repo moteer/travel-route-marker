@@ -17,12 +17,12 @@ mapApp.controller('MapController', function ($scope, RouteDataService) {
 
     $scope.onMapClick = function (latLng) {
         if ($scope.routeDataService.getRoute() !== null) {
-            var newRoutePoint = new RoutePoint(new LatLng(latLng, null), new Content(null, null), new TimePeriod(null));
-            $scope.routeDataService.saveRoutePointByLatLng(newRoutePoint);
+            //var newRoutePoint = new RoutePoint(new LatLng(latLng, null), new Content(null, null), new TimePeriod(null));
+            var newRoutePoint = $scope.routeDataService.saveRoutePointByLatLng(latLng);
 
             var lastRouteTableEntry = $scope.routeDataService.getLastRouteTableEntry();
             if (lastRouteTableEntry !== null) {
-                $scope.routeDataService.saveRouteSectionByLatLngs(lastRouteTableEntry, newRoutePoint, new Content(null, null)) ;
+                $scope.routeDataService.saveRouteSection(lastRouteTableEntry, newRoutePoint, new Content(null, null)) ;
             }
         }
     };
