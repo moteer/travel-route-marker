@@ -1,5 +1,5 @@
 <div data-ng-controller="MapController" class="map-partial-div">
-    <h1>Map</h1>
+    <h1>Map with {{numberOfmarkers}} markers</h1>
 
     <leaflet class="map" markers="markers"></leaflet>
 </div>

@@ -47,22 +47,24 @@ mapApp.service('RouteDataService', function () {
         return this.route.getTitel();
     };
 
-    function addRouteTableEntries(routePointA, routeSection, routePointB) {
-        if (this.routeTableEntries.length === 0) {
-            this.routeTableEntries.push(routePointA);
-        }
-        this.routeTableEntries.push(routeSection);
-        this.routeTableEntries.push(routePointB);
-    }
-
     this.saveRouteSection = function (routePointA, routePointB, content) {
         var routeSection = new RouteSection(routePointA, routePointB, content);
         this.route.addRouteSection(routeSection);
-        addRouteTableEntries.call(this, routePointA, routeSection, routePointB);
+        this.routeTableEntries.push(routeSection);
+    };
+
+    this.getPreviousRoutePoint = function () {
+        console.log("PreviousRoutePoint called with " + this.getRoutePoints().toString());
+        return this.getRoutePoints().length > 0 ? this.getRoutePoints()[this.getRoutePoints().length -1] : null;
     };
 
     this.saveRoutePoint = function (routePoint) {
+        var prevRoutePoint = this.getPreviousRoutePoint();
+        if (prevRoutePoint !== null) {
+            this.saveRouteSection(prevRoutePoint, routePoint, new Content(null, null))
+        }
         this.route.addRoutePoint(routePoint);
+        this.routeTableEntries.push(routePoint);
     };
 
     this.saveRoutePointByName = function (latLng, content, timePeriod) {

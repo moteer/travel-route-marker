@@ -63,24 +63,23 @@ describe('RouteDataServiceTest', function () {
         expect(berlinRoutePoint.getTimePeriod()).toBe(timePeriod);
     });
 
-    it('should save RoutePoint to RouteDatService when latitude longitude is is given', function () {
+    it('should save RouteSection to RouteDatService when two Points are added', function () {
         RouteDataService.init(new Route("My Route I drew on the map"));
 
         //latLng, content, timePeriod
         var rp1 = new RoutePoint(new LatLng({}, "Hamburg"), new Content("rp1", "rp1"), new TimePeriod());
         var rp2 = new RoutePoint(new LatLng({lat: 1.1, lng: 2.2}, "Berlin"), new Content("rp2", "rp2"), new TimePeriod());
-        var content = new Content("this is my way from rp1 to rp2", "with some travel images");
 
         RouteDataService.saveRoutePoint(rp1);
-        RouteDataService.saveRoutePoint(rp2);
-        RouteDataService.saveRouteSection(rp1, rp2, content);
-
-        expect(RouteDataService.getRoutePoints().length).toBe(2);
+        expect(RouteDataService.getRoutePoints().length).toBe(1);
         expect(RouteDataService.getRoutePoints()[0]).toEqualJSONyFied(rp1);
+        expect(RouteDataService.getRouteSections().length).toBe(0);
+
+        RouteDataService.saveRoutePoint(rp2);
+        expect(RouteDataService.getRoutePoints().length).toBe(2);
         expect(RouteDataService.getRoutePoints()[1]).toEqualJSONyFied(rp2);
 
         expect(RouteDataService.getRouteSections().length).toBe(1);
-        expect(RouteDataService.getRouteSections()[0].getContent()).toBe(content);
         expect(RouteDataService.getRouteSections()[0].getFromRoutePoint()).toBe(rp1);
         expect(RouteDataService.getRouteSections()[0].getToRoutePoint()).toBe(rp2);
     });
@@ -119,30 +118,6 @@ describe('RouteDataServiceTest', function () {
 
         //expect(RouteDataService.getCurrentlySelectedRouteTableEntry()).toEqualJSONyFied(routeSection2.getToRoutePoint());
     });
-
-    //TODO: costum matcher for failing tests
-    //RouteSection({ content: desc of routesection A | desc A,
-    //    fromRoutePoint: RoutePoint({ latLng: LatLng({ lat: 0, lng: 0, city: 'Hamburg' }),
-    //        content: rp1 | rp1,
-    //        timePeriod: TimePeriod({ time: undefined, getTime: Function }),
-    //        getLatLng: Function, getContent: Function, getTimePeriod: Function }),
-    //    toRoutePoint: RoutePoint({ latLng: LatLng({ lat: 1.1, lng: 1.1, city: 'Berlin' }),
-    //        content: rp2 | rp2,
-    //        timePeriod: TimePeriod({ time: undefined, getTime: Function }),
-    //        getLatLng: Function, getContent: Function, getTimePeriod: Function }),
-    //    getContent: Function, getFromRoutePoint: Function, getToRoutePoint: Function }) to equal
-    //
-    //RouteSection({ content: desc of routesection A | desc A,
-    //    fromRoutePoint: RoutePoint({ latLng: LatLng({ lat: 0, lng: 0, city: 'Hamburg' }),
-    //        content: rp1 | rp1,
-    //        timePeriod: TimePeriod({ time: undefined, getTime: Function }),
-    //        getLatLng: Function, getContent: Function, getTimePeriod: Function }),
-    //    toRoutePoint: RoutePoint({ latLng: LatLng({ lat: 1.1, lng: 1.1, city: 'Berlin' }),
-    //        content: rp2 | rp2,
-    //        timePeriod: TimePeriod({ time: undefined, getTime: Function }),
-    //        getLatLng: Function, getContent: Function, getTimePeriod: Function }),
-    //    getContent: Function, getFromRoutePoint: Function, getToRoutePoint: Function })
-
 
     it('should deselect all selections when deselect is been called', function () {
         var route = new Route("My way through Asia");
