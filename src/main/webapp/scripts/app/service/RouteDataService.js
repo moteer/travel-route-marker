@@ -55,7 +55,7 @@ mapApp.service('RouteDataService', function () {
 
     this.getPreviousRoutePoint = function () {
         console.log("PreviousRoutePoint called with " + this.getRoutePoints().toString());
-        return this.getRoutePoints().length > 0 ? this.getRoutePoints()[this.getRoutePoints().length -1] : null;
+        return this.getRoutePoints().length > 0 ? this.getRoutePoints()[this.getRoutePoints().length - 1] : null;
     };
 
     this.saveRoutePoint = function (routePoint) {
@@ -127,4 +127,17 @@ mapApp.service('RouteDataService', function () {
     this.getLastRouteTableEntry = function () {
         return this.routeTableEntries[this.routeTableEntries.length - 1];
     }
+
+    this.prevClickTime = undefined;
+    this.isEventToIgnore = function (currentTimeStamp) {
+        var toIgnore = true;
+        console.log("------------ > Click " + (this.prevClickTime === undefined ? "for the first time" : "time difference is " + (currentTimeStamp - this.prevClickTime)));
+        if (this.prevClickTime === undefined || (currentTimeStamp - this.prevClickTime) > 400) {
+            toIgnore = false;
+        }
+        this.prevClickTime = currentTimeStamp;
+
+        return toIgnore;
+    };
+
 });
