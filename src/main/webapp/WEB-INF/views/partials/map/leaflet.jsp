@@ -1,7 +1,7 @@
 <div data-ng-controller="MapController" class="map-partial-div">
-    <h1>Map with {{numberOfmarkers}} markers</h1>
+    <h1>Map with {{numberOfmarkers}} markers and selection index {{selectionIndex}}</h1>
 
-    <leaflet class="map" markers="markers"></leaflet>
+    <leaflet class="map" markers="markers"  lf-center="center"></leaflet>
 </div>
 
 <div data-ng-controller="RouteTableController" class="table-partial-div">
@@ -10,7 +10,7 @@
     <button ng-click="createNewRoute()">create new Route</button>
 
 
-    <h2>This route has {{ getNumberOfRouteSections() }} sections</h2>
+    <h2>selected index {{selectionIndex}}</h2>
     <table border="1">
         <thead>
         <td>toString</td>
@@ -19,7 +19,7 @@
         <td>City</td>
         <td>Action</td>
         </thead>
-        <tr ng-repeat="routeTableEntry in routeDataService.routeTableEntries" ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index)">
+        <tr ng-repeat="routeTableEntry in routeDataService.routeTableEntries" ng-class="{'selected':$index === selectedRow}" ng-click="onSelectTableEntry($index)">
             <td>{{routeTableEntry.toString()}}</td>
             <td>
                 <%--<span ng-repeat="geoCoordinate in routePart.geoCoordinates.geoCoordinates">--%>
