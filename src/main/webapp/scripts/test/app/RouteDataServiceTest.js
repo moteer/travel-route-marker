@@ -167,13 +167,16 @@ describe('RouteDataServiceTest', function () {
 
         RouteDataService.selectRoutePointByLatLngs({lat: 0.0, lng: 0.0});
         expect(RouteDataService.getCurrentlySelectedRouteTableEntry()).toEqualJSONyFied(rp1);
+        expect(RouteDataService.getCurrentlySelectedRouteTableEntryIndex()).toBe(0);
+
 
         RouteDataService.selectRoutePointByLatLngs({lat: 1.1, lng: 1.1});
         expect(RouteDataService.getCurrentlySelectedRouteTableEntry()).toEqualJSONyFied(rp2);
+        expect(RouteDataService.getCurrentlySelectedRouteTableEntryIndex()).toBe(2);
 
         RouteDataService.selectRoutePointByLatLngs({lat: 2.2, lng: 2.2});
         expect(RouteDataService.getCurrentlySelectedRouteTableEntry()).toEqualJSONyFied(rp3);
-
+        expect(RouteDataService.getCurrentlySelectedRouteTableEntryIndex()).toBe(4);
     });
 
     it('should set select on clicking on Map Element selectRouteSectionByLatLngs', function () {
@@ -196,9 +199,11 @@ describe('RouteDataServiceTest', function () {
 
         RouteDataService.selectRouteSectionByLatLngs([{lat: 0.0, lng: 0.0}, {lat: 1.1, lng: 1.1}]);
         expect(RouteDataService.getCurrentlySelectedRouteTableEntry()).toEqualJSONyFied(routeSection1);
+        expect(RouteDataService.getCurrentlySelectedRouteTableEntryIndex()).toBe(1);
 
         RouteDataService.selectRouteSectionByLatLngs([{lat: 1.1, lng: 1.1}, {lat: 2.2, lng: 2.2}]);
         expect(RouteDataService.getCurrentlySelectedRouteTableEntry()).toEqualJSONyFied(routeSection2);
+        expect(RouteDataService.getCurrentlySelectedRouteTableEntryIndex()).toBe(3);
     });
 
 

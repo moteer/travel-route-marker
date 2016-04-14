@@ -2,7 +2,7 @@ mapApp.controller('MapController', function ($scope, RouteDataService) {
     $scope.routeDataService = RouteDataService;
 
     $scope.numberOfmarkers = 0;
-    $scope.selectionIndex = RouteDataService.currentSelectionIndex;
+    $scope.selectionIndex;
 
     angular.extend($scope, {
         //bounds: $scope.regions.sydney,
@@ -30,10 +30,18 @@ mapApp.controller('MapController', function ($scope, RouteDataService) {
 
     $scope.onMapSelectRouteElementByLatLng = function (routePoint) {
         $scope.routeDataService.selectRoutePointByLatLngs(routePoint);
+        $scope.selectionIndex = RouteDataService.getCurrentlySelectedRouteTableEntryIndex();
+        $scope.$broadcast("routeTableEntryChanged", this.currentSelectionIndex);
     };
+
+    $scope.$on("routeTableEntryChanged", function () {
+        $scope.selectionIndex = RouteDataService.getCurrentlySelectedRouteTableEntryIndex();
+       console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      MapController   $scope.$on routeTableEntryChanged");
+    });
 
     $scope.onMapSelectRouteElementsByLatLng = function (routePoint) {
         $scope.routeDataService.selectRouteSectionByLatLngs(routePoint);
+        $scope.$broadcast("routeTableEntryChanged", this.currentSelectionIndex);
     };
 
 
@@ -59,7 +67,10 @@ mapApp.controller('MapController', function ($scope, RouteDataService) {
     });
 
     $scope.$on('leafletDirectiveMarker.click', function (e, args) {
-        $scope.onMapSelectRouteElementByLatLng({lat:args.model.lat, lng:args.model.lng});
+        var leafEvent = args.leafletEvent;
+        if (!$scope.routeDataService.isEventToIgnore(leafEvent.originalEvent.timeStamp)) {
+            $scope.onMapSelectRouteElementByLatLng({lat: args.model.lat, lng: args.model.lng});
+        }
     });
 });
 

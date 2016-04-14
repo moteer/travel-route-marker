@@ -36,6 +36,11 @@ describe('RouteTableController', function () {
         mockRouteDataService.createNewRoute = function () {
             console.log("mock mockRouteDataService.createNewRoute");
         };
+
+        mockRouteDataService.getCurrentlySelectedRouteTableEntryIndex = function () {
+            console.log("mock mockRouteDataService.getCurrentlySelectedRouteTableEntryIndex");
+        };
+
     });
 
     beforeEach(inject(function ($rootScope, $controller, _RouteDataService_) {
@@ -101,10 +106,11 @@ describe('RouteTableController', function () {
     });
 
     it('it should set focus to selected RoutePoint or RouteSection in RouteDataService when row in table selected', function () {
-        expect(scope.selectedRow).toBe(null);
+        expect(scope.selectedRow).toBe(undefined);
 
         spyOn(RouteDataService, 'selectRouteTableEntry');
         spyOn(RouteDataService, 'resetCurrentSelection');
+        spyOn(RouteDataService, 'getCurrentlySelectedRouteTableEntryIndex');
 
         spyOn(RouteDataService, 'getRouteTableEntries').and.callFake(function () {
             var rp1 = new RoutePoint(new LatLng({lat:0.0, lng:0.0}, "Hamburg"), new Content("rp1", "rp1"), new TimePeriod());
@@ -123,15 +129,12 @@ describe('RouteTableController', function () {
 
         scope.onSelectTableEntry(0);
         expect(RouteDataService.selectRouteTableEntry).toHaveBeenCalledWith(0);
-        expect(scope.selectedRow).toBe(0);
 
         scope.onSelectTableEntry(1);
         expect(RouteDataService.selectRouteTableEntry).toHaveBeenCalledWith(1);
-        expect(scope.selectedRow).toBe(1);
 
         scope.onResetSelection();
         expect(RouteDataService.resetCurrentSelection).toHaveBeenCalled();
-        expect(scope.selectedRow).toBe(null);
     });
 });
 

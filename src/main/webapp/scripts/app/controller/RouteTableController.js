@@ -1,9 +1,8 @@
 mapApp.controller('RouteTableController', function ($scope, RouteDataService) {
 
     $scope.routeDataService = RouteDataService;
-    $scope.selectionIndex = RouteDataService.currentSelectionIndex;
+    $scope.selectionIndex;
 
-    $scope.selectedRow = null;
 
     $scope.newTitel,
         $scope.newDescription,
@@ -35,9 +34,15 @@ mapApp.controller('RouteTableController', function ($scope, RouteDataService) {
     };
 
     $scope.onSelectTableEntry = function (index) {
-        $scope.selectedRow = index;
         $scope.routeDataService.selectRouteTableEntry(index);
+        $scope.selectionIndex = RouteDataService.getCurrentlySelectedRouteTableEntryIndex();
+        $scope.$broadcast("routeTableEntryChanged", this.currentSelectionIndex);
     };
+
+    $scope.$on("routeTableEntryChanged", function () {
+        $scope.selectionIndex = RouteDataService.getCurrentlySelectedRouteTableEntryIndex();
+        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      RouteTableController   $scope.$on routeTableEntryChanged");
+    });
 
     $scope.onResetSelection = function () {
         $scope.selectedRow = null;
@@ -50,6 +55,7 @@ mapApp.controller('RouteTableController', function ($scope, RouteDataService) {
         //     $scope.rows.splice(index, 1);
         // }
     };
+
 
 });
 
