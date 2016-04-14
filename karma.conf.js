@@ -20,8 +20,8 @@ module.exports = function (config) {
             // '/home/development/Desktop/ehoelzel/playground/src/main/webapp/scripts/test/app/EditableRoutePartTableAppTest.js',
             // '/home/development/Desktop/ehoelzel/playground/src/main/webapp/scripts/app/controller/EditableTableController.js',
             // '/home/development/Desktop/ehoelzel/playground/src/main/webapp/scripts/test/app/EditableRoutePartTableWidgetTest.js',
-            '**/angular.js',
-            '**/angular-mocks.js',
+            //'**/angular.js',
+            //'**/angular-mocks.js',
             '**/RouteTableAppTest.js',
 
             '**/RouteModel.js',

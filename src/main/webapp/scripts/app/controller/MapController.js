@@ -2,7 +2,7 @@ mapApp.controller('MapController', function ($scope, RouteDataService) {
     $scope.routeDataService = RouteDataService;
 
     $scope.numberOfmarkers = 0;
-    $scope.selectionIndex = RouteDataService.getCurrentlySelectedRouteTableEntry();
+    $scope.selectionIndex = RouteDataService.currentSelectionIndex;
 
     angular.extend($scope, {
         //bounds: $scope.regions.sydney,

@@ -102,11 +102,6 @@ describe('Map Controller', function () {
 
         scope.onMapClick({lat: 22.22, lng: 22.22});
         expect(RouteDataService.saveRoutePointByLatLng.calls.argsFor(0)).toEqualJSONyFied([{lat: 22.22, lng: 22.22}]);
-
-        expect(RouteDataService.saveRouteSection.calls.argsFor(0)).toEqualJSONyFied([
-            new RoutePoint(new LatLng({lat: 11.11, lng: 11.11}, null), new Content(null, null), new TimePeriod(null)),
-            new RoutePoint(new LatLng({lat: 22.22, lng: 22.22}, null), new Content(null, null), new TimePeriod(null)),
-            new Content(null, null)]);
     });
 
     it('it should set focus in RouteDataService when point in Map selected', function () {

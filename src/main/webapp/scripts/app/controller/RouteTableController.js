@@ -1,6 +1,7 @@
 mapApp.controller('RouteTableController', function ($scope, RouteDataService) {
 
     $scope.routeDataService = RouteDataService;
+    $scope.selectionIndex = RouteDataService.currentSelectionIndex;
 
     $scope.selectedRow = null;
 

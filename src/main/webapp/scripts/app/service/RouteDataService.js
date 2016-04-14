@@ -10,11 +10,9 @@ mapApp.service('RouteDataService', function () {
 
     this.init = function (route) {
         this.createNewRoute(route.getTitel());
-        var routeSections = route.getRouteSections();
-        for (var i = 0; i < routeSections.length; i++) {
-            this.saveRouteSection(routeSections[i].getFromRoutePoint(),
-                routeSections[i].getToRoutePoint(),
-                routeSections[i].getContent());
+        var routePoints = route.getRoutePoints();
+        for (var i = 0; i < routePoints.length; i++) {
+            this.saveRoutePoint(routePoints[i]);
         }
     };
 
@@ -83,30 +81,36 @@ mapApp.service('RouteDataService', function () {
     };
 
     function isLatLngEqualTo(latLngObject, latLng) {
+        console.log("compare " + latLngObject.lat + "with" + latLng.lat);
+        console.log("compare " + latLngObject.lng + "with" + latLng.lng);
         return latLngObject.lat === latLng.lat
             && latLngObject.lng === latLng.lng;
     }
 
+    //TODO: should iterate through RoutePoints rather than Sections
     this.selectRoutePointByLatLngs = function (latLng) {
+        console.log("---------------------------------------------------- >>>>>> POINT SELECTED " + latLng);
         this.resetCurrentSelection();
         var routeSections = this.getRouteSections();
         for (var i = 0; i < routeSections.length; i++) {
             if (isLatLngEqualTo(routeSections[i].getFromRoutePoint().getLatLng(), latLng)) {
                 this.currentSelectionIndex = i * 2;
-            } else if (isLatLngEqualTo(routeSections[i].getToRoutePoint().getLatLng(), latLng)
-                && routeSections.length - 1 == i) {
+            } else if (isLatLngEqualTo(routeSections[i].getToRoutePoint().getLatLng(), latLng) && routeSections.length - 1 == i) {
                 this.currentSelectionIndex = i * 2 + 2;
             }
         }
     };
 
     this.selectRouteSectionByLatLngs = function (latLngs) {
+        console.log("---------------------------------------------------- >>>>>> SECTION SELECTED " + latLngs);
         this.resetCurrentSelection();
         var routeSections = this.getRouteSections();
         for (var i = 0; i < routeSections.length; i++) {
             if (isLatLngEqualTo(routeSections[i].getFromRoutePoint().getLatLng(), latLngs[0]) &&
                 isLatLngEqualTo(routeSections[i].getToRoutePoint().getLatLng(), latLngs[1])) {
-                this.currentSelectionIndex = i * 2 + 1;
+                console.log("INDEX CALC: i=" + i);
+                this.currentSelectionIndex = (i*2) + 1;
+                break;
             }
         }
     };

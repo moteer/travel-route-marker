@@ -87,16 +87,21 @@ describe('RouteDataServiceTest', function () {
 
     it('should change current to new selection when selectRouteSectionByLatLngs is been called', function () {
         var route = new Route("My way through Asia");
+        RouteDataService.init(route);
+
         var rp1 = new RoutePoint(new LatLng({lat: 0.0, lng: 0.0}, "Hamburg"), new Content("rp1", "rp1"), new TimePeriod());
         var rp2 = new RoutePoint(new LatLng({lat: 1.1, lng: 1.1}, "Berlin"), new Content("rp2", "rp2"), new TimePeriod());
         var rp3 = new RoutePoint(new LatLng({lat: 2.2, lng: 2.2}, "Leipzig"), new Content("rp3", "rp3"), new TimePeriod());
 
+        RouteDataService.saveRoutePoint(rp1);
+        RouteDataService.saveRoutePoint(rp2);
+        RouteDataService.saveRoutePoint(rp3);
+
+        RouteDataService.getRouteSections()[0].content = new Content("desc of routesection A", "desc A");
+        RouteDataService.getRouteSections()[1].content = new Content("desc of routesection B", "desc B");
+
         var routeSection1 = new RouteSection(rp1, rp2, new Content("desc of routesection A", "desc A"));
         var routeSection2 = new RouteSection(rp2, rp3, new Content("desc of routesection B", "desc B"));
-
-        route.addRouteSection(routeSection1);
-        route.addRouteSection(routeSection2);
-        RouteDataService.init(route);
 
         expect(RouteDataService.getCurrentlySelectedRouteTableEntry()).toEqualJSONyFied(undefined);
 
@@ -121,16 +126,20 @@ describe('RouteDataServiceTest', function () {
 
     it('should deselect all selections when deselect is been called', function () {
         var route = new Route("My way through Asia");
+        RouteDataService.init(route);
+
         var rp1 = new RoutePoint(new LatLng({lat: 0.0, lng: 0.0}, "Hamburg"), new Content("rp1", "rp1"), new TimePeriod());
         var rp2 = new RoutePoint(new LatLng({lat: 1.1, lng: 1.1}, "Berlin"), new Content("rp2", "rp2"), new TimePeriod());
         var rp3 = new RoutePoint(new LatLng({lat: 2.2, lng: 2.2}, "Leipzig"), new Content("rp3", "rp3"), new TimePeriod());
 
-        var routeSection1 = new RouteSection(rp1, rp2, new Content("desc of routesection A", "desc A"));
-        var routeSection2 = new RouteSection(rp2, rp3, new Content("desc of routesection B", "desc B"));
+        RouteDataService.saveRoutePoint(rp1);
+        RouteDataService.saveRoutePoint(rp2);
+        RouteDataService.saveRoutePoint(rp3);
 
-        route.addRouteSection(routeSection1);
-        route.addRouteSection(routeSection2);
-        RouteDataService.init(route);
+        RouteDataService.getRouteSections()[0].content = new Content("desc of routesection A", "desc A");
+        RouteDataService.getRouteSections()[1].content = new Content("desc of routesection B", "desc B");
+
+        var routeSection1 = new RouteSection(rp1, rp2, new Content("desc of routesection A", "desc A"));
 
         expect(RouteDataService.getCurrentlySelectedRouteTableEntry()).toEqualJSONyFied(undefined);
 
@@ -146,16 +155,15 @@ describe('RouteDataServiceTest', function () {
 
     it('should set select on clicking on Map Point selectRoutePointByLatLngs', function () {
         var route = new Route("My way through Asia");
+        RouteDataService.init(route);
+
         var rp1 = new RoutePoint(new LatLng({lat: 0.0, lng: 0.0}, "Hamburg"), new Content("rp1", "rp1"), new TimePeriod());
         var rp2 = new RoutePoint(new LatLng({lat: 1.1, lng: 1.1}, "Berlin"), new Content("rp2", "rp2"), new TimePeriod());
         var rp3 = new RoutePoint(new LatLng({lat: 2.2, lng: 2.2}, "Leipzig"), new Content("rp3", "rp3"), new TimePeriod());
 
-        var routeSection1 = new RouteSection(rp1, rp2, new Content("desc of routesection A", "desc A"));
-        var routeSection2 = new RouteSection(rp2, rp3, new Content("desc of routesection B", "desc B"));
-
-        route.addRouteSection(routeSection1);
-        route.addRouteSection(routeSection2);
-        RouteDataService.init(route);
+        RouteDataService.saveRoutePoint(rp1);
+        RouteDataService.saveRoutePoint(rp2);
+        RouteDataService.saveRoutePoint(rp3);
 
         RouteDataService.selectRoutePointByLatLngs({lat: 0.0, lng: 0.0});
         expect(RouteDataService.getCurrentlySelectedRouteTableEntry()).toEqualJSONyFied(rp1);
@@ -170,16 +178,21 @@ describe('RouteDataServiceTest', function () {
 
     it('should set select on clicking on Map Element selectRouteSectionByLatLngs', function () {
         var route = new Route("My way through Asia");
+        RouteDataService.init(route);
+
         var rp1 = new RoutePoint(new LatLng({lat: 0.0, lng: 0.0}, "Hamburg"), new Content("rp1", "rp1"), new TimePeriod());
         var rp2 = new RoutePoint(new LatLng({lat: 1.1, lng: 1.1}, "Berlin"), new Content("rp2", "rp2"), new TimePeriod());
         var rp3 = new RoutePoint(new LatLng({lat: 2.2, lng: 2.2}, "Leipzig"), new Content("rp3", "rp3"), new TimePeriod());
 
+        RouteDataService.saveRoutePoint(rp1);
+        RouteDataService.saveRoutePoint(rp2);
+        RouteDataService.saveRoutePoint(rp3);
+
+        RouteDataService.getRouteSections()[0].content = new Content("desc of routesection A", "desc A");
+        RouteDataService.getRouteSections()[1].content = new Content("desc of routesection B", "desc B");
+
         var routeSection1 = new RouteSection(rp1, rp2, new Content("desc of routesection A", "desc A"));
         var routeSection2 = new RouteSection(rp2, rp3, new Content("desc of routesection B", "desc B"));
-
-        route.addRouteSection(routeSection1);
-        route.addRouteSection(routeSection2);
-        RouteDataService.init(route);
 
         RouteDataService.selectRouteSectionByLatLngs([{lat: 0.0, lng: 0.0}, {lat: 1.1, lng: 1.1}]);
         expect(RouteDataService.getCurrentlySelectedRouteTableEntry()).toEqualJSONyFied(routeSection1);
