@@ -1,0 +1,10 @@
+P1|cleanup table information column names and content to be shown
+P1|create routepoint connection on map when adding new route point
+P1|make routepoint selectable
+P1|add picture upload functionality
+P1|add City/Place search functionality on routetable add
+P1|add write titel and description functionality
+P1|cleanup javascript code lint
+P1|introduce style
+P1|move to github
+P1|try facebook testing framework
