@@ -91,13 +91,13 @@ describe('Map Controller', function () {
         spyOn(RouteDataService, 'saveRouteSection');
 
         spyOn(RouteDataService, 'saveRoutePointByLatLng').and.callFake(function () {
-            return new RoutePoint(new LatLng({lat: 22.22, lng: 22.22}, null), new Content(null, null), new TimePeriod(null));
+            return new RoutePoint(new LatLng({lat: 22.22, lng: 22.22}, null), new Content(null, null, null, null), new TimePeriod(null));
         });
         spyOn(RouteDataService, 'getRoute').and.callFake(function () {
             return new Route("something");
         });
         spyOn(RouteDataService, 'getLastRouteTableEntry').and.callFake(function () {
-            return new RoutePoint(new LatLng({lat: 11.11, lng: 11.11}, null), new Content(null, null), new TimePeriod(null));
+            return new RoutePoint(new LatLng({lat: 11.11, lng: 11.11}, null), new Content(null, null, null), new TimePeriod(null));
         });
 
         scope.onMapClick({lat: 22.22, lng: 22.22});

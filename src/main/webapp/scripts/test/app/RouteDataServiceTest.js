@@ -52,7 +52,7 @@ describe('RouteDataServiceTest', function () {
     it('should save RoutePoint to RouteDataService by given city, description and image in case of manually added in the table', function () {
         RouteDataService.init(new Route("My Berlin Route"));
         var latLng = new LatLng({}, "Berlin");
-        var content = new Content("berlins description", "images in berlin");
+        var content = new Content("some titel", "berlins description", "images in berlin");
         var timePeriod = new TimePeriod();
         RouteDataService.saveRoutePointByName(latLng, content, timePeriod);
         expect(RouteDataService.getRoutePoints().length).toBe(1);
@@ -67,8 +67,8 @@ describe('RouteDataServiceTest', function () {
         RouteDataService.init(new Route("My Route I drew on the map"));
 
         //latLng, content, timePeriod
-        var rp1 = new RoutePoint(new LatLng({}, "Hamburg"), new Content("rp1", "rp1"), new TimePeriod());
-        var rp2 = new RoutePoint(new LatLng({lat: 1.1, lng: 2.2}, "Berlin"), new Content("rp2", "rp2"), new TimePeriod());
+        var rp1 = new RoutePoint(new LatLng({}, "Hamburg"), new Content("some titel", "rp1", "rp1"), new TimePeriod());
+        var rp2 = new RoutePoint(new LatLng({lat: 1.1, lng: 2.2}, "Berlin"), new Content("some titel", "rp2", "rp2"), new TimePeriod());
 
         RouteDataService.saveRoutePoint(rp1);
         expect(RouteDataService.getRoutePoints().length).toBe(1);
@@ -82,6 +82,7 @@ describe('RouteDataServiceTest', function () {
         expect(RouteDataService.getRouteSections().length).toBe(1);
         expect(RouteDataService.getRouteSections()[0].getFromRoutePoint()).toBe(rp1);
         expect(RouteDataService.getRouteSections()[0].getToRoutePoint()).toBe(rp2);
+        expect(RouteDataService.getRouteSections()[0].getShortDescriptor()).toBe("Hamburg to Berlin");
     });
 
 
@@ -89,19 +90,19 @@ describe('RouteDataServiceTest', function () {
         var route = new Route("My way through Asia");
         RouteDataService.init(route);
 
-        var rp1 = new RoutePoint(new LatLng({lat: 0.0, lng: 0.0}, "Hamburg"), new Content("rp1", "rp1"), new TimePeriod());
-        var rp2 = new RoutePoint(new LatLng({lat: 1.1, lng: 1.1}, "Berlin"), new Content("rp2", "rp2"), new TimePeriod());
-        var rp3 = new RoutePoint(new LatLng({lat: 2.2, lng: 2.2}, "Leipzig"), new Content("rp3", "rp3"), new TimePeriod());
+        var rp1 = new RoutePoint(new LatLng({lat: 0.0, lng: 0.0}, "Hamburg"), new Content("some titel", "rp1", "rp1"), new TimePeriod());
+        var rp2 = new RoutePoint(new LatLng({lat: 1.1, lng: 1.1}, "Berlin"), new Content("some titel", "rp2", "rp2"), new TimePeriod());
+        var rp3 = new RoutePoint(new LatLng({lat: 2.2, lng: 2.2}, "Leipzig"), new Content("some titel", "rp3", "rp3"), new TimePeriod());
 
         RouteDataService.saveRoutePoint(rp1);
         RouteDataService.saveRoutePoint(rp2);
         RouteDataService.saveRoutePoint(rp3);
 
-        RouteDataService.getRouteSections()[0].content = new Content("desc of routesection A", "desc A");
-        RouteDataService.getRouteSections()[1].content = new Content("desc of routesection B", "desc B");
+        RouteDataService.getRouteSections()[0].content = new Content("some titel", "desc of routesection A", "desc A");
+        RouteDataService.getRouteSections()[1].content = new Content("some titel", "desc of routesection B", "desc B");
 
-        var routeSection1 = new RouteSection(rp1, rp2, new Content("desc of routesection A", "desc A"));
-        var routeSection2 = new RouteSection(rp2, rp3, new Content("desc of routesection B", "desc B"));
+        var routeSection1 = new RouteSection(rp1, rp2, new Content("some titel", "desc of routesection A", "desc A"));
+        var routeSection2 = new RouteSection(rp2, rp3, new Content("some titel", "desc of routesection B", "desc B"));
 
         expect(RouteDataService.getCurrentlySelectedRouteTableEntry()).toEqualJSONyFied(undefined);
 
@@ -128,18 +129,18 @@ describe('RouteDataServiceTest', function () {
         var route = new Route("My way through Asia");
         RouteDataService.init(route);
 
-        var rp1 = new RoutePoint(new LatLng({lat: 0.0, lng: 0.0}, "Hamburg"), new Content("rp1", "rp1"), new TimePeriod());
-        var rp2 = new RoutePoint(new LatLng({lat: 1.1, lng: 1.1}, "Berlin"), new Content("rp2", "rp2"), new TimePeriod());
-        var rp3 = new RoutePoint(new LatLng({lat: 2.2, lng: 2.2}, "Leipzig"), new Content("rp3", "rp3"), new TimePeriod());
+        var rp1 = new RoutePoint(new LatLng({lat: 0.0, lng: 0.0}, "Hamburg"), new Content("some titel", "rp1", "rp1"), new TimePeriod());
+        var rp2 = new RoutePoint(new LatLng({lat: 1.1, lng: 1.1}, "Berlin"), new Content("some titel", "rp2", "rp2"), new TimePeriod());
+        var rp3 = new RoutePoint(new LatLng({lat: 2.2, lng: 2.2}, "Leipzig"), new Content("some titel", "rp3", "rp3"), new TimePeriod());
 
         RouteDataService.saveRoutePoint(rp1);
         RouteDataService.saveRoutePoint(rp2);
         RouteDataService.saveRoutePoint(rp3);
 
-        RouteDataService.getRouteSections()[0].content = new Content("desc of routesection A", "desc A");
-        RouteDataService.getRouteSections()[1].content = new Content("desc of routesection B", "desc B");
+        RouteDataService.getRouteSections()[0].content = new Content("some titel", "desc of routesection A", "desc A");
+        RouteDataService.getRouteSections()[1].content = new Content("some titel", "desc of routesection B", "desc B");
 
-        var routeSection1 = new RouteSection(rp1, rp2, new Content("desc of routesection A", "desc A"));
+        var routeSection1 = new RouteSection(rp1, rp2, new Content("some titel", "desc of routesection A", "desc A"));
 
         expect(RouteDataService.getCurrentlySelectedRouteTableEntry()).toEqualJSONyFied(undefined);
 
@@ -157,9 +158,9 @@ describe('RouteDataServiceTest', function () {
         var route = new Route("My way through Asia");
         RouteDataService.init(route);
 
-        var rp1 = new RoutePoint(new LatLng({lat: 0.0, lng: 0.0}, "Hamburg"), new Content("rp1", "rp1"), new TimePeriod());
-        var rp2 = new RoutePoint(new LatLng({lat: 1.1, lng: 1.1}, "Berlin"), new Content("rp2", "rp2"), new TimePeriod());
-        var rp3 = new RoutePoint(new LatLng({lat: 2.2, lng: 2.2}, "Leipzig"), new Content("rp3", "rp3"), new TimePeriod());
+        var rp1 = new RoutePoint(new LatLng({lat: 0.0, lng: 0.0}, "Hamburg"), new Content("some titel", "rp1", "rp1"), new TimePeriod());
+        var rp2 = new RoutePoint(new LatLng({lat: 1.1, lng: 1.1}, "Berlin"), new Content("some titel", "rp2", "rp2"), new TimePeriod());
+        var rp3 = new RoutePoint(new LatLng({lat: 2.2, lng: 2.2}, "Leipzig"), new Content("some titel", "rp3", "rp3"), new TimePeriod());
 
         RouteDataService.saveRoutePoint(rp1);
         RouteDataService.saveRoutePoint(rp2);
@@ -183,19 +184,19 @@ describe('RouteDataServiceTest', function () {
         var route = new Route("My way through Asia");
         RouteDataService.init(route);
 
-        var rp1 = new RoutePoint(new LatLng({lat: 0.0, lng: 0.0}, "Hamburg"), new Content("rp1", "rp1"), new TimePeriod());
-        var rp2 = new RoutePoint(new LatLng({lat: 1.1, lng: 1.1}, "Berlin"), new Content("rp2", "rp2"), new TimePeriod());
-        var rp3 = new RoutePoint(new LatLng({lat: 2.2, lng: 2.2}, "Leipzig"), new Content("rp3", "rp3"), new TimePeriod());
+        var rp1 = new RoutePoint(new LatLng({lat: 0.0, lng: 0.0}, "Hamburg"), new Content("some titel", "rp1", "rp1"), new TimePeriod());
+        var rp2 = new RoutePoint(new LatLng({lat: 1.1, lng: 1.1}, "Berlin"), new Content("some titel", "rp2", "rp2"), new TimePeriod());
+        var rp3 = new RoutePoint(new LatLng({lat: 2.2, lng: 2.2}, "Leipzig"), new Content("some titel", "rp3", "rp3"), new TimePeriod());
 
         RouteDataService.saveRoutePoint(rp1);
         RouteDataService.saveRoutePoint(rp2);
         RouteDataService.saveRoutePoint(rp3);
 
-        RouteDataService.getRouteSections()[0].content = new Content("desc of routesection A", "desc A");
-        RouteDataService.getRouteSections()[1].content = new Content("desc of routesection B", "desc B");
+        RouteDataService.getRouteSections()[0].content = new Content("some titel", "desc of routesection A", "desc A");
+        RouteDataService.getRouteSections()[1].content = new Content("some titel", "desc of routesection B", "desc B");
 
-        var routeSection1 = new RouteSection(rp1, rp2, new Content("desc of routesection A", "desc A"));
-        var routeSection2 = new RouteSection(rp2, rp3, new Content("desc of routesection B", "desc B"));
+        var routeSection1 = new RouteSection(rp1, rp2, new Content("some titel", "desc of routesection A", "desc A"));
+        var routeSection2 = new RouteSection(rp2, rp3, new Content("some titel", "desc of routesection B", "desc B"));
 
         RouteDataService.selectRouteSectionByLatLngs([{lat: 0.0, lng: 0.0}, {lat: 1.1, lng: 1.1}]);
         expect(RouteDataService.getCurrentlySelectedRouteTableEntry()).toEqualJSONyFied(routeSection1);

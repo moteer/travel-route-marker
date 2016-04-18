@@ -3,11 +3,11 @@ mapApp.controller('RouteTableController', ["$scope", "RouteDataService", functio
     $scope.routeDataService = RouteDataService;
     $scope.selectionIndex;
 
-
     $scope.newTitel,
         $scope.newDescription,
         $scope.newImage,
-        $scope.newCity;
+        $scope.newCity,
+        $scope.shortDescriptor;
 
     $scope.createNewRoute = function () {
         $scope.routeDataService.createNewRoute($scope.newTitel);
@@ -18,19 +18,20 @@ mapApp.controller('RouteTableController', ["$scope", "RouteDataService", functio
     };
 
     $scope.addRoutePoint = function () {
-        console.log($scope.newCity + " saved to route");
-        if ($scope.routeDataService.getRoute() !== null && $scope.newCity !== null) {
-            $scope.saveRoutePointByName($scope.newCity);
+        console.log("city: " + $scope.newCity + " shortDescriptor: " + $scope.shortDescriptor + " saved to route");
+        if ($scope.routeDataService.getRoute() !== null
+            && $scope.newCity !== null && $scope.newCity !== undefined
+            && $scope.shortDescriptor !== null && $scope.shortDescriptor !== undefined) {
+
+            $scope.saveRoutePointByName($scope.newCity, $scope.shortDescriptor);
             console.log("route: " + $scope.routeDataService.getRoute());
         }
+        $scope.shortDescriptor = null;
+        $scope.newCity = null;
     };
 
-    $scope.saveRoutePointByName = function (cities) {
-        if (arguments.length === 1) {
-            RouteDataService.saveRoutePointByName(new LatLng(null, cities), new Content(null, null), new TimePeriod(null));
-        } else {
-            RouteDataService.saveRoutePointByName(arguments[0], arguments[1]);
-        }
+    $scope.saveRoutePointByName = function (city, shortDescriptor) {
+        RouteDataService.saveRoutePointByName(new LatLng(null,city), new Content(shortDescriptor, null, null), new TimePeriod(null));
     };
 
     $scope.onSelectTableEntry = function (index) {

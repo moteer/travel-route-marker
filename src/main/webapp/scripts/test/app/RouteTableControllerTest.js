@@ -13,10 +13,10 @@ describe('RouteTableController', function () {
         mockRouteDataService.getRoute = function () {
             console.log("mock mockRouteDataService.getRoute was called");
             var testRoute = new Route("My first travel experience.");
-            var rp1 = new RoutePoint(new LatLng({lat:1.1, lng:1.1}, "Warschau"), new Content("rp1", "rp1"), new TimePeriod());
-            var rp2 = new RoutePoint(new LatLng({lat:2.2, lng:2.2}, "Leipzig"), new Content("rp2", "rp2"), new TimePeriod());
+            var rp1 = new RoutePoint(new LatLng({lat:1.1, lng:1.1}, "Warschau"), new Content("some titel", "rp1", "rp1"), new TimePeriod());
+            var rp2 = new RoutePoint(new LatLng({lat:2.2, lng:2.2}, "Leipzig"), new Content("some titel", "rp2", "rp2"), new TimePeriod());
 
-            var routeSection1 = new RouteSection(rp1, rp2, new Content("desc of routesection A", "desc A"));
+            var routeSection1 = new RouteSection(rp1, rp2, new Content("some titel", "desc of routesection A", "desc A"));
             testRoute.addRouteSection(routeSection1);
             return testRoute;
         };
@@ -86,11 +86,11 @@ describe('RouteTableController', function () {
     it('should call save RoutePoint on RouteDataService when new routePart is inserted', function () {
         spyOn(RouteDataService, 'saveRoutePointByName');
 
-        scope.saveRoutePointByName("Krakau");
-        expect(RouteDataService.saveRoutePointByName.calls.argsFor(0)).toEqualJSONyFied([new LatLng(null, "Krakau"), new Content(null, null), new TimePeriod(null)]);
+        scope.saveRoutePointByName("Krakau", "2 days in Krakau");
+        expect(RouteDataService.saveRoutePointByName.calls.argsFor(0)).toEqualJSONyFied([new LatLng(null, "Krakau"), new Content("2 days in Krakau", null, null), new TimePeriod(null)]);
 
-        scope.saveRoutePointByName("Bangkok", "Sydney");
-        expect(RouteDataService.saveRoutePointByName).toHaveBeenCalledWith("Bangkok", "Sydney");
+        scope.saveRoutePointByName("Bangkok", "Tuk Tuk in BKK");
+        expect(RouteDataService.saveRoutePointByName.calls.argsFor(1)).toEqualJSONyFied([new LatLng(null, "Bangkok"), new Content("Tuk Tuk in BKK", null, null), new TimePeriod(null)]);
     });
 
     it('should add new Route Point when city is entered and add button is pressed', function () {
@@ -101,8 +101,10 @@ describe('RouteTableController', function () {
         expect(RouteDataService.saveRoutePointByName).not.toHaveBeenCalled();
 
         scope.newCity = "Dortmund";
+        scope.shortDescriptor = "watching soccer in Dortmund";
+
         scope.addRoutePoint();
-        expect(RouteDataService.saveRoutePointByName.calls.argsFor(0)).toEqualJSONyFied([new LatLng(null, "Dortmund"), new Content(null, null), new TimePeriod(null)]);
+        expect(RouteDataService.saveRoutePointByName.calls.argsFor(0)).toEqualJSONyFied([new LatLng(null, "Dortmund"), new Content("watching soccer in Dortmund", null, null), new TimePeriod(null)]);
     });
 
     it('it should set focus to selected RoutePoint or RouteSection in RouteDataService when row in table selected', function () {
@@ -113,12 +115,12 @@ describe('RouteTableController', function () {
         spyOn(RouteDataService, 'getCurrentlySelectedRouteTableEntryIndex');
 
         spyOn(RouteDataService, 'getRouteTableEntries').and.callFake(function () {
-            var rp1 = new RoutePoint(new LatLng({lat:0.0, lng:0.0}, "Hamburg"), new Content("rp1", "rp1"), new TimePeriod());
-            var rp2 = new RoutePoint(new LatLng({lat:1.1, lng:1.1}, "Berlin"), new Content("rp2", "rp2"), new TimePeriod());
-            var rp3 = new RoutePoint(new LatLng({lat:2.2, lng:2.2}, "Leipzig"), new Content("rp3", "rp3"), new TimePeriod());
+            var rp1 = new RoutePoint(new LatLng({lat:0.0, lng:0.0}, "Hamburg"), new Content("some titel","rp1", "rp1"), new TimePeriod());
+            var rp2 = new RoutePoint(new LatLng({lat:1.1, lng:1.1}, "Berlin"), new Content("some titel","rp2", "rp2"), new TimePeriod());
+            var rp3 = new RoutePoint(new LatLng({lat:2.2, lng:2.2}, "Leipzig"), new Content("some titel","rp3", "rp3"), new TimePeriod());
 
-            var routeSection1 = new RouteSection(rp1, rp2, new Content("desc of routesection A", "desc A"));
-            var routeSection2 = new RouteSection(rp2, rp3, new Content("desc of routesection B", "desc B"));
+            var routeSection1 = new RouteSection(rp1, rp2, new Content("some titel","desc of routesection A", "desc A"));
+            var routeSection2 = new RouteSection(rp2, rp3, new Content("some titel","desc of routesection B", "desc B"));
 
             route.addRouteSection(routeSection1);
             route.addRouteSection(routeSection2);

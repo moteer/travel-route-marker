@@ -56,10 +56,15 @@ mapApp.service('RouteDataService', ["$rootScope",  function($rootScope){
         return this.getRoutePoints().length > 0 ? this.getRoutePoints()[this.getRoutePoints().length - 1] : null;
     };
 
+
+    var extractTitelFromTwoRoutePoints = function (prevRoutePoint, routePoint) {
+        return prevRoutePoint.getLatLng().getCity() + " to " + routePoint.getLatLng().getCity();
+    };
+
     this.saveRoutePoint = function (routePoint) {
         var prevRoutePoint = this.getPreviousRoutePoint();
         if (prevRoutePoint !== null) {
-            this.saveRouteSection(prevRoutePoint, routePoint, new Content(null, null))
+            this.saveRouteSection(prevRoutePoint, routePoint, new Content(extractTitelFromTwoRoutePoints(prevRoutePoint, routePoint), null, null))
         }
         this.route.addRoutePoint(routePoint);
         this.routeTableEntries.push(routePoint);
@@ -71,7 +76,7 @@ mapApp.service('RouteDataService', ["$rootScope",  function($rootScope){
     };
 
     this.saveRoutePointByLatLng = function (latLng) {
-        var routePoint = new RoutePoint(latLng, new Content(null, null), new TimePeriod(null));
+        var routePoint = new RoutePoint(latLng, new Content(null, null, null), new TimePeriod(null));
         this.saveRoutePoint(routePoint);
         return routePoint;
     };

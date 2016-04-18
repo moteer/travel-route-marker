@@ -28,10 +28,14 @@ function Route(titel) {
     };
 }
 
-function Content(description, image) {
-
+function Content(titel, description, image) {
+    this.titel = titel;
     this.description = description;
     this.image = image;
+
+    this.getTitel = function() {
+        return this.titel;
+    };
 
     this.getDescription = function () {
         return this.description;
@@ -94,6 +98,10 @@ function RoutePoint(latLng, content, timePeriod) {
         return this.timePeriod;
     };
 
+    this.getShortDescriptor = function () {
+        return this.content.getTitel();
+    };
+
     this.toString = function () {
         return "RoutePoint:" + JSON.stringify(this);
     };
@@ -114,6 +122,10 @@ function RouteSection(fromRoutePoint, toRoutePoint, content) {
 
     this.getToRoutePoint = function () {
         return this.toRoutePoint;
+    };
+
+    this.getShortDescriptor = function () {
+        return this.content.getTitel();
     };
 
     this.toString = function () {

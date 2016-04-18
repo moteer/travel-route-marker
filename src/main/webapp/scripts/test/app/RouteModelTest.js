@@ -30,7 +30,7 @@ describe('Route Model Test', function () {
         var route = new Route("My first Route");
 
         var latLng = new LatLng({lat: 1.2, lng: 3.4});
-        var content = new Content("some description", "some image");
+        var content = new Content("some titel", "some description", "some image");
         var timePeriod = new TimePeriod();
         var routePoint = new RoutePoint(latLng, content, timePeriod);
 
@@ -44,7 +44,7 @@ describe('Route Model Test', function () {
         var route = new Route("My first Route");
 
         var latLng = new LatLng({lat: 1.2, lng: 3.4}, "Amsterdam");
-        var content = new Content("some description", "some image");
+        var content = new Content("some titel", "some description", "some image");
         var timePeriod = new TimePeriod();
         var routePoint = new RoutePoint(latLng, content, timePeriod);
 
@@ -58,12 +58,12 @@ describe('Route Model Test', function () {
     it('routepoints should be conected via routesection', function () {
         var route = new Route("My first Route");
 
-        var content = new Content("some description", "some image");
+        var content = new Content("some titel", "some description", "some image");
         var timePeriod = new TimePeriod({from: "01.01.2015", to: "01.01.2016"});
         var latLng = new LatLng({lat: 1.2, lng: 3.4});
         var routePoint = new RoutePoint(latLng, content, timePeriod);
 
-        var content2 = new Content("some other description", "some other image");
+        var content2 = new Content("some titel", "some titel", "some other description", "some other image");
         var timePeriod2 = new TimePeriod({from: "01.01.2014", to: "01.01.2016"});
         var latLng2 = new LatLng({lat: 5.6, lng: 7.8});
         var routePoint2 = new RoutePoint(latLng2, content2, timePeriod2);
@@ -71,7 +71,7 @@ describe('Route Model Test', function () {
         route.addRoutePoint(routePoint);
         route.addRoutePoint(routePoint2);
 
-        var sectionContent = new Content("This is my way from point one to point two", "including some images");
+        var sectionContent = new Content("some titel", "This is my way from point one to point two", "including some images");
         var routeSection = new RouteSection(routePoint, routePoint2, sectionContent);
         route.addRouteSection(routeSection);
 
@@ -83,4 +83,21 @@ describe('Route Model Test', function () {
         expect(routeSection.getFromRoutePoint()).toBe(routePoint);
         expect(routeSection.getToRoutePoint()).toBe(routePoint2);
     });
+
+    it('routepoints should provide a shortDescriptor', function () {
+
+        var content = new Content("this is my titel", "some description", "some image");
+        var timePeriod = new TimePeriod({from: "01.01.2015", to: "01.01.2016"});
+        var latLng = new LatLng({lat: 1.2, lng: 3.4});
+        var routePoint = new RoutePoint(latLng, content, timePeriod);
+
+        expect(routePoint.getShortDescriptor()).toBe("this is my titel");
+    });
+
+    it('routesections should provide a shortDescriptor', function () {
+        var sectionContent = new Content("this is my titel", "This is my way from point one to point two", "including some images");
+        var routeSection = new RouteSection(null, null, sectionContent);
+        expect(routeSection.getShortDescriptor()).toBe("this is my titel");
+    });
+
 });
