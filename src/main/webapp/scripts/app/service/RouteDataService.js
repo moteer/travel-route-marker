@@ -1,7 +1,7 @@
-mapApp.service('RouteDataService', function () {
+mapApp.service('RouteDataService', ["$rootScope",  function($rootScope){
 
     this.route = null;
-    this.currentSelectionIndex = null;
+    $rootScope.currentSelectionIndex = null;
     this.routeTableEntries = new Array();
 
     this.createNewRoute = function (titel) {
@@ -77,10 +77,15 @@ mapApp.service('RouteDataService', function () {
     };
 
     this.selectRouteTableEntry = function (index) {
-        console.log("&&&&&&&&&&&&&&&&&&&                     CURRENT SELECTION INDEX: " + this.currentSelectionIndex + " WILL BE SET TO: " + index);
-        this.currentSelectionIndex = index;
+        console.log("&&&&&&&&&&&&&&&&&&&                     CURRENT SELECTION INDEX: " + $rootScope.currentSelectionIndex + " WILL BE SET TO: " + index);
+        $rootScope.currentSelectionIndex = index;
+        this.currentSelectionHasChangedEvent();
     };
 
+    this.currentSelectionHasChangedEvent = function () {
+        console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     fire current.selection.updated event");
+        $rootScope.$broadcast("current.selection.updated", $rootScope.currentSelectionIndex);
+    };
 
     function isLatLngEqualTo(latLngObject, latLng) {
         console.log("compare " + latLngObject.lat + "with" + latLng.lat);
@@ -88,8 +93,6 @@ mapApp.service('RouteDataService', function () {
         return latLngObject.lat === latLng.lat
             && latLngObject.lng === latLng.lng;
     }
-
-
 
     this.selectRoutePointByLatLngs = function (latLng) {
         console.log("---------------------------------------------------- >>>>>> POINT SELECTED " + latLng.toString());
@@ -118,26 +121,26 @@ mapApp.service('RouteDataService', function () {
         }
     };
 
-    this.getRouteTableEntries = function () {
-        return this.routeTableEntries;
-    };
-
     this.getCurrentlySelectedRouteTableEntry = function () {
-        return this.getRouteTableEntries()[this.currentSelectionIndex];
+        return this.getRouteTableEntries()[$rootScope.currentSelectionIndex];
     };
 
     this.getCurrentlySelectedRouteTableEntryIndex = function () {
-        return this.currentSelectionIndex;
+        return $rootScope.currentSelectionIndex;
     };
 
     this.resetCurrentSelection = function () {
         this.selectRouteTableEntry(undefined);
     };
 
+    this.getRouteTableEntries = function () {
+        return this.routeTableEntries;
+    };
+
     // TODO: not tested
     this.getLastRouteTableEntry = function () {
         return this.routeTableEntries[this.routeTableEntries.length - 1];
-    }
+    };
 
     this.prevClickTime = undefined;
     this.isEventToIgnore = function (currentTimeStamp) {
@@ -150,5 +153,4 @@ mapApp.service('RouteDataService', function () {
 
         return toIgnore;
     };
-
-});
+}]);

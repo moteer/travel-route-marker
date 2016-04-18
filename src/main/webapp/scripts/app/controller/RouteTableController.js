@@ -1,4 +1,4 @@
-mapApp.controller('RouteTableController', function ($scope, RouteDataService) {
+mapApp.controller('RouteTableController', ["$scope", "RouteDataService", function ($scope, RouteDataService) {
 
     $scope.routeDataService = RouteDataService;
     $scope.selectionIndex;
@@ -39,15 +39,14 @@ mapApp.controller('RouteTableController', function ($scope, RouteDataService) {
         $scope.$broadcast("routeTableEntryChanged", this.currentSelectionIndex);
     };
 
-    $scope.$on("routeTableEntryChanged", function () {
-        $scope.selectionIndex = RouteDataService.getCurrentlySelectedRouteTableEntryIndex();
-        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      RouteTableController   $scope.$on routeTableEntryChanged");
-    });
-
     $scope.onResetSelection = function () {
-        $scope.selectedRow = null;
         $scope.routeDataService.resetCurrentSelection();
     };
+
+    $scope.$on("current.selection.updated", function (e, newValue) {
+        console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     current.selection.updated has been event received by RouteTableController")
+        $scope.selectionIndex = RouteDataService.getCurrentlySelectedRouteTableEntryIndex();
+    });
 
     $scope.deleteRow = function (content) {
         // var index = $scope.rows.indexOf(content);
@@ -57,5 +56,5 @@ mapApp.controller('RouteTableController', function ($scope, RouteDataService) {
     };
 
 
-});
+}]);
 

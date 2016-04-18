@@ -1,4 +1,4 @@
-mapApp.controller('MapController', function ($scope, RouteDataService) {
+mapApp.controller('MapController', ["$scope", "RouteDataService", function ($scope, RouteDataService) {
     $scope.routeDataService = RouteDataService;
 
     $scope.numberOfmarkers = 0;
@@ -30,20 +30,16 @@ mapApp.controller('MapController', function ($scope, RouteDataService) {
 
     $scope.onMapSelectRouteElementByLatLng = function (routePoint) {
         $scope.routeDataService.selectRoutePointByLatLngs(routePoint);
-        $scope.selectionIndex = RouteDataService.getCurrentlySelectedRouteTableEntryIndex();
-        $scope.$broadcast("routeTableEntryChanged", this.currentSelectionIndex);
     };
-
-    $scope.$on("routeTableEntryChanged", function () {
-        $scope.selectionIndex = RouteDataService.getCurrentlySelectedRouteTableEntryIndex();
-       console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      MapController   $scope.$on routeTableEntryChanged");
-    });
 
     $scope.onMapSelectRouteElementsByLatLng = function (routePoint) {
         $scope.routeDataService.selectRouteSectionByLatLngs(routePoint);
-        $scope.$broadcast("routeTableEntryChanged", this.currentSelectionIndex);
     };
 
+    $scope.$on("current.selection.updated", function (e, newValue) {
+        console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     current.selection.updated has been event received by MapController")
+        $scope.selectionIndex = RouteDataService.getCurrentlySelectedRouteTableEntryIndex();
+    });
 
     $scope.markers = new Array();
 
@@ -72,6 +68,6 @@ mapApp.controller('MapController', function ($scope, RouteDataService) {
             $scope.onMapSelectRouteElementByLatLng({lat: args.model.lat, lng: args.model.lng});
         }
     });
-});
+}]);
 
 //http://tombatossals.github.io/angular-leaflet-directive/examples/0000-viewer.html#/basic/first-example
