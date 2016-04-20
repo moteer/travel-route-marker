@@ -1,4 +1,4 @@
-mapApp.service('RouteDataService', ["$rootScope",  function($rootScope){
+mapApp.service('RouteDataService', ["$rootScope", function ($rootScope) {
 
     this.route = null;
     $rootScope.currentSelectionIndex = null;
@@ -89,7 +89,7 @@ mapApp.service('RouteDataService', ["$rootScope",  function($rootScope){
 
     this.currentSelectionHasChangedEvent = function () {
         console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     fire current.selection.updated event");
-        $rootScope.$broadcast("current.selection.updated", $rootScope.currentSelectionIndex);
+        $rootScope.$broadcast("current.selection.updated", $rootScope.currentSelectionIndex, this.getCurrentlySelectedRouteTableEntry());
     };
 
     function isLatLngEqualTo(latLngObject, latLng) {
@@ -103,11 +103,23 @@ mapApp.service('RouteDataService', ["$rootScope",  function($rootScope){
         console.log("---------------------------------------------------- >>>>>> POINT SELECTED " + latLng.toString());
         this.resetCurrentSelection();
         var routeSections = this.getRouteSections();
-        for (var i = 0; i < routeSections.length; i++) {
-            if (isLatLngEqualTo(routeSections[i].getFromRoutePoint().getLatLng(), latLng)) {
-                this.selectRouteTableEntry(i * 2);
-            } else if (isLatLngEqualTo(routeSections[i].getToRoutePoint().getLatLng(), latLng) && routeSections.length - 1 == i) {
-                this.selectRouteTableEntry(i * 2 + 2);
+        if (routeSections.length === 0) {
+            var routePoints = this.getRoutePoints();
+            for (var i = 0; i < routePoints.length; i++) {
+                if (isLatLngEqualTo(routePoints[i].getLatLng(), latLng)) {
+                    this.selectRouteTableEntry(i);
+                    break;
+                }
+            }
+        } else {
+            for (var i = 0; i < routeSections.length; i++) {
+                if (isLatLngEqualTo(routeSections[i].getFromRoutePoint().getLatLng(), latLng)) {
+                    this.selectRouteTableEntry(i * 2);
+                    break;
+                } else if (isLatLngEqualTo(routeSections[i].getToRoutePoint().getLatLng(), latLng) && routeSections.length - 1 == i) {
+                    this.selectRouteTableEntry(i * 2 + 2);
+                    break;
+                }
             }
         }
     };
@@ -145,6 +157,14 @@ mapApp.service('RouteDataService', ["$rootScope",  function($rootScope){
     // TODO: not tested
     this.getLastRouteTableEntry = function () {
         return this.routeTableEntries[this.routeTableEntries.length - 1];
+    };
+
+    this.saveTitelAndPlaceForCurrentSelection = function (titel, place) {
+        var routePoint = this.getCurrentlySelectedRouteTableEntry();
+        if (routePoint !== undefined) {
+            routePoint.getLatLng().city = place;
+            routePoint.getContent().titel = titel;
+        }
     };
 
     this.prevClickTime = undefined;

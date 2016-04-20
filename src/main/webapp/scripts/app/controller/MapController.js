@@ -3,6 +3,10 @@ mapApp.controller('MapController', ["$scope", "RouteDataService", function ($sco
 
     $scope.numberOfmarkers = 0;
     $scope.selectionIndex;
+    $scope.newMarkerTitel;
+    $scope.newMarkerPlace;
+    $scope.currentSelectedItem
+
 
     angular.extend($scope, {
         //bounds: $scope.regions.sydney,
@@ -36,9 +40,16 @@ mapApp.controller('MapController', ["$scope", "RouteDataService", function ($sco
         $scope.routeDataService.selectRouteSectionByLatLngs(routePoint);
     };
 
-    $scope.$on("current.selection.updated", function (e, newValue) {
+    $scope.$on("current.selection.updated", function (e, newSelectedIndex, newSelectedItem) {
         console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     current.selection.updated has been event received by MapController")
-        $scope.selectionIndex = RouteDataService.getCurrentlySelectedRouteTableEntryIndex();
+        if (newSelectedIndex !== undefined && newSelectedItem !== undefined) {
+            $scope.selectionIndex = newSelectedIndex;
+            if (newSelectedItem instanceof RoutePoint) {
+                $scope.newMarkerTitel = newSelectedItem.getContent().getTitel();
+                $scope.newMarkerPlace = newSelectedItem.getLatLng().getCity();
+            }
+            $scope.currentSelectedItem = newSelectedItem.toString();
+        }
     });
 
     $scope.markers = new Array();
@@ -49,7 +60,8 @@ mapApp.controller('MapController', ["$scope", "RouteDataService", function ($sco
         var marker = {
             lat: leafEvent.latlng.lat,
             lng: leafEvent.latlng.lng,
-            draggable: false
+            draggable: false,
+            message: "<div ng-include src=\"'/newMarkerTemplate'\"></div>"
         };
 
         //marker.on('leafletDirectiveMarker.click', function() {console.log("Clicked on" + leafEvent.latlng.lat)});
@@ -58,16 +70,20 @@ mapApp.controller('MapController', ["$scope", "RouteDataService", function ($sco
         ++$scope.numberOfmarkers;
         if (!$scope.routeDataService.isEventToIgnore(leafEvent.originalEvent.timeStamp)) {
             console.log("----------> $scope.onMapClick({lat: " + leafEvent.latlng.lat + ", lng: " + leafEvent.latlng.lng + "})");
-            $scope.onMapClick({lat: leafEvent.latlng.lat, lng: leafEvent.latlng.lng});
+            $scope.onMapClick(new LatLng({lat: leafEvent.latlng.lat, lng: leafEvent.latlng.lng}, null));
         }
     });
 
     $scope.$on('leafletDirectiveMarker.click', function (e, args) {
         var leafEvent = args.leafletEvent;
         if (!$scope.routeDataService.isEventToIgnore(leafEvent.originalEvent.timeStamp)) {
-            $scope.onMapSelectRouteElementByLatLng({lat: args.model.lat, lng: args.model.lng});
+            $scope.onMapSelectRouteElementByLatLng(new LatLng({lat: args.model.lat, lng: args.model.lng}, null));
         }
     });
+
+    $scope.saveTitelAndPlace = function () {
+        $scope.routeDataService.saveTitelAndPlaceForCurrentSelection($scope.newMarkerTitel, $scope.newMarkerPlace);
+    };
 }]);
 
 //http://tombatossals.github.io/angular-leaflet-directive/examples/0000-viewer.html#/basic/first-example

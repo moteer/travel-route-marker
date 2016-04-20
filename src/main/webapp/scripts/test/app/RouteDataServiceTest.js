@@ -163,19 +163,19 @@ describe('RouteDataServiceTest', function () {
         var rp3 = new RoutePoint(new LatLng({lat: 2.2, lng: 2.2}, "Leipzig"), new Content("some titel", "rp3", "rp3"), new TimePeriod());
 
         RouteDataService.saveRoutePoint(rp1);
-        RouteDataService.saveRoutePoint(rp2);
-        RouteDataService.saveRoutePoint(rp3);
 
-        RouteDataService.selectRoutePointByLatLngs({lat: 0.0, lng: 0.0});
+        RouteDataService.selectRoutePointByLatLngs({lat: 0.0, lng: 0.0}, null);
         expect(RouteDataService.getCurrentlySelectedRouteTableEntry()).toEqualJSONyFied(rp1);
         expect(RouteDataService.getCurrentlySelectedRouteTableEntryIndex()).toBe(0);
 
+        RouteDataService.saveRoutePoint(rp2);
+        RouteDataService.saveRoutePoint(rp3);
 
-        RouteDataService.selectRoutePointByLatLngs({lat: 1.1, lng: 1.1});
+        RouteDataService.selectRoutePointByLatLngs({lat: 1.1, lng: 1.1}, null);
         expect(RouteDataService.getCurrentlySelectedRouteTableEntry()).toEqualJSONyFied(rp2);
         expect(RouteDataService.getCurrentlySelectedRouteTableEntryIndex()).toBe(2);
 
-        RouteDataService.selectRoutePointByLatLngs({lat: 2.2, lng: 2.2});
+        RouteDataService.selectRoutePointByLatLngs({lat: 2.2, lng: 2.2}, null);
         expect(RouteDataService.getCurrentlySelectedRouteTableEntry()).toEqualJSONyFied(rp3);
         expect(RouteDataService.getCurrentlySelectedRouteTableEntryIndex()).toBe(4);
     });
@@ -207,5 +207,29 @@ describe('RouteDataServiceTest', function () {
         expect(RouteDataService.getCurrentlySelectedRouteTableEntryIndex()).toBe(3);
     });
 
+    it('should save titel and place at current selected RoutePoint on saveTitelAndPlaceForCurrentSelection', function () {
+        var route = new Route("My way through Asia");
+        RouteDataService.init(route);
+        var rp1 = new RoutePoint(new LatLng({lat: 0.0, lng: 0.0}, null), new Content(null, null, null), new TimePeriod());
+
+        RouteDataService.saveRoutePoint(rp1);
+        RouteDataService.selectRoutePointByLatLngs(new LatLng({lat: 0.0, lng: 0.0}, null));
+        RouteDataService.saveTitelAndPlaceForCurrentSelection("a new titel", "a place or city");
+        var expectedRoutePoint = new RoutePoint(new LatLng({lat: 0.0, lng: 0.0}, "a place or city"), new Content("a new titel", null, null), new TimePeriod());
+        expect(RouteDataService.getCurrentlySelectedRouteTableEntry()).toEqualJSONyFied(expectedRoutePoint);
+    });
+
+    it('should not save anything when no current selection exists on saveTitelAndPlaceForCurrentSelection', function () {
+        var route = new Route("My way through Asia");
+        RouteDataService.init(route);
+        var rp1 = new RoutePoint(new LatLng({lat: 0.0, lng: 0.0}, null), new Content(null, null, null), new TimePeriod());
+
+        RouteDataService.saveRoutePoint(rp1);
+        RouteDataService.saveTitelAndPlaceForCurrentSelection("a new titel", "a place or city");
+        expect(RouteDataService.getCurrentlySelectedRouteTableEntry()).toBe(undefined);
+
+        var expectedRoutePoint = new RoutePoint(new LatLng({lat: 0.0, lng: 0.0}, null), new Content(null, null, null), new TimePeriod());
+        expect(RouteDataService.getRoutePoints()[0]).toEqualJSONyFied(expectedRoutePoint);
+    });
 
 });

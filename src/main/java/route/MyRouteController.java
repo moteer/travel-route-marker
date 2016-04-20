@@ -32,6 +32,12 @@ public class MyRouteController {
         return "partials/map/leaflet";
     }
 
+    @RequestMapping(value = "/newMarkerTemplate", method = RequestMethod.GET)
+    public String newMarkerTemplate() {
+        return "newMarkerTemplate";
+    }
+
+
 
     // @RequestMapping("/testsuite")
     // public String qunitTests() {

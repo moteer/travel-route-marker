@@ -30,6 +30,10 @@ describe('Map Controller', function () {
             console.log("mock mockRouteTableController.getLastRouteTableEntry was called");
         };
 
+        mockRouteDataService.saveTitelAndPlaceForCurrentSelection = function () {
+            console.log("mock mockRouteTableController.saveTitelAndPlaceForCurrentSelection was called");
+        };
+
     });
 
     beforeEach(inject(function ($rootScope, $controller, _RouteDataService_) {
@@ -104,18 +108,27 @@ describe('Map Controller', function () {
         expect(RouteDataService.saveRoutePointByLatLng.calls.argsFor(0)).toEqualJSONyFied([{lat: 22.22, lng: 22.22}]);
     });
 
-    it('it should set focus in RouteDataService when point in Map selected', function () {
+    it('should set focus in RouteDataService when point in Map selected', function () {
         spyOn(RouteDataService, 'selectRoutePointByLatLngs');
         //select Point
         scope.onMapSelectRouteElementByLatLng({lat: "11.11", lng: "11.11"});
         expect(RouteDataService.selectRoutePointByLatLngs).toHaveBeenCalledWith({lat: "11.11", lng: "11.11"});
     });
 
-    it('it should set focus to selected RouteSection in RouteDataService when path in Map selected', function () {
+    it('should set focus to selected RouteSection in RouteDataService when path in Map selected', function () {
         spyOn(RouteDataService, 'selectRouteSectionByLatLngs');
         var routeSection = [{lat: "11.11", lng: "11.11"}, {lat: "22.22", lng: "22.22"}];
         scope.onMapSelectRouteElementsByLatLng(routeSection);
         expect(RouteDataService.selectRouteSectionByLatLngs).toHaveBeenCalledWith(routeSection);
+    });
+
+    it('should call save Titel on dataService and place on click save Button at RoutePoint', function () {
+        spyOn(RouteDataService, 'saveTitelAndPlaceForCurrentSelection');
+        scope.newMarkerTitel = "some Titel";
+        scope.newMarkerPlace = "some Place or City";
+        scope.saveTitelAndPlace();
+        expect(RouteDataService.saveTitelAndPlaceForCurrentSelection).toHaveBeenCalledWith("some Titel", "some Place or City");
+
     });
 
 })
