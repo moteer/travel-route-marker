@@ -1,7 +1,13 @@
 P1|cleanup table information column names and content to be shown| Titel for routePoints and "from to" for routeSections| DONE
-P1|write shortDescription/Titel when adding new point either way via map or table|
+P1|write shortDescription/Titel when adding new point either way via map or table| DONE
+P1|make routepoint selectable| DONE
+P1|enter title and city to rooutepoint in map| DONE
 
-P1|make routepoint selectable|
+P1|update routepart table on save button|
+
+P1|on save button close popup|
+
+
 P1|add time period dimension|
 BF|Chrome looks different||
 P1|create routepoint connection on map when adding new route point|

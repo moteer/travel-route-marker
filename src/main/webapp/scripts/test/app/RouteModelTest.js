@@ -95,9 +95,22 @@ describe('Route Model Test', function () {
     });
 
     it('routesections should provide a shortDescriptor', function () {
+
+        var content = new Content("some titel", "some description", "some image");
+        var timePeriod = new TimePeriod({from: "01.01.2015", to: "01.01.2016"});
+        var latLng = new LatLng({lat: 1.2, lng: 3.4}, "Berlin");
+        var fromRoutePoint = new RoutePoint(latLng, content, timePeriod);
+
+        var content2 = new Content("some titel", "some titel", "some other description", "some other image");
+        var timePeriod2 = new TimePeriod({from: "01.01.2014", to: "01.01.2016"});
+        var latLng2 = new LatLng({lat: 5.6, lng: 7.8}, "Hamburg");
+        var toRoutePoint = new RoutePoint(latLng2, content2, timePeriod2);
+
+
         var sectionContent = new Content("this is my titel", "This is my way from point one to point two", "including some images");
-        var routeSection = new RouteSection(null, null, sectionContent);
-        expect(routeSection.getShortDescriptor()).toBe("this is my titel");
+        var routeSection = new RouteSection(fromRoutePoint, toRoutePoint, sectionContent);
+        expect(routeSection.getShortDescriptor()).toBe("Berlin to Hamburg");
+
     });
 
 });

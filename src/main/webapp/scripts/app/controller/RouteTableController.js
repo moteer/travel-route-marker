@@ -31,7 +31,7 @@ mapApp.controller('RouteTableController', ["$scope", "RouteDataService", functio
     };
 
     $scope.saveRoutePointByName = function (city, shortDescriptor) {
-        RouteDataService.saveRoutePointByName(new LatLng(null,city), new Content(shortDescriptor, null, null), new TimePeriod(null));
+        RouteDataService.saveRoutePointByName(new LatLng(null, city), new Content(shortDescriptor, null, null), new TimePeriod(null));
     };
 
     $scope.onSelectTableEntry = function (index) {
@@ -45,9 +45,15 @@ mapApp.controller('RouteTableController', ["$scope", "RouteDataService", functio
     };
 
     $scope.$on("current.selection.updated", function (e, newValue) {
-        console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     current.selection.updated has been event received by RouteTableController")
+        console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     current.selection.updated event has been received by RouteTableController")
         $scope.selectionIndex = RouteDataService.getCurrentlySelectedRouteTableEntryIndex();
     });
+
+    $scope.$on("current.selection.changed", function (e, newValue) {
+        console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     current.selection.changed event has been received by RouteTableController changed to " + newValue)
+        $scope.currentSelectedItem = RouteDataService.getCurrentlySelectedRouteTableEntryIndex();
+    });
+
 
     $scope.deleteRow = function (content) {
         // var index = $scope.rows.indexOf(content);

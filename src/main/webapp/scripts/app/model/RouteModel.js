@@ -99,7 +99,7 @@ function RoutePoint(latLng, content, timePeriod) {
     };
 
     this.getShortDescriptor = function () {
-        return this.content.getTitel();
+        return this.content.titel;
     };
 
     this.toString = function () {
@@ -125,7 +125,7 @@ function RouteSection(fromRoutePoint, toRoutePoint, content) {
     };
 
     this.getShortDescriptor = function () {
-        return this.content.getTitel();
+        return this.fromRoutePoint.getLatLng().getCity() + " to " + this.toRoutePoint.getLatLng().getCity();
     };
 
     this.toString = function () {
