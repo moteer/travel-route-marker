@@ -3,9 +3,9 @@ P1|write shortDescription/Titel when adding new point either way via map or tabl
 P1|make routepoint selectable| DONE
 P1|enter title and city to rooutepoint in map| DONE
 P1|update routepart table on save button| DONE
+P1|on marker selection prepopulate text field with current marker information| DONE
 
-P1|on marker selection prepopulate text field with current marker information|
-
+P1|on selection change in table close marker popup |
 P1|on save button close popup|
 
 

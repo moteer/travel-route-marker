@@ -1,4 +1,4 @@
-mapApp.controller('MapController', ["$scope", "RouteDataService", function ($scope, RouteDataService) {
+mapApp.controller('MapController', ["$scope", "RouteDataService", "$compile", function ($scope, RouteDataService, $compile) {
     $scope.routeDataService = RouteDataService;
 
     $scope.numberOfmarkers = 0;
@@ -61,10 +61,20 @@ mapApp.controller('MapController', ["$scope", "RouteDataService", function ($sco
             lat: leafEvent.latlng.lat,
             lng: leafEvent.latlng.lng,
             draggable: false,
-            message: "<div ng-include src=\"'/newMarkerTemplate'\"></div>"
-        };
+            compileMessage: true,
+            message: "<div ng-include src=\"'/newMarkerTemplate'\"></div>",
+            getMessageScope: function () {
+                var popupScope = $scope.$new(true);
+                popupScope.titel = $scope.newMarkerTitel;
+                popupScope.place = $scope.newMarkerPlace;
 
-        //marker.on('leafletDirectiveMarker.click', function() {console.log("Clicked on" + leafEvent.latlng.lat)});
+                popupScope.$on("current.selection.updated", function () {
+                    popupScope.titel = $scope.newMarkerTitel;
+                    popupScope.place = $scope.newMarkerPlace;
+                });
+                return popupScope;
+            }
+        };
 
         $scope.markers.push(marker);
         ++$scope.numberOfmarkers;
@@ -74,37 +84,15 @@ mapApp.controller('MapController', ["$scope", "RouteDataService", function ($sco
         }
     });
 
-    var showPopup = function (marker_id, map) {
-        var marker = map.markers[marker_id];
-        // build the popup template
-        var _templateScope;
-        if (!_templateScope) { //only if your using one window for all markers
-            _templateScope = $scope.$new();
-        }
-        _templateScope.model = trail; //I am not sure what your model is from above
-        var content = '<div ng-include src="/newMarkerTemplate"></div>';
-        var compiled = $compile(content)(_templateScope);
-
-        // plae the popup template on the map
-        var latLng = [marker.lat, marker.lng];
-        var popup = L.popup({className: 'custom-popup'}).setContent(compiled).setLatLng(latLng);
-
-        // open the template
-        map.then(function (map) {
-            popup.openOn(map);
-        });
-    };
-
     $scope.$on('leafletDirectiveMarker.click', function (e, args) {
         var leafEvent = args.leafletEvent;
         if (!$scope.routeDataService.isEventToIgnore(leafEvent.originalEvent.timeStamp)) {
             $scope.onMapSelectRouteElementByLatLng(new LatLng({lat: args.model.lat, lng: args.model.lng}, null));
         }
-        showPopup(args.modelName, args.leafletObject._map);
     });
 
 
-    $scope.saveTitelAndPlace = function (newMarkerTitel, newMarkerPlace) {
+    $scope.saveTitleAndPlace = function (newMarkerTitel, newMarkerPlace) {
         console.log("newMarkerTitel: " + newMarkerTitel + " | newMarkerPlace: " + newMarkerPlace);
         $scope.newMarkerTitel = newMarkerTitel;
         $scope.newMarkerPlace = newMarkerPlace;

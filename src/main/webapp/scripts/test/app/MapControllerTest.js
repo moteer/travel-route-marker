@@ -124,9 +124,7 @@ describe('Map Controller', function () {
 
     it('should call save Titel on dataService and place on click save Button at RoutePoint', function () {
         spyOn(RouteDataService, 'saveTitelAndPlaceForCurrentSelection');
-        scope.newMarkerTitel = "some Titel";
-        scope.newMarkerPlace = "some Place or City";
-        scope.saveTitelAndPlace();
+        scope.saveTitleAndPlace("some Titel", "some Place or City");
         expect(RouteDataService.saveTitelAndPlaceForCurrentSelection).toHaveBeenCalledWith("some Titel", "some Place or City");
 
     });

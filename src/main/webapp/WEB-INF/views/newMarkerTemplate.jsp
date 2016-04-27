@@ -1,16 +1,16 @@
 <div ng-controller="MapController">
-    <form ng-submit="saveTitelAndPlace(newNewMarkerTitel, newNewMarkerPlace)">
+    <form>
         <table>
             <tr>
                 <td>Titel</td>
-                {{newNewMarkerTitel}}
-                <td><input type="text" ng-model="newNewMarkerTitel"/></td>
+                {{titel}}
+                <td><input type="text" ng-model="titel"/></td>
             </tr>
             <tr>
                 <td>Place</td>
-                <td><input type="text" ng-model="newNewMarkerPlace" /></td>
+                <td><input type="text" ng-model="place" /></td>
             </tr>
         </table>
-        <button ng-click="saveTitelAndPlace()">Save</button>
+        <button ng-click="saveTitleAndPlace(titel, place)">Save</button>
     </form>
 </div>
