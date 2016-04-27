@@ -1,6 +1,12 @@
 <div data-ng-controller="MapController" class="map-partial-div">
     <h1>Map with {{numberOfmarkers}} markers and selection index {{selectionIndex}}</h1>
     <span>{{currentSelectedItem}}</span>
+
+    <p>
+        <span>newMarkerTitel: {{newMarkerTitel}}</span><br/>
+        <span>newMarkerTitel: {{newMarkerPlace}}</span>
+    </p>
+
     <leaflet class="map" markers="markers" lf-center="center"></leaflet>
 </div>
 
@@ -16,7 +22,8 @@
         <td>Titel</td>
         <td>Action</td>
         </thead>
-        <tr ng-repeat="routeTableEntry in routeDataService.routeTableEntries" ng-class="{'selected':$index === selectionIndex}" ng-click="onSelectTableEntry($index)">
+        <tr ng-repeat="routeTableEntry in routeDataService.routeTableEntries" ng-class="{'selected':$index === selectionIndex}"
+            ng-click="onSelectTableEntry($index)">
             <td>{{routeTableEntry.getShortDescriptor()}}</td>
             <td></td>
         </tr>
