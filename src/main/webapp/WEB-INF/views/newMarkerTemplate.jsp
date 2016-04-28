@@ -3,7 +3,6 @@
         <table>
             <tr>
                 <td>Titel</td>
-                {{titel}}
                 <td><input type="text" ng-model="titel"/></td>
             </tr>
             <tr>
@@ -11,6 +10,6 @@
                 <td><input type="text" ng-model="place" /></td>
             </tr>
         </table>
-        <button ng-click="saveTitleAndPlace(titel, place)">Save</button>
+        <button ng-click="saveTitleAndPlace(titel, place); onClickSaveButton()">Save</button>
     </form>
 </div>

@@ -110,7 +110,6 @@ describe('Route Model Test', function () {
         var sectionContent = new Content("this is my titel", "This is my way from point one to point two", "including some images");
         var routeSection = new RouteSection(fromRoutePoint, toRoutePoint, sectionContent);
         expect(routeSection.getShortDescriptor()).toBe("Berlin to Hamburg");
-
     });
 
 });

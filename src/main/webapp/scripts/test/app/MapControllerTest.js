@@ -126,7 +126,6 @@ describe('Map Controller', function () {
         spyOn(RouteDataService, 'saveTitelAndPlaceForCurrentSelection');
         scope.saveTitleAndPlace("some Titel", "some Place or City");
         expect(RouteDataService.saveTitelAndPlaceForCurrentSelection).toHaveBeenCalledWith("some Titel", "some Place or City");
-
     });
 
 })

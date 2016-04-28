@@ -1,4 +1,4 @@
-mapApp.controller('MapController', ["$scope", "RouteDataService", "$compile", function ($scope, RouteDataService, $compile) {
+mapApp.controller('MapController', ["$scope", "RouteDataService", "leafletData", function ($scope, RouteDataService, leafletData) {
     $scope.routeDataService = RouteDataService;
 
     $scope.numberOfmarkers = 0;
@@ -39,6 +39,14 @@ mapApp.controller('MapController', ["$scope", "RouteDataService", "$compile", fu
         $scope.routeDataService.selectRouteSectionByLatLngs(routePoint);
     };
 
+    var closePopups = function () {
+        leafletData.getMap().then(function (map) {
+            if (map._popup._isOpen) {
+                map.closePopup();
+            }
+        });
+    };
+
     $scope.$on("current.selection.updated", function (e, newSelectedIndex, newSelectedItem) {
         console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     current.selection.updated has been event received by MapController");
 
@@ -50,6 +58,7 @@ mapApp.controller('MapController', ["$scope", "RouteDataService", "$compile", fu
             }
             $scope.currentSelectedItem = newSelectedItem.toString();
         }
+
     });
 
     $scope.markers = new Array();
@@ -72,6 +81,11 @@ mapApp.controller('MapController', ["$scope", "RouteDataService", "$compile", fu
                     popupScope.titel = $scope.newMarkerTitel;
                     popupScope.place = $scope.newMarkerPlace;
                 });
+
+                popupScope.onClickSaveButton = function () {
+                    closePopups();
+                };
+
                 return popupScope;
             }
         };
