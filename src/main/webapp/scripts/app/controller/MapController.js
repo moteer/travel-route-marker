@@ -35,8 +35,8 @@ mapApp.controller('MapController', ["$scope", "RouteDataService", "leafletData",
         $scope.routeDataService.selectRoutePointByLatLngs(routePoint);
     };
 
-    $scope.onMapSelectRouteElementsByLatLng = function (routePoint) {
-        $scope.routeDataService.selectRouteSectionByLatLngs(routePoint);
+    $scope.onMapSelectRouteElementsByLatLng = function (routePoints) {
+        $scope.routeDataService.selectRouteSectionByLatLngs(routePoints);
     };
 
     var closePopups = function () {
@@ -136,6 +136,15 @@ mapApp.controller('MapController', ["$scope", "RouteDataService", "leafletData",
         }
     });
 
+    $scope.$on('leafletDirectivePath.click', function (e, path) {
+        var leafEvent = path.leafletEvent;
+        if (!$scope.routeDataService.isEventToIgnore(leafEvent.originalEvent.timeStamp)) {
+            var fromLatLng = path.leafletObject.getLatLngs()[0];
+            var toLatLng = path.leafletObject.getLatLngs()[1];
+            $scope.onMapSelectRouteElementsByLatLng([fromLatLng, toLatLng]);
+        }
+    });
+
 
     $scope.saveTitleAndPlace = function (newMarkerTitel, newMarkerPlace) {
         console.log("newMarkerTitel: " + newMarkerTitel + " | newMarkerPlace: " + newMarkerPlace);
@@ -143,8 +152,6 @@ mapApp.controller('MapController', ["$scope", "RouteDataService", "leafletData",
         $scope.newMarkerPlace = newMarkerPlace;
         $scope.routeDataService.saveTitelAndPlaceForCurrentSelection($scope.newMarkerTitel, $scope.newMarkerPlace);
     };
-
-
 }]);
 
 //http://tombatossals.github.io/angular-leaflet-directive/examples/0000-viewer.html#/basic/first-example

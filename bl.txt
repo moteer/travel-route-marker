@@ -8,9 +8,10 @@ P1|on save button close popup| DONE
 P1|create routepoint connection on map when adding new route point| DONE
 
 P1|make routesection selectable|
+
 P1|introduce style via bootstrap|
 
-
+P1|split leaflet specific functions from generell controller code|
 P1|on selection change in table close marker popup |
 
 P1|add time period dimension|
