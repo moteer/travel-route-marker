@@ -62,10 +62,9 @@ mapApp.controller('MapController', ["$scope", "RouteDataService", "leafletData",
     });
 
     $scope.markers = new Array();
+    $scope.paths = new Array();
 
-    $scope.$on("leafletDirectiveMap.click", function (event, args) {
-        var leafEvent = args.leafletEvent;
-
+    var addNewMarker = function (leafEvent) {
         var marker = {
             lat: leafEvent.latlng.lat,
             lng: leafEvent.latlng.lng,
@@ -89,8 +88,41 @@ mapApp.controller('MapController', ["$scope", "RouteDataService", "leafletData",
                 return popupScope;
             }
         };
-
         $scope.markers.push(marker);
+        return marker;
+    };
+
+    var getPrevMarker = function () {
+        if ($scope.markers.length >= 2) {
+            return $scope.markers[$scope.markers.length - 2];
+        }
+        return undefined;
+    };
+
+    var addPath = function (newMarker) {
+        var path;
+        var prevMarker = getPrevMarker();
+        if (prevMarker !== undefined) {
+            path = {
+                color: '#008000',
+                weight: 4,
+                latlngs: [
+                    {lat: prevMarker.lat, lng: prevMarker.lng},
+                    {lat: newMarker.lat, lng: newMarker.lng}
+                ],
+
+            };
+            $scope.paths.push(path);
+        }
+        return path;
+    };
+
+    $scope.$on("leafletDirectiveMap.click", function (event, args) {
+        var leafEvent = args.leafletEvent;
+
+        var marker = addNewMarker(leafEvent);
+        addPath(marker);
+
         ++$scope.numberOfmarkers;
         if (!$scope.routeDataService.isEventToIgnore(leafEvent.originalEvent.timeStamp)) {
             console.log("----------> $scope.onMapClick({lat: " + leafEvent.latlng.lat + ", lng: " + leafEvent.latlng.lng + "})");

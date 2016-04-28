@@ -7,7 +7,7 @@
         <span>newMarkerTitel: {{newMarkerPlace}}</span>
     </p>
 
-    <leaflet class="map" markers="markers" lf-center="center"></leaflet>
+    <leaflet class="map" markers="markers" paths="paths" lf-center="center"></leaflet>
 </div>
 
 <div data-ng-controller="RouteTableController" class="table-partial-div">
