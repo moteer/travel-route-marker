@@ -109,8 +109,7 @@ mapApp.controller('MapController', ["$scope", "RouteDataService", "leafletData",
                 latlngs: [
                     {lat: prevMarker.lat, lng: prevMarker.lng},
                     {lat: newMarker.lat, lng: newMarker.lng}
-                ],
-
+                ]
             };
             $scope.paths.push(path);
         }

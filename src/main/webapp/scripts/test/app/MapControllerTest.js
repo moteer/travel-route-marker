@@ -2,8 +2,11 @@ describe('Map Controller', function () {
 
     beforeEach(function () {
         var mockRouteDataService = {};
+        var mockLeafletData = {};
         module('RouteApp', function ($provide) {
             $provide.value('RouteDataService', mockRouteDataService);
+            $provide.value('leafletData', mockLeafletData);
+
         });
 
         mockRouteDataService.selectRoutePointByLatLngs = function (routePoint) {
@@ -36,12 +39,14 @@ describe('Map Controller', function () {
 
     });
 
-    beforeEach(inject(function ($rootScope, $controller, _RouteDataService_) {
+    beforeEach(inject(function ($rootScope, $controller, _RouteDataService_, _leafletData_) {
         scope = $rootScope.$new();
+        leafletData = _leafletData_;
         RouteDataService = _RouteDataService_;
         MapController = $controller('MapController', {
             $scope: scope,
-            routeDataService: RouteDataService
+            routeDataService: RouteDataService,
+            leafletData: leafletData
         });
     }));
 
