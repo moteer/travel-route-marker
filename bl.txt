@@ -6,10 +6,13 @@ P1|update routepart table on save button| DONE
 P1|on marker selection prepopulate text field with current marker information| DONE
 P1|on save button close popup| DONE
 P1|create routepoint connection on map when adding new route point| DONE
+P1|make routesection selectable|DONE
 
-P1|make routesection selectable|
+P1|introduce style via eg. bootstrap|
 
-P1|introduce style via bootstrap|
+
+P1|popup fo routesection|
+P1|customize popups to become buttons for open modal edit window or other functions like drag, delete etc.|
 
 P1|split leaflet specific functions from generell controller code|
 P1|on selection change in table close marker popup |
