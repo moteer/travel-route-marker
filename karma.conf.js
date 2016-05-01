@@ -15,13 +15,8 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
-             '/home/development/Desktop/ehoelzel/playground/node_modules_old/angular/angular.js',
-             '/home/development/Desktop/ehoelzel/playground/node_modules_old/angular-mocks/angular-mocks.js',
-            // '/home/development/Desktop/ehoelzel/playground/src/main/webapp/scripts/test/app/EditableRoutePartTableAppTest.js',
-            // '/home/development/Desktop/ehoelzel/playground/src/main/webapp/scripts/app/controller/EditableTableController.js',
-            // '/home/development/Desktop/ehoelzel/playground/src/main/webapp/scripts/test/app/EditableRoutePartTableWidgetTest.js',
-            //'**/angular.js',
-            //'**/angular-mocks.js',
+             'node_modules/angular/angular.js',
+             'node_modules/angular-mocks/angular-mocks.js',
             '**/RouteTableAppTest.js',
 
             '**/RouteModel.js',

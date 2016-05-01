@@ -7,11 +7,13 @@ P1|on marker selection prepopulate text field with current marker information| D
 P1|on save button close popup| DONE
 P1|create routepoint connection on map when adding new route point| DONE
 P1|make routesection selectable|DONE
+P1|setup gulp| DONE
+P1|migrate to node server and delete java project| DONE
 
-P1|setup gulp|
-P1|migrate to node server and delete java project|
+P1|introduce style via eg. foundation bootstrap|
 
-P1|introduce style via eg. bootstrap|
+P1|new gulp task uglyfy/minify|
+P1|new gulp task continouse testing with karma|
 
 
 P1|popup fo routesection|
