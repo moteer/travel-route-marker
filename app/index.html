@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html data-ng-app="RouteApp">
+
+<head>
+    <%--angular libs--%>
+    <script src="../node_modules/angular/angular.min.js"></script>
+    <script src="../node_modules/angular-route/angular-route.min.js"></script>
+
+    <%--leaflet map lib --%>
+    <script src="../node_modules/leaflet/dist/leaflet.js"></script>
+    <script src="../node_modules/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script>
+    <link rel="stylesheet" href="styles/leaflet.css"/>
+    <link rel="stylesheet" href="styles/main.css"/>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body>
+<div class="main-div">
+    <div data-ng-view="" class="partial-parent-div"></div>
+</div>
+
+<%--route scripts--%>
+<script src="scripts/RouteTableApp.js"></script>
+<script src="scripts/model/RouteModel.js"></script>
+<script src="scripts/service/RouteDataService.js"></script>
+<script src="scripts/controller/RouteTableController.js"></script>
+<script src="scripts/controller/MapController.js"></script>
+
+</body>
+</html>

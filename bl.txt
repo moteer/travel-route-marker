@@ -8,6 +8,9 @@ P1|on save button close popup| DONE
 P1|create routepoint connection on map when adding new route point| DONE
 P1|make routesection selectable|DONE
 
+P1|setup gulp|
+P1|migrate to node server and delete java project|
+
 P1|introduce style via eg. bootstrap|
 
 

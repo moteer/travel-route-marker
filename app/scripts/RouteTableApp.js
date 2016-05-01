@@ -5,10 +5,7 @@ var mapApp = angular.module('RouteApp', ['ngRoute', 'leaflet-directive']);
 mapApp.config(function ($routeProvider) {
     $routeProvider
         .when('/', {
-            controller: 'RouteTableController',
-            templateUrl: '/route'
-        }).when('/map', {
             controller: 'MapController',
-            templateUrl: '/map/leaflet'
-        }).otherwise({redirectTo: '/'});
+            templateUrl: 'partials/map/leaflet.html'
+        }).otherwise({redirectTo: 'partials/map/leaflet.html'});
 });

@@ -70,7 +70,7 @@ mapApp.controller('MapController', ["$scope", "RouteDataService", "leafletData",
             lng: leafEvent.latlng.lng,
             draggable: false,
             compileMessage: true,
-            message: "<div ng-include src=\"'/newMarkerTemplate'\"></div>",
+            message: "<div ng-include src=\"'newMarkerTemplate.html'\"></div>",
             getMessageScope: function () {
                 var popupScope = $scope.$new(true);
                 popupScope.titel = $scope.newMarkerTitel;
