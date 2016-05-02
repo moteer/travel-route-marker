@@ -1,0 +1,35 @@
+{
+  "name": "playground",
+  "version": "1.0.0",
+  "description": "",
+  "main": "karma.conf.js",
+  "dependencies": {
+    "angular-foundation": "^0.8.0",
+    "angular-leaflet-directive": "^0.10.0",
+    "angular-mocks": "^1.5.0",
+    "angular-route": "^1.5.0",
+    "angularjs": "^0.0.1",
+    "gulp": "^3.9.1",
+    "jasmine-core": "^2.4.1",
+    "jshint": "^2.9.1",
+    "karma": "^0.13.21",
+    "nodejs": "^0.0.0",
+    "phantomjs-prebuilt": "^2.1.5",
+    "qunitjs": "^1.22.0",
+    "requirejs": "^2.1.22"
+  },
+  "devDependencies": {
+    "angular-foundation": "^0.8.0",
+    "mocha": "^2.4.5"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://moteer@bitbucket.org/moteer/playground.git"
+  },
+  "author": "moteer",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/moteer/playground#readme"
+}
