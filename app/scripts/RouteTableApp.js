@@ -1,4 +1,7 @@
-var mapApp = angular.module('RouteApp', ['ngRoute', 'leaflet-directive']);
+var mapApp = angular.module('RouteApp',
+    ['ngRoute',
+        'leaflet-directive',
+        'mm.foundation']);
 
 
 //Routes

@@ -13,7 +13,7 @@
 <div data-ng-controller="RouteTableController" class="table-partial-div">
     <h1>{{ getTitel() }}</h1>
     enter Titel ... <input type="text" data-ng-model="newTitel"/>
-    <button ng-click="createNewRoute()">create new Route</button>
+    <button class='button' ng-click="createNewRoute()">create new Route</button>
 
 
     <h2>selected index {{selectionIndex}}</h2>
@@ -32,7 +32,7 @@
             City: <input type="text" data-ng-model="newCity"/> Titel: <input type="text" data-ng-model="shortDescriptor"/>
         </td>
         <td>
-            <button ng-click="addRoutePoint(); ">Add</button>
+            <button type="button" class='button' ng-click="addRoutePoint()">Add</button>
         </td>
         </tfoot>
     </table>
