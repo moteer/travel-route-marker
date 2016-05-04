@@ -11,14 +11,14 @@ P1|setup gulp| DONE
 P1|migrate to node server and delete java project| DONE
 P1|introduce style via eg. foundation | DONE
 
-P1|prittyfy styling |
+P1|popup fo routesection|
 
 
 P1|new gulp task uglyfy/minify|
 P1|new gulp task continouse testing with karma|
+P1|prittyfy styling |
 
 
-P1|popup fo routesection|
 P1|customize popups to become buttons for open modal edit window or other functions like drag, delete etc.|
 
 P1|split leaflet specific functions from generell controller code|

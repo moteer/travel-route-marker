@@ -1,6 +1,6 @@
-<div ng-controller="MapController">
+<div class="marker-popup" ng-controller="MapController">
     <form>
-        <table>
+        <table class="hover">
             <tr>
                 <td>Titel</td>
                 <td><input type="text" ng-model="titel"/></td>
@@ -10,6 +10,6 @@
                 <td><input type="text" ng-model="place" /></td>
             </tr>
         </table>
-        <button ng-click="saveTitleAndPlace(titel, place); onClickSaveButton()">Save</button>
+        <button class="button" ng-click="saveTitleAndPlace(titel, place); onClickSaveButton()">Save</button>
     </form>
 </div>
