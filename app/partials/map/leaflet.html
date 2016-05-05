@@ -22,11 +22,16 @@
         <td>Titel</td>
         <td>Action</td>
         </thead>
-        <tr ng-repeat="routeTableEntry in routeDataService.routeTableEntries" ng-class="{'selected':$index === selectionIndex}"
+
+        <tbody>
+
+        <tbody ng-repeat="routePart in routeDataService.routeTableEntries"
+            ng-class="{'selected':$index === selectionIndex}"
             ng-click="onSelectTableEntry($index)">
-            <td>{{routeTableEntry.getShortDescriptor()}}</td>
-            <td></td>
-        </tr>
+            <tr route-part description="routePart.getShortDescriptor()" />
+        </tbody>
+        </tbody>
+
         <tfoot>
         <td>
             City: <input type="text" data-ng-model="newCity"/> Titel: <input type="text" data-ng-model="shortDescriptor"/>
@@ -36,5 +41,12 @@
         </td>
         </tfoot>
     </table>
+
+
+    <button class="button" ng-click="checkForFileAPISuuport()">check File API</button>
+    <input type="file" id="files" name="files[]" multiple onchange="angular.element(this).scope().selectLocalFile(this)"/>
+    <!--<output id="list"></output>-->
+    {{filelist}}
+    <!--http://luxiyalu.com/angular-all-about-inputfile/-->
 </div>
 

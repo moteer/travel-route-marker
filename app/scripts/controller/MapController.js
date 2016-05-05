@@ -70,6 +70,7 @@ mapApp.controller('MapController', ["$scope", "RouteDataService", "leafletData",
             lng: leafEvent.latlng.lng,
             draggable: false,
             compileMessage: true,
+            //message: "<div ng-include src=\"'/app/partials/templates/marker-popup.html'\"></div>",
             message: "<div ng-include src=\"'newMarkerTemplate.html'\"></div>",
             getMessageScope: function () {
                 var popupScope = $scope.$new(true);
@@ -106,6 +107,25 @@ mapApp.controller('MapController', ["$scope", "RouteDataService", "leafletData",
             path = {
                 color: '#008000',
                 weight: 4,
+                compileMessage: true,
+                //message: "<div ng-include src=\"'/app/partials/templates/marker-popup.html'\"></div>",
+                message: "<div ng-include src=\"'newMarkerTemplate.html'\"></div>",
+                getMessageScope: function () {
+                    var popupScope = $scope.$new(true);
+                    popupScope.titel = $scope.newMarkerTitel;
+                    popupScope.place = $scope.newMarkerPlace;
+
+                    popupScope.$on("current.selection.updated", function () {
+                        popupScope.titel = $scope.newMarkerTitel;
+                        popupScope.place = $scope.newMarkerPlace;
+                    });
+
+                    popupScope.onClickSaveButton = function () {
+                        closePopups();
+                    };
+
+                    return popupScope;
+                },
                 latlngs: [
                     {lat: prevMarker.lat, lng: prevMarker.lng},
                     {lat: newMarker.lat, lng: newMarker.lng}
