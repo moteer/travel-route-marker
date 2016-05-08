@@ -11,34 +11,27 @@ P1|setup gulp| DONE
 P1|migrate to node server and delete java project| DONE
 P1|introduce style via eg. foundation | DONE
 P1|edit button in table| DONE
+P1|directive for table entry|DONE
+P1|insert dragable marker to map when entrie added via table|DONE
 
+P1|reset lat, lng values after dragging marker|
+P1|rearange path after dragging marker|
 
-P1|directive for table entry|
 
 P1|add on new table entry perhaps drag and drop from table to map or apear on create at map center|
-
-
 P1|show details on selection modal dialog for editing and/or preview on the page|
-
-
 P1|popup to routesection|
 P1|add time period dimension|
 P1|add picture upload functionality|
-
 P1|create directive for map part|
 P1|create directive for table part|
 P1|separate routetable and map partials in different files|
-
 P1|new gulp task uglyfy/minify|
 P1|new gulp task continouse testing with karma|
 P1|prittyfy styling |
-
-
 P1|customize popups to become buttons for open modal edit window or other functions like drag, delete etc.|
-
 P1|split leaflet specific functions from generell controller code|
 P1|on selection change in table close marker popup |
-
 BF|Chrome looks different||
 P1|add City/Place search functionality on routetable add|
 P1|add return City/Place when adding point on map |

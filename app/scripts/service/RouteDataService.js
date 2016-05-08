@@ -63,6 +63,12 @@ mapApp.service('RouteDataService', ["$rootScope", function ($rootScope) {
         }
         this.route.addRoutePoint(routePoint);
         this.routeTableEntries.push(routePoint);
+        this.routePointAddedEvent(routePoint);
+    };
+
+    this.routePointAddedEvent = function (routePoint) {
+        console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     route point has been added");
+        $rootScope.$broadcast("routepoint.added", routePoint);
     };
 
     this.saveRoutePointByName = function (latLng, content, timePeriod) {

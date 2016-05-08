@@ -165,6 +165,42 @@ mapApp.controller('MapController', ["$scope", "RouteDataService", "leafletData",
         }
     });
 
+    $scope.$on('routepoint.added', function (e, routePoint) {
+        if (routePoint.getLatLng().lat === undefined || routePoint.getLatLng().lng === undefined) {
+            $scope.addDragableMarker(routePoint.getLatLng().city);
+        }
+    });
+
+    $scope.addDragableMarker = function (desc) {
+        leafletData.getMap().then(function (map) {
+            var marker = {
+                name:desc,
+                lat: map.getCenter().lat,
+                lng: map.getCenter().lng,
+                draggable: true,
+                compileMessage: true,
+                //message: "<div ng-include src=\"'/app/partials/templates/marker-popup.html'\"></div>",
+                message: "<div ng-include src=\"'newMarkerTemplate.html'\"></div>",
+                getMessageScope: function () {
+                    var popupScope = $scope.$new(true);
+                    popupScope.titel = $scope.newMarkerTitel;
+                    popupScope.place = $scope.newMarkerPlace;
+
+                    popupScope.$on("current.selection.updated", function () {
+                        popupScope.titel = $scope.newMarkerTitel;
+                        popupScope.place = $scope.newMarkerPlace;
+                    });
+
+                    popupScope.onClickSaveButton = function () {
+                        closePopups();
+                    };
+
+                    return popupScope;
+                }
+            };
+            $scope.markers.push(marker);
+        });
+    };
 
     $scope.saveTitleAndPlace = function (newMarkerTitel, newMarkerPlace) {
         console.log("newMarkerTitel: " + newMarkerTitel + " | newMarkerPlace: " + newMarkerPlace);
