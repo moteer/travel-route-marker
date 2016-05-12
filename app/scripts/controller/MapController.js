@@ -70,8 +70,7 @@ mapApp.controller('MapController', ["$scope", "RouteDataService", "leafletData",
             lng: leafEvent.latlng.lng,
             draggable: false,
             compileMessage: true,
-            //message: "<div ng-include src=\"'/app/partials/templates/marker-popup.html'\"></div>",
-            message: "<div ng-include src=\"'newMarkerTemplate.html'\"></div>",
+            message: "<div ng-include src=\"'/app/partials/templates/marker-popup.html'\"></div>",
             getMessageScope: function () {
                 var popupScope = $scope.$new(true);
                 popupScope.titel = $scope.newMarkerTitel;
@@ -108,8 +107,7 @@ mapApp.controller('MapController', ["$scope", "RouteDataService", "leafletData",
                 color: '#008000',
                 weight: 4,
                 compileMessage: true,
-                //message: "<div ng-include src=\"'/app/partials/templates/marker-popup.html'\"></div>",
-                message: "<div ng-include src=\"'newMarkerTemplate.html'\"></div>",
+                message: "<div ng-include src=\"'/app/partials/templates/marker-popup.html'\"></div>",
                 getMessageScope: function () {
                     var popupScope = $scope.$new(true);
                     popupScope.titel = $scope.newMarkerTitel;
@@ -171,6 +169,19 @@ mapApp.controller('MapController', ["$scope", "RouteDataService", "leafletData",
         }
     });
 
+    $scope.$on('leafletDirectiveMarker.dragend', function (e, leafletObject) {
+        console.log(e);
+        console.log("LAT: "+ leafletObject.model.lat);
+        console.log("LNG: "+ leafletObject.model.lng);
+        console.log("MARKER ID: "+ leafletObject.modelName);
+        $scope.handleMarkerDrag(leafletObject.modelName, leafletObject.model.lat, leafletObject.model.lng);
+    });
+
+
+    $scope.handleMarkerDrag = function(markerId, lat, lng) {
+        RouteDataService.changeMarkerPosition(markerId, lat, lng);
+    };
+
     $scope.addDragableMarker = function (desc) {
         leafletData.getMap().then(function (map) {
             var marker = {
@@ -179,8 +190,7 @@ mapApp.controller('MapController', ["$scope", "RouteDataService", "leafletData",
                 lng: map.getCenter().lng,
                 draggable: true,
                 compileMessage: true,
-                //message: "<div ng-include src=\"'/app/partials/templates/marker-popup.html'\"></div>",
-                message: "<div ng-include src=\"'newMarkerTemplate.html'\"></div>",
+                message: "<div ng-include src=\"'/app/partials/templates/marker-popup.html'\"></div>",
                 getMessageScope: function () {
                     var popupScope = $scope.$new(true);
                     popupScope.titel = $scope.newMarkerTitel;

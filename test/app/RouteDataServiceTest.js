@@ -28,6 +28,45 @@ describe('RouteDataServiceTest', function () {
                 }
             }
         });
+
+        this.initializeWithRouteAndOneRoutePoint = function () {
+            RouteDataService.init(new Route("My Berlin Route"));
+            var latLng = new LatLng({}, "Berlin");
+            var content = new Content("some titel", "berlins description", "images in berlin");
+            var timePeriod = new TimePeriod();
+            RouteDataService.saveRoutePointByName(latLng, content, timePeriod);
+            expect(RouteDataService.getRoutePoints().length).toBe(1);
+
+            var berlinRoutePoint = RouteDataService.getRoutePoints()[0];
+            expect(berlinRoutePoint.getContent()).toBe(content);
+            expect(berlinRoutePoint.getLatLng()).toBe(latLng);
+            expect(berlinRoutePoint.getTimePeriod()).toBe(timePeriod);
+            console.log("!!!!!!!!!!!");
+        };
+
+        this.initializeWithTwoRoutePointsConnectedWithARouteSection = function() {
+                RouteDataService.init(new Route("My Route I drew on the map"));
+
+                //latLng, content, timePeriod
+                var rp1 = new RoutePoint(new LatLng({}, "Hamburg"), new Content("some titel", "rp1", "rp1"), new TimePeriod());
+                var rp2 = new RoutePoint(new LatLng({lat: 1.1, lng: 2.2}, "Berlin"), new Content("some titel", "rp2", "rp2"), new TimePeriod());
+
+                RouteDataService.saveRoutePoint(rp1);
+                expect(RouteDataService.getRoutePoints().length).toBe(1);
+                expect(RouteDataService.getRoutePoints()[0]).toEqualJSONyFied(rp1);
+                expect(RouteDataService.getRouteSections().length).toBe(0);
+
+                RouteDataService.saveRoutePoint(rp2);
+                expect(RouteDataService.getRoutePoints().length).toBe(2);
+                expect(RouteDataService.getRoutePoints()[1]).toEqualJSONyFied(rp2);
+
+                expect(RouteDataService.getRouteSections().length).toBe(1);
+                expect(RouteDataService.getRouteSections()[0].getFromRoutePoint()).toBe(rp1);
+                expect(RouteDataService.getRouteSections()[0].getToRoutePoint()).toBe(rp2);
+                expect(RouteDataService.getRouteSections()[0].getShortDescriptor()).toBe("Hamburg to Berlin");
+            };
+
+
     });
 
     it('should create a new route when method called', function () {
@@ -50,41 +89,12 @@ describe('RouteDataServiceTest', function () {
     });
 
     it('should save RoutePoint to RouteDataService by given city, description and image in case of manually added in the table', function () {
-        RouteDataService.init(new Route("My Berlin Route"));
-        var latLng = new LatLng({}, "Berlin");
-        var content = new Content("some titel", "berlins description", "images in berlin");
-        var timePeriod = new TimePeriod();
-        RouteDataService.saveRoutePointByName(latLng, content, timePeriod);
-        expect(RouteDataService.getRoutePoints().length).toBe(1);
-
-        var berlinRoutePoint = RouteDataService.getRoutePoints()[0];
-        expect(berlinRoutePoint.getContent()).toBe(content);
-        expect(berlinRoutePoint.getLatLng()).toBe(latLng);
-        expect(berlinRoutePoint.getTimePeriod()).toBe(timePeriod);
+        this.initializeWithRouteAndOneRoutePoint();
     });
 
     it('should save RouteSection to RouteDatService when two Points are added', function () {
-        RouteDataService.init(new Route("My Route I drew on the map"));
-
-        //latLng, content, timePeriod
-        var rp1 = new RoutePoint(new LatLng({}, "Hamburg"), new Content("some titel", "rp1", "rp1"), new TimePeriod());
-        var rp2 = new RoutePoint(new LatLng({lat: 1.1, lng: 2.2}, "Berlin"), new Content("some titel", "rp2", "rp2"), new TimePeriod());
-
-        RouteDataService.saveRoutePoint(rp1);
-        expect(RouteDataService.getRoutePoints().length).toBe(1);
-        expect(RouteDataService.getRoutePoints()[0]).toEqualJSONyFied(rp1);
-        expect(RouteDataService.getRouteSections().length).toBe(0);
-
-        RouteDataService.saveRoutePoint(rp2);
-        expect(RouteDataService.getRoutePoints().length).toBe(2);
-        expect(RouteDataService.getRoutePoints()[1]).toEqualJSONyFied(rp2);
-
-        expect(RouteDataService.getRouteSections().length).toBe(1);
-        expect(RouteDataService.getRouteSections()[0].getFromRoutePoint()).toBe(rp1);
-        expect(RouteDataService.getRouteSections()[0].getToRoutePoint()).toBe(rp2);
-        expect(RouteDataService.getRouteSections()[0].getShortDescriptor()).toBe("Hamburg to Berlin");
+        this.initializeWithTwoRoutePointsConnectedWithARouteSection();
     });
-
 
     it('should change current to new selection when selectRouteSectionByLatLngs is been called', function () {
         var route = new Route("My way through Asia");
@@ -231,5 +241,37 @@ describe('RouteDataServiceTest', function () {
         var expectedRoutePoint = new RoutePoint(new LatLng({lat: 0.0, lng: 0.0}, null), new Content(null, null, null), new TimePeriod());
         expect(RouteDataService.getRoutePoints()[0]).toEqualJSONyFied(expectedRoutePoint);
     });
+
+    it('should save new marker position when dragged', function () {
+        this.initializeWithRouteAndOneRoutePoint();
+
+        var berlinRoutePoint = RouteDataService.getRoutePoints()[0];
+        var expectedLat = 1;
+        var expectedLng = 2;
+
+        RouteDataService.changeMarkerPosition(0, expectedLat, expectedLng);
+        expect(berlinRoutePoint.getLatLng().lat).toBe(expectedLat);
+        expect(berlinRoutePoint.getLatLng().lng).toBe(expectedLng);
+    });
+
+
+    it('should save new marker position and move path to new position when dragged', function () {
+        this.initializeWithTwoRoutePointsConnectedWithARouteSection();
+        var berlinRoutePoint = RouteDataService.getRoutePoints()[0];
+        var hamburgRoutePoint = RouteDataService.getRoutePoints()[1];
+
+        var expectedLat = 44;
+        var expectedLng = 55;
+        RouteDataService.changeMarkerPosition(1, expectedLat, expectedLng);
+        expect(hamburgRoutePoint.getLatLng().lat).toBe(expectedLat);
+        expect(hamburgRoutePoint.getLatLng().lng).toBe(expectedLng);
+
+        expectedLat = 100;
+        expectedLng = 999;
+        RouteDataService.changeMarkerPosition(0, expectedLat, expectedLng);
+        expect(berlinRoutePoint.getLatLng().lat).toBe(expectedLat);
+        expect(berlinRoutePoint.getLatLng().lng).toBe(expectedLng);
+    });
+
 
 });

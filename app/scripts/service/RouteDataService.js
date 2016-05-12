@@ -180,4 +180,11 @@ mapApp.service('RouteDataService', ["$rootScope", function ($rootScope) {
 
         return toIgnore;
     };
+
+    //TODO: markerId happens to be by chance the same id then the routepoint collection index
+    this.changeMarkerPosition = function(markerId, lat, lng) {
+        var routePoint = this.getRoutePoints()[markerId];
+        routePoint.getLatLng().lat = lat;
+        routePoint.getLatLng().lng = lng;
+    };
 }]);
