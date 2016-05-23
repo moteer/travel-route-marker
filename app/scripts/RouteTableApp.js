@@ -8,7 +8,7 @@ var mapApp = angular.module('RouteApp',
 mapApp.config(function ($routeProvider) {
     $routeProvider
         .when('/', {
-            controller: 'MapController',
+            //controller: 'MapController',
             templateUrl: 'partials/map/leaflet.html'
         }).otherwise({redirectTo: 'partials/map/leaflet.html'});
 });

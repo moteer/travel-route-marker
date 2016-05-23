@@ -13,9 +13,8 @@ P1|introduce style via eg. foundation | DONE
 P1|edit button in table| DONE
 P1|directive for table entry|DONE
 P1|insert dragable marker to map when entrie added via table|DONE
-
-P1|reset lat, lng values after dragging marker|
-P1|rearange path after dragging marker|
+P1|reset lat, lng values after dragging marker|DONE
+P1|rearange path after dragging marker|DONE
 
 
 P1|add on new table entry perhaps drag and drop from table to map or apear on create at map center|

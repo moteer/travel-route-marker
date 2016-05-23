@@ -136,7 +136,6 @@ mapApp.controller('MapController', ["$scope", "RouteDataService", "leafletData",
 
     $scope.$on("leafletDirectiveMap.click", function (event, args) {
         var leafEvent = args.leafletEvent;
-
         var marker = addNewMarker(leafEvent);
         addPath(marker);
 
@@ -148,15 +147,15 @@ mapApp.controller('MapController', ["$scope", "RouteDataService", "leafletData",
     });
 
     $scope.$on('leafletDirectiveMarker.click', function (e, args) {
-        var leafEvent = args.leafletEvent;
-        if (!$scope.routeDataService.isEventToIgnore(leafEvent.originalEvent.timeStamp)) {
+        var leafletEvent = args.leafletEvent;
+        if (!$scope.routeDataService.isEventToIgnore(leafletEvent.originalEvent.timeStamp)) {
             $scope.onMapSelectRouteElementByLatLng(new LatLng({lat: args.model.lat, lng: args.model.lng}, null));
         }
     });
 
     $scope.$on('leafletDirectivePath.click', function (e, path) {
-        var leafEvent = path.leafletEvent;
-        if (!$scope.routeDataService.isEventToIgnore(leafEvent.originalEvent.timeStamp)) {
+        var leafletEvent = path.leafletEvent;
+        if (!$scope.routeDataService.isEventToIgnore(leafletEvent.originalEvent.timeStamp)) {
             var fromLatLng = path.leafletObject.getLatLngs()[0];
             var toLatLng = path.leafletObject.getLatLngs()[1];
             $scope.onMapSelectRouteElementsByLatLng([fromLatLng, toLatLng]);
@@ -171,21 +170,41 @@ mapApp.controller('MapController', ["$scope", "RouteDataService", "leafletData",
 
     $scope.$on('leafletDirectiveMarker.dragend', function (e, leafletObject) {
         console.log(e);
-        console.log("LAT: "+ leafletObject.model.lat);
-        console.log("LNG: "+ leafletObject.model.lng);
-        console.log("MARKER ID: "+ leafletObject.modelName);
+        console.log("LAT: " + leafletObject.model.lat);
+        console.log("LNG: " + leafletObject.model.lng);
+        console.log("MARKER ID: " + leafletObject.modelName);
         $scope.handleMarkerDrag(leafletObject.modelName, leafletObject.model.lat, leafletObject.model.lng);
     });
 
 
-    $scope.handleMarkerDrag = function(markerId, lat, lng) {
+    $scope.rearangePathsAttachedTo = function (markerId, lat, lng) {
+        if ($scope.paths.length > 0) {
+            if (markerId > 0) {
+                var pathTowardsPoint = $scope.paths[markerId - 1];
+                if (pathTowardsPoint !== null && pathTowardsPoint !== undefined) {
+                    pathTowardsPoint.latlngs[1].lat = lat;
+                    pathTowardsPoint.latlngs[1].lng = lng;
+                }
+            }
+            var pathFromPoint = $scope.paths[markerId];
+            if (pathFromPoint !== null && pathFromPoint !== undefined) {
+                pathFromPoint.latlngs[0].lat = lat;
+                pathFromPoint.latlngs[0].lng = lng;
+            }
+        }
+    };
+
+    $scope.handleMarkerDrag = function (markerId, lat, lng) {
         RouteDataService.changeMarkerPosition(markerId, lat, lng);
+        $scope.markers[markerId].lat = lat;
+        $scope.markers[markerId].lng = lng;
+        $scope.rearangePathsAttachedTo(markerId, lat, lng);
     };
 
     $scope.addDragableMarker = function (desc) {
         leafletData.getMap().then(function (map) {
             var marker = {
-                name:desc,
+                name: desc,
                 lat: map.getCenter().lat,
                 lng: map.getCenter().lng,
                 draggable: true,
@@ -209,6 +228,7 @@ mapApp.controller('MapController', ["$scope", "RouteDataService", "leafletData",
                 }
             };
             $scope.markers.push(marker);
+            addPath(marker);
         });
     };
 
