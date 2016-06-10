@@ -2,7 +2,10 @@
     <h1>Map with {{numberOfmarkers}} markers and selection index {{selectionIndex}}</h1>
     <span>{{currentSelectedItem}}</span>
 
+
+
     <p>
+    <h2>HIER!!!!!: {{selected}} - {{selected.city}}</h2>
         <span>newMarkerTitel: {{newMarkerTitel}}</span><br/>
         <span>newMarkerTitel: {{newMarkerPlace}}</span>
     </p>
@@ -26,9 +29,9 @@
         <tbody>
 
         <tbody ng-repeat="routePart in routeDataService.routeTableEntries"
-            ng-class="{'selected':$index === selectionIndex}"
-            ng-click="onSelectTableEntry($index)">
-            <tr route-part description="routePart.getShortDescriptor()" />
+               ng-class="{'selected':$index === selectionIndex}"
+               ng-click="onSelectTableEntry($index)">
+        <tr route-part description="routePart.getShortDescriptor()"/>
         </tbody>
         </tbody>
 
@@ -48,5 +51,20 @@
     <!--<output id="list"></output>-->
     {{filelist}}
     <!--http://luxiyalu.com/angular-all-about-inputfile/-->
+
+    <div>
+        <script type="text/ng-template" id="myModalContent.html">
+            <h3>I'm a modal!</h3>
+            <input type="text" ng-model="selected.city"/>
+            <input type="text" ng-model="selected.titel"/>
+            <input type="text" ng-model="selected.description"/>
+            <p>Selected: <b>{{ selected.item }}</b></p>
+            <button class="button" ng-click="ok()">OK</button>
+            <a class="close-reveal-modal" ng-click="cancel()">&#215;</a>
+          </script>
+
+        <button class="button" ng-click="open()">Open me!</button>
+        <div ng-show="selected">Selection from a modal: {{ selected }}</div>
+    </div>
 </div>
 

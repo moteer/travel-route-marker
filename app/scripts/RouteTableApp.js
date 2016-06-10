@@ -1,7 +1,13 @@
 var mapApp = angular.module('RouteApp',
     ['ngRoute',
         'leaflet-directive',
-        'mm.foundation']);
+        'mm.foundation',
+        'mm.foundation.tpls'
+        //,
+        //"template/modal/backdrop.html",
+        //"template/popover/popover.html",
+        //"template/modal/window.html"
+    ]);
 
 
 //Routes

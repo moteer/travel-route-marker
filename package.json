@@ -9,6 +9,7 @@
     "angular-mocks": "^1.5.0",
     "angular-route": "^1.5.0",
     "angularjs": "^0.0.1",
+    "foundation-apps": "^1.2.0",
     "jasmine-core": "^2.4.1",
     "jshint": "^2.9.1",
     "karma": "^0.13.21",

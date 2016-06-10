@@ -32,6 +32,32 @@
 </head>
 
 <body>
+<!--<div>-->
+    <!--<script type="text/ng-template" id="myModalContent.html">-->
+        <!--<div class="modal-input-div">-->
+            <!--<label>Where:</label>-->
+            <!--<input type="text" value="{{routepoint.latLng.city}}"-->
+                   <!--popover="enter a city name"-->
+                   <!--popover-trigger="focus"-->
+                   <!--class="form-control"/>-->
+            <!--<label>Titel:</label>-->
+            <!--<input type="text" value="{{titel}}"-->
+                   <!--popover="enter a city name"-->
+                   <!--popover-trigger="focus"-->
+                   <!--class="form-control"/>-->
+            <!--<label>Description:</label>-->
+            <!--<textarea rows="4"-->
+                  <!--cols="50"-->
+                  <!--popover="enter description"-->
+                  <!--popover-trigger="focus"-->
+                  <!--class="form-control">asdasd{{routepoint.content.description}}</textarea>-->
+        <!--</div>-->
+
+        <!--&lt;!&ndash;<button class="button secondary" ng-click="reposition()">Reset top position</button>&ndash;&gt;-->
+        <!--<button class="button" ng-click="ok()">OK</button>-->
+        <!--<a class="close-reveal-modal" ng-click="cancel()">&#215;</a>-->
+    <!--</script>-->
+<!--</div>-->
 <div class="main-div">
     <div data-ng-view="" class="partial-parent-div"></div>
 </div>
@@ -42,6 +68,7 @@
 <script src="scripts/service/RouteDataService.js"></script>
 <script src="scripts/controller/RouteTableController.js"></script>
 <script src="scripts/controller/MapController.js"></script>
+<script src="scripts/controller/EditModalController.js"></script>
 <script src="scripts/directive/RoutePartDirective.js"></script>
 
 </body>

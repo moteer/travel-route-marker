@@ -15,11 +15,19 @@ P1|directive for table entry|DONE
 P1|insert dragable marker to map when entrie added via table|DONE
 P1|reset lat, lng values after dragging marker|DONE
 P1|rearange path after dragging marker|DONE
+P1|add on new table entry perhaps drag and drop from table to map or apear on create at map center| DONE
+P1|make all marker dragable|DONE
+P1|marker popup with buttons edit, remove,...| DONE
+P1|after adding new point via table selection does not work untill point is moved | DONE
+
+P1|edit modal window directive |
+P1|on click edit open modal window|
+P1|popup with buttons edit, remove,...|
+P1|close popup when clicking somewhere else and dont create new marker|
 
 
-P1|add on new table entry perhaps drag and drop from table to map or apear on create at map center|
+
 P1|show details on selection modal dialog for editing and/or preview on the page|
-P1|popup to routesection|
 P1|add time period dimension|
 P1|add picture upload functionality|
 P1|create directive for map part|
@@ -40,3 +48,4 @@ P1|move to github|
 P1|try facebook testing framework|
 P1|create builder for model such as null builder and zeroValueBuilder|
 
+P1|open popup to routesection -> looks like it requests a change to leaflet-ui-directive or so|
