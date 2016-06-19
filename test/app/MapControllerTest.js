@@ -3,9 +3,11 @@ describe('Map Controller', function () {
     beforeEach(function () {
         var mockRouteDataService = {};
         var mockLeafletData = {};
+        var mockModal = {};
         module('RouteApp', function ($provide) {
             $provide.value('RouteDataService', mockRouteDataService);
             $provide.value('leafletData', mockLeafletData);
+            $provide.value('modal', mockModal);
 
         });
 
@@ -39,18 +41,18 @@ describe('Map Controller', function () {
 
     });
 
-    beforeEach(inject(function ($rootScope, $controller, _RouteDataService_, _leafletData_) {
+    beforeEach(inject(function ($rootScope, $controller, _RouteDataService_, _leafletData_, _modal_) {
         scope = $rootScope.$new();
         leafletData = _leafletData_;
         RouteDataService = _RouteDataService_;
         MapController = $controller('MapController', {
             $scope: scope,
             routeDataService: RouteDataService,
-            leafletData: leafletData
+            leafletData: leafletData,
+            $modal: _modal_
         });
     }));
 
-    //TODO: enhance matcher to deal with multiple arguments
     beforeEach(function () {
         jasmine.addMatchers({
             toEqualJSONyFied: function (util, customTesters) {

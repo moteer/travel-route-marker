@@ -85,8 +85,6 @@ mapApp.controller('RouteTableController', ["$scope", "RouteDataService", functio
         }
         $scope.filelist = output;
       };
-
-
 }]);
 
 

@@ -19,15 +19,18 @@ P1|add on new table entry perhaps drag and drop from table to map or apear on cr
 P1|make all marker dragable|DONE
 P1|marker popup with buttons edit, remove,...| DONE
 P1|after adding new point via table selection does not work untill point is moved | DONE
+P1|on click edit open modal window| DONE
+P1|popup with buttons edit, remove,...| DONE
 
+
+P1|open edit modal on Edit click in table |
+
+P1|refactor Map Controller make it more cohesive and DRY |
 P1|edit modal window directive |
-P1|on click edit open modal window|
-P1|popup with buttons edit, remove,...|
 P1|close popup when clicking somewhere else and dont create new marker|
 
 
 
-P1|show details on selection modal dialog for editing and/or preview on the page|
 P1|add time period dimension|
 P1|add picture upload functionality|
 P1|create directive for map part|
