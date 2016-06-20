@@ -70,8 +70,6 @@ mapApp.controller('RouteTableController', ["$scope", "RouteDataService", functio
         }
     };
 
-    //$scope.editRoutePoint
-
     $scope.selectLocalFile = function(evt) {
         var files = evt.files; // FileList object
 

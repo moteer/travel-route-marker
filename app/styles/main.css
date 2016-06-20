@@ -48,7 +48,7 @@ html, body, .main-div {
 }
 
 /*override leaflet style*/
-.leaflet-popup-tip-container {
+.leaflet-popup-tip-container  {
     width: 50px;
     height: 20px;
 }
