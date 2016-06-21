@@ -1,6 +1,6 @@
 mapApp.controller('EditModalController', ["$scope", "RouteDataService", "$modal", "$rootScope",
     function ($scope, RouteDataService, $modal, $rootScope) {
-        $scope.routeDataService = RouteDataService;
+        //$scope.routeDataService = RouteDataService;
 
         $scope.openEditModal = function () {
 
@@ -19,7 +19,7 @@ mapApp.controller('EditModalController', ["$scope", "RouteDataService", "$modal"
                 $scope.selected = routePoint;
                 $rootScope.$broadcast("modal.save", routePoint);
             }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
+                //$log.info('Modal dismissed at: ' + new Date());
             });
         };
 

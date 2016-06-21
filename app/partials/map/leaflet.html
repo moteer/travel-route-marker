@@ -1,14 +1,14 @@
 <div data-ng-controller="MapController" class="map-partial-div">
-    <h1>Map with {{numberOfmarkers}} markers and selection index {{selectionIndex}}</h1>
-    <span>{{currentSelectedItem}}</span>
+    <!--<h1>Map with {{numberOfmarkers}} markers and selection index {{selectionIndex}}</h1>-->
+    <!--<span>{{currentSelectedItem}}</span>-->
 
 
 
-    <p>
-    <h2>HIER!!!!!: {{selected}} - {{selected.city}}</h2>
-        <span>newMarkerTitel: {{newMarkerTitel}}</span><br/>
-        <span>newMarkerTitel: {{newMarkerPlace}}</span>
-    </p>
+    <!--<p>-->
+    <!--<h2>HIER!!!!!: {{selected}} - {{selected.city}}</h2>-->
+        <!--<span>newMarkerTitel: {{newMarkerTitel}}</span><br/>-->
+        <!--<span>newMarkerTitel: {{newMarkerPlace}}</span>-->
+    <!--</p>-->
 
     <leaflet class="map" markers="markers" paths="paths" lf-center="center"></leaflet>
 </div>
@@ -20,7 +20,7 @@
 
 
     <h2>selected index {{selectionIndex}}</h2>
-    <table class="hover">
+    <table>
         <thead>
         <td>Titel</td>
         <td>Action</td>
@@ -31,8 +31,11 @@
         <tbody ng-repeat="routePart in routeDataService.routeTableEntries"
                ng-class="{'selected':$index === selectionIndex}"
                ng-click="onSelectTableEntry($index)">
-        <tr route-part description="routePart.getShortDescriptor()"/>
-        </tbody>
+        <td route-part description="routePart.getShortDescriptor()" />
+        <td>
+            <button ng-controller="EditModalController" ng-show="$index === selectionIndex" type="button" class='button' ng-click="openEditModal()">Edit</button>
+        </td>
+    </tbody>
         </tbody>
 
         <tfoot>

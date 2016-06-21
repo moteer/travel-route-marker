@@ -23,13 +23,13 @@ P1|on click edit open modal window| DONE
 P1|popup with buttons edit, remove,...| DONE
 P1|edit modal window directive | DONE
 P1|open edit modal on Edit click in table |DONE
+P1|show Edit Button only if selection is made in table |DONE
 
-P1|show Edit Button only if selection is made in table |
-
+P1|refine modal window. Add text field for description. |
+P1|add time period dimension|
 
 P1|refactor Map Controller make it more cohesive and DRY |
 P1|close popup when clicking somewhere else and dont create new marker|
-P1|add time period dimension|
 P1|add picture upload functionality|
 P1|create directive for map part|
 P1|create directive for table part|
