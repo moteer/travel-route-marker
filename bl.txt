@@ -27,6 +27,7 @@ P1|show Edit Button only if selection is made in table |DONE
 
 P1|refine modal window. Add text field for description. |
 P1|add time period dimension|
+P1|make route path editable as well (bug while clicking on Edit in table)|
 
 P1|refactor Map Controller make it more cohesive and DRY |
 P1|close popup when clicking somewhere else and dont create new marker|

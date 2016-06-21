@@ -1,17 +1,11 @@
 <div ng-controller="EditModalController">
-  <script type="text/ng-template" id="myModalContent.html">
-    <h3>I'm a modal!</h3>
-    <ul>
-      <li ng-repeat="item in items">
-        <a ng-click="selected.item = item">{{ item }}</a>
-      </li>
-    </ul>
+        <h3>I m a modal ODER WAS !</h3>
+    <input type="text" ng-model="selected.city"/>
+    <input type="text" ng-model="selected.titel"/>
+    <input type="text" ng-model="selected.description"/>
     <p>Selected: <b>{{ selected.item }}</b></p>
-    <button class="button secondary" ng-click="reposition()">Reset top position</button>
     <button class="button" ng-click="ok()">OK</button>
     <a class="close-reveal-modal" ng-click="cancel()">&#215;</a>
-  </script>
-
-  <button class="button" ng-click="open()">Open me!</button>
-  <div ng-show="selected">Selection from a modal: {{ selected }}</div>
-</div>
+    <button class="button" ng-click="open()">Open me!</button>
+    <div ng-show="selected">TEXT: {{ someVar }}</div>
+</div>'

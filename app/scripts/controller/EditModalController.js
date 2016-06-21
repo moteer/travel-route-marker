@@ -1,11 +1,10 @@
 mapApp.controller('EditModalController', ["$scope", "RouteDataService", "$modal", "$rootScope",
     function ($scope, RouteDataService, $modal, $rootScope) {
-        //$scope.routeDataService = RouteDataService;
-
+        $scope.someVar = "hier bin ich im EditModalController";
         $scope.openEditModal = function () {
 
             var modalInstance = $modal.open({
-                templateUrl: 'myModalContent.html',
+                templateUrl: 'partials/templates/edit-modal-content.html',
                 controller: ModalInstanceCtrl,
                 resolve: {
                     routePoint: function () {
