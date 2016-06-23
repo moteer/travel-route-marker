@@ -24,8 +24,12 @@ P1|popup with buttons edit, remove,...| DONE
 P1|edit modal window directive | DONE
 P1|open edit modal on Edit click in table |DONE
 P1|show Edit Button only if selection is made in table |DONE
+P1|refine modal window. Add text field for description. | DONE
 
-P1|refine modal window. Add text field for description. |
+
+P1|lookup place by typing city/place|
+
+P1|make table look more prety|
 P1|add time period dimension|
 P1|make route path editable as well (bug while clicking on Edit in table)|
 
