@@ -16,13 +16,18 @@
     </div>
     <div class="row">
         <div class="large-12 columns">
-          <label>Description
-            <textarea ng-model="selected.description" placeholder="enter description"></textarea>
-          </label>
+            <label>Description
+                <textarea ng-model="selected.description" placeholder="enter description"></textarea>
+            </label>
         </div>
-      </div>
+    </div>
+    <div class="row">
+        <div class="large-12 columns">
+            <image-upload></image-upload>
+        </div>
+    </div>
     <button class="button" ng-click="ok()">OK</button>
     <a class="close-reveal-modal" ng-click="cancel()">&#215;</a>
-</div>
 <!--http://foundation.zurb.com/sites/docs/v/5.5.3/components/forms.html-->
+</div>
 

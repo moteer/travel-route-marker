@@ -26,6 +26,10 @@ P1|open edit modal on Edit click in table |DONE
 P1|show Edit Button only if selection is made in table |DONE
 P1|refine modal window. Add text field for description. | DONE
 
+P1|picture upload|
+P1|add persistance backend and store as json|
+
+
 MVP map editor:
 - markable map with syncable table
 - add titel, place, description to marker points
@@ -37,7 +41,6 @@ MVP map view:
 
 
 
-P1|picture upload|
 P1|add time period dimension|
 P1|responsive design|
 

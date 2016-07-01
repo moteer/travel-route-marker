@@ -6,7 +6,8 @@ var mapApp = angular.module('RouteApp',
     ]);
 
 
-mapApp.config(function ($routeProvider) {
+mapApp.config(function ($routeProvider, $compileProvider) {
+    $compileProvider.debugInfoEnabled(false);
     $routeProvider
         .when('/', {
             templateUrl: 'partials/map/leaflet.html'

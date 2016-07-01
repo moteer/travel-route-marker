@@ -1,0 +1,12 @@
+<div ng-controller="ImageUploadController">
+
+    <button class="button" ng-click="checkForFileAPISuuport()">check File API</button>
+
+    <input type="file" file-change="uploadMulti()" ng-model="files" multiple>
+
+    <p>FILE URLs: {{fileUrls}}</p>
+    <div ng-repeat="url in fileUrls">
+    <p>{{url}}</p>
+        <img src="{{url}}" alt="No Image selected yet">
+    </div>
+</div>
