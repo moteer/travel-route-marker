@@ -44,27 +44,27 @@ describe('RouteDataServiceTest', function () {
             console.log("!!!!!!!!!!!");
         };
 
-        this.initializeWithTwoRoutePointsConnectedWithARouteSection = function() {
-                RouteDataService.init(new Route("My Route I drew on the map"));
+        this.initializeWithTwoRoutePointsConnectedWithARouteSection = function () {
+            RouteDataService.init(new Route("My Route I drew on the map"));
 
-                //latLng, content, timePeriod
-                var rp1 = new RoutePoint(new LatLng({}, "Hamburg"), new Content("some titel", "rp1", "rp1"), new TimePeriod());
-                var rp2 = new RoutePoint(new LatLng({lat: 1.1, lng: 2.2}, "Berlin"), new Content("some titel", "rp2", "rp2"), new TimePeriod());
+            //latLng, content, timePeriod
+            var rp1 = new RoutePoint(new LatLng({}, "Hamburg"), new Content("some titel", "rp1", "rp1"), new TimePeriod());
+            var rp2 = new RoutePoint(new LatLng({lat: 1.1, lng: 2.2}, "Berlin"), new Content("some titel", "rp2", "rp2"), new TimePeriod());
 
-                RouteDataService.saveRoutePoint(rp1);
-                expect(RouteDataService.getRoutePoints().length).toBe(1);
-                expect(RouteDataService.getRoutePoints()[0]).toEqualJSONyFied(rp1);
-                expect(RouteDataService.getRouteSections().length).toBe(0);
+            RouteDataService.saveRoutePoint(rp1);
+            expect(RouteDataService.getRoutePoints().length).toBe(1);
+            expect(RouteDataService.getRoutePoints()[0]).toEqualJSONyFied(rp1);
+            expect(RouteDataService.getRouteSections().length).toBe(0);
 
-                RouteDataService.saveRoutePoint(rp2);
-                expect(RouteDataService.getRoutePoints().length).toBe(2);
-                expect(RouteDataService.getRoutePoints()[1]).toEqualJSONyFied(rp2);
+            RouteDataService.saveRoutePoint(rp2);
+            expect(RouteDataService.getRoutePoints().length).toBe(2);
+            expect(RouteDataService.getRoutePoints()[1]).toEqualJSONyFied(rp2);
 
-                expect(RouteDataService.getRouteSections().length).toBe(1);
-                expect(RouteDataService.getRouteSections()[0].getFromRoutePoint()).toBe(rp1);
-                expect(RouteDataService.getRouteSections()[0].getToRoutePoint()).toBe(rp2);
-                expect(RouteDataService.getRouteSections()[0].getShortDescriptor()).toBe("Hamburg to Berlin");
-            };
+            expect(RouteDataService.getRouteSections().length).toBe(1);
+            expect(RouteDataService.getRouteSections()[0].getFromRoutePoint()).toBe(rp1);
+            expect(RouteDataService.getRouteSections()[0].getToRoutePoint()).toBe(rp2);
+            expect(RouteDataService.getRouteSections()[0].getShortDescriptor()).toBe("Hamburg to Berlin");
+        };
 
 
     });
@@ -271,6 +271,16 @@ describe('RouteDataServiceTest', function () {
         RouteDataService.changeMarkerPosition(0, expectedLat, expectedLng);
         expect(berlinRoutePoint.getLatLng().lat).toBe(expectedLat);
         expect(berlinRoutePoint.getLatLng().lng).toBe(expectedLng);
+    });
+
+    it('should save image files to currently selected RoutePoint', function () {
+        this.initializeWithTwoRoutePointsConnectedWithARouteSection();
+        RouteDataService.selectRouteTableEntry(0);
+
+        var files = ["some File here", "another File there"];
+        RouteDataService.saveImageToCurrentSelection(files)
+        expect(RouteDataService.getCurrentlySelectedRouteTableEntry().content.images)
+            .toBe(files);
     });
 
 

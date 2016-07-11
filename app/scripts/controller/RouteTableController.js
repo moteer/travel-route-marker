@@ -1,5 +1,9 @@
 mapApp.controller('RouteTableController', ["$scope", "RouteDataService", function ($scope, RouteDataService) {
 
+
+    $scope.currentlySelected = "WHAT A Selection";
+
+
     $scope.routeDataService = RouteDataService;
     $scope.selectionIndex;
 
@@ -60,6 +64,10 @@ mapApp.controller('RouteTableController', ["$scope", "RouteDataService", functio
         // if (index > -1) {
         //     $scope.rows.splice(index, 1);
         // }
+    };
+
+    $scope.getImageSource = function (image) {
+        return window.URL.createObjectURL(image);
     };
 }]);
 

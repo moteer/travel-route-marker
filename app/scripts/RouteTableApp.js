@@ -2,7 +2,8 @@ var mapApp = angular.module('RouteApp',
     ['ngRoute',
         'leaflet-directive',
         'mm.foundation',
-        'mm.foundation.tpls'
+        'mm.foundation.tpls',
+        'mm.foundation.interchange'
     ]);
 
 

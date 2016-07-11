@@ -22,16 +22,13 @@ mapApp.directive('fileChange', function () {
     };
 });
 
-mapApp.controller('ImageUploadController', ["$scope",
-    function ($scope) {
-
-        $scope.fileUrls = [];
+mapApp.controller('ImageUploadController', ["$scope", "RouteDataService",
+    function ($scope, RouteDataService) {
 
         $scope.uploadMulti = function () {
+
             angular.forEach($scope.files, function (file) {
-                var fileUrl = window.URL.createObjectURL(file);
-                console.log(fileUrl);
-                $scope.fileUrls.push(fileUrl);
+                RouteDataService.saveImageToCurrentSelection(file);
             });
         };
 
@@ -44,4 +41,3 @@ mapApp.controller('ImageUploadController', ["$scope",
         };
 
     }]);
-

@@ -26,8 +26,10 @@ P1|open edit modal on Edit click in table |DONE
 P1|show Edit Button only if selection is made in table |DONE
 P1|refine modal window. Add text field for description. | DONE
 
-P1|picture upload|
-P1|add persistance backend and store as json|
+P1|picture upload and save to model|
+P1|show pictures in table as thumbnail|
+P1|make table scrollable|
+P1|add persistence backend and store as json|
 
 
 MVP map editor:
@@ -42,7 +44,7 @@ MVP map view:
 
 
 P1|add time period dimension|
-P1|responsive design|
+P1|responsive design, mobile zurb theme|
 
 
 P1|lookup place by typing city/place|

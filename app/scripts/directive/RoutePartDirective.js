@@ -3,8 +3,7 @@ mapApp
         return {
             restrict:'A',
             scope: {
-                currentlySelected: "=currentlySelected",
-                description: "=description"
+                images: "=images"
             },
             templateUrl: "/app/partials/templates/route-part-table-row.html"
         };

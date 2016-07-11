@@ -27,7 +27,8 @@ mapApp.controller('EditModalController', ["$scope", "RouteDataService", "$modal"
             $scope.selected = {
                 city: routePoint.latLng.city,
                 titel: routePoint.content.titel,
-                description: routePoint.content.description
+                description: routePoint.content.description,
+                images: routePoint.content.images
             };
 
             $scope.ok = function () {

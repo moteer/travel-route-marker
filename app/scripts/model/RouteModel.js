@@ -28,12 +28,20 @@ function Route(titel) {
     };
 }
 
-function Content(titel, description, image) {
+function Content(titel, description) {
     this.titel = titel;
     this.description = description;
-    this.image = image;
+    this.images = [];
 
-    this.getTitel = function() {
+    this.addImage = function (file) {
+
+        this.images.push({
+            file: file,
+            source: window.URL.createObjectURL(file)
+        });
+    };
+
+    this.getTitel = function () {
         return this.titel;
     };
 
@@ -41,8 +49,8 @@ function Content(titel, description, image) {
         return this.description;
     };
 
-    this.getImage = function () {
-        return this.image;
+    this.getImages = function () {
+        return this.images;
     };
 
     this.toString = function () {

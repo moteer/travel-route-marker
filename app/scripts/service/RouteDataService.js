@@ -169,6 +169,10 @@ mapApp.service('RouteDataService', ["$rootScope", function ($rootScope) {
         }
     };
 
+    this.saveImageToCurrentSelection = function (files) {
+        this.getCurrentlySelectedRouteTableEntry().content.addImage(files);
+    };
+
     this.prevClickTime = undefined;
     this.isEventToIgnore = function (currentTimeStamp) {
         var toIgnore = true;

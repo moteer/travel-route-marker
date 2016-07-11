@@ -30,7 +30,7 @@
         <tbody ng-repeat="routePart in routeDataService.routeTableEntries"
                ng-class="{'selected':$index === selectionIndex}"
                ng-click="onSelectTableEntry($index)">
-        <td route-part description="routePart.getShortDescriptor()"/>
+            <td route-part images="routePart.content.images"/>
         <td>
             <button ng-controller="EditModalController" ng-show="$index === selectionIndex" type="button" class='button' ng-click="openEditModal()">Edit
             </button>

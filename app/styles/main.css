@@ -70,3 +70,8 @@ html, body, .main-div {
 .modal-input-div {
     margin: 5px;
 }
+
+.thumbnail img{
+    width:50%;
+    height:auto;
+}
