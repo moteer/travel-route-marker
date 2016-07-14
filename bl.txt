@@ -27,6 +27,7 @@ P1|show Edit Button only if selection is made in table |DONE
 P1|refine modal window. Add text field for description. | DONE
 
 P1|picture upload and save to model|
+P1|use accordion instead of table|
 P1|show pictures in table as thumbnail|
 P1|make table scrollable|
 P1|add persistence backend and store as json|
@@ -42,6 +43,7 @@ MVP map view:
 - show map content for clickable markers
 
 
+P1|use google apis|
 
 P1|add time period dimension|
 P1|responsive design, mobile zurb theme|

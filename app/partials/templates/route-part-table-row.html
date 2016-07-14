@@ -1,17 +1,12 @@
 {{currentlySelected}}
-<ul class="clearing-thumbs" data-clearing ng-repeat="image in images">
-  <li><a href="{{image.source}}"> <img ng-src="{{image.source}}"></a></li>
-</ul>
+<!--<ul class="clearing-thumbs" data-clearing ng-repeat="image in images">-->
+  <!--<li><a class="th [radius]" href="{{image.source}}"> <img class="th" ng-src="{{image.source}}"></a></li>-->
+<!--</ul>-->
 
 
-<div id="owl-demo">
-  <div class="item"><img src="{{image.source}}" alt="Image "></div>
-</div>
-<!--{{routePart.content}}-->
-<!--<span ng-repeat="image in currentlySelected.content.images">-->
-<!--{{description}}-->
-<!--<p>{{image}}</p>-->
-<!--<label>Images:</label>-->
-<!--<img src="{{getImageSource(image)}}" alt="No Image selected yet">-->
-<!--</span>-->
+<span ng-repeat="image in images" style="background-color: red">
+  <!--<a class="th [radius]" href="{{image.source}}">-->
+    <img class="thumbnail" style="width: 65px" ng-src="{{image.source}}">
+  <!--</a>-->
+</span>
 

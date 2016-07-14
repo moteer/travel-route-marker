@@ -1,7 +1,8 @@
 var mapApp = angular.module('RouteApp',
     ['ngRoute',
         'leaflet-directive',
-        'mm.foundation'
+        'mm.foundation',
+        'mm.foundation.accordion'
     ]);
 
 

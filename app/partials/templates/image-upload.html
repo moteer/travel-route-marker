@@ -1,13 +1,10 @@
 <div ng-controller="ImageUploadController">
-    <p>current slection: {{currentSelection}}</p>
-
-    <button class="button" ng-click="checkForFileAPISuuport()">check File API</button>
-
     <input type="file" file-change="uploadMulti()" ng-model="files" multiple>
 
-    <p>FILE URLs: {{fileUrls}}</p>
     <div ng-repeat="url in fileUrls">
     <p>{{url}}</p>
         <img src="{{url}}" alt="No Image selected yet">
     </div>
+    <button class="button" ng-click="ok()">OK</button>
+    <a class="close-reveal-modal" ng-click="cancel()">&#215;</a>
 </div>

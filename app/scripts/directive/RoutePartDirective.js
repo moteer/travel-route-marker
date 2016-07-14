@@ -1,7 +1,7 @@
 mapApp
     .directive('routePart', function () {
         return {
-            restrict:'A',
+            restrict:'E',
             scope: {
                 images: "=images"
             },

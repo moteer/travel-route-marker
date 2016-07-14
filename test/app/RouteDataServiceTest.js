@@ -273,15 +273,15 @@ describe('RouteDataServiceTest', function () {
         expect(berlinRoutePoint.getLatLng().lng).toBe(expectedLng);
     });
 
-    //it('should save image files to currently selected RoutePoint', function () {
-    //    this.initializeWithTwoRoutePointsConnectedWithARouteSection();
-    //    RouteDataService.selectRouteTableEntry(0);
-    //
-    //    var files = ["some File here", "another File there"];
-    //    RouteDataService.saveImageToCurrentSelection(files)
-    //    expect(RouteDataService.getCurrentlySelectedRouteTableEntry().content.images)
-    //        .toBe(files);
-    //});
+    it('should save image files to currently selected RoutePoint', function () {
+        this.initializeWithTwoRoutePointsConnectedWithARouteSection();
+        RouteDataService.selectRouteTableEntry(0);
+
+        var files = ["some File here", "another File there"];
+        RouteDataService.saveImageToCurrentSelection(files)
+        expect(RouteDataService.getCurrentlySelectedRouteTableEntry().content.images)
+            .toBe(files);
+    });
 
 
 });

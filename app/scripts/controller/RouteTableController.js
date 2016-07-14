@@ -69,6 +69,13 @@ mapApp.controller('RouteTableController', ["$scope", "RouteDataService", functio
     $scope.getImageSource = function (image) {
         return window.URL.createObjectURL(image);
     };
+
+    $scope.accordion = "234523432";
+
+    $scope.changeAccordion = function(itemName) {
+        $scope.accordion = itemName;
+        console.log("accordion changed to: " + itemName);
+    };
 }]);
 
 

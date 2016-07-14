@@ -37,7 +37,7 @@ html, body, .main-div {
 }
 
 .selected {
-    background-color: black;
+    background-color: gray;
     color: white;
     font-weight: bold;
 }
@@ -69,9 +69,4 @@ html, body, .main-div {
 
 .modal-input-div {
     margin: 5px;
-}
-
-.thumbnail img{
-    width:50%;
-    height:auto;
 }

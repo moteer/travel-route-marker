@@ -1,14 +1,4 @@
 <div data-ng-controller="MapController" class="map-partial-div">
-    <!--<h1>Map with {{numberOfmarkers}} markers and selection index {{selectionIndex}}</h1>-->
-    <!--<span>{{currentSelectedItem}}</span>-->
-
-
-    <!--<p>-->
-    <!--<h2>HIER!!!!!: {{selected}} - {{selected.city}}</h2>-->
-    <!--<span>newMarkerTitel: {{newMarkerTitel}}</span><br/>-->
-    <!--<span>newMarkerTitel: {{newMarkerPlace}}</span>-->
-    <!--</p>-->
-
     <leaflet class="map" markers="markers" paths="paths" lf-center="center"></leaflet>
 </div>
 
@@ -18,51 +8,61 @@
     <button class='button' ng-click="createNewRoute()">create new Route</button>
 
 
-    <h2>selected index {{selectionIndex}}</h2>
-    <table>
-        <thead>
-        <td>Titel</td>
-        <td>Action</td>
-        </thead>
+    <!--<div ng-repeat="routePart in routeDataService.routeTableEntries"-->
+    <!--ng-class="{'selected':$index === selectionIndex}"-->
+    <!--ng-click="onSelectTableEntry($index)"-->
+    <!--style="border-color: black; border-style:solid; margin-bottom: 5px;">-->
+    <!--<div class="row">-->
+    <!--<div class="small-10 columns" style="background-color: grey">{{routePart.getTitel()}}</div>-->
+    <!--<div class="small-2 columns" style="background-color: red">-->
+    <!--<button ng-controller="EditModalController" ng-show="$index === selectionIndex" type="button" class='button' ng-click="openEditModal()">-->
+    <!--Edit-->
+    <!--</button>-->
+    <!--<span ng-show="$index !== selectionIndex">-->
+    <!--Not selected-->
+    <!--</span>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+    <!--<div class="small-12 columns" style="background-color: green">{{routePart.getShortDescriptor()}}</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+    <!--<div class="small-12 columns" style="background-color: green">-->
+    <!--<div class="row" ng-repeat="image in images" style="background-color: red">-->
+    <!--&lt;!&ndash;<a class="th [radius]" href="{{image.source}}">&ndash;&gt;-->
+    <!--<img class="thumbnail" ng-src="{{image.source}}">-->
+    <!--&lt;!&ndash;</a>&ndash;&gt;-->
+    <!--</div>-->
+    <!--<route-part images="routePart.content.images"/>-->
+    <!--</div>-->
+    <!--</div>-->
 
-        <tbody>
 
-        <tbody ng-repeat="routePart in routeDataService.routeTableEntries"
-               ng-class="{'selected':$index === selectionIndex}"
-               ng-click="onSelectTableEntry($index)">
-            <td route-part images="routePart.content.images"/>
-        <td>
-            <button ng-controller="EditModalController" ng-show="$index === selectionIndex" type="button" class='button' ng-click="openEditModal()">Edit
-            </button>
-        </td>
-        </tbody>
-        </tbody>
-        <tfoot>
-            <td>
-                <div class="row">
-                    <div class="large-7 columns">
-                        <label>city/place
-                            <input data-ng-model="newCity" type="text" placeholder="enter city or country"/>
-                        </label>
-                    </div>
+    <!--</div>-->
+
+
+    <div>
+        <accordion ng-repeat="routePart in routeDataService.routeTableEntries"
+                   ng-class="{'selected':$index === selectionIndex}"
+                   ng-click="onSelectTableEntry($index)"
+                   close-others="oneAtATime">
+            <accordion-group is-open="false">
+                <accordion-heading>RouteSection: {{routePart.getShortDescriptor()}}
+                    <route-part images="routePart.content.images"/>
+                </accordion-heading>
+                <div style="background-color: black">
+                    <p>Titel: {{routePart.getTitel()}}</p>
                 </div>
-                <div class="row">
-                    <div class="large-7 columns">
-                        <label>short description
-                            <input data-ng-model="shortDescriptor" type="text" placeholder="enter short description"/>
-                        </label>
-                    </div>
+                <div style="background-color: red">
+                    <button ng-controller="EditModalController" ng-show="$index === selectionIndex" type="button" class='button' ng-click="openEditModal()">
+                        Edit
+                    </button>
                 </div>
-            </td>
-            <td>
-                <div class="row">
-                    <div class="large-1 columns">
-                        <button type="button" class='button' ng-click="addRoutePoint()">Add</button>
-                    </div>
+                <div style="background-color: orange">
+                    <p>and some other text</p>
                 </div>
-            </td>
-        </tfoot>
-    </table>
-    <edit-modal></edit-modal>
+            </accordion-group>
+        </accordion>
+    </div>
 </div>
 
