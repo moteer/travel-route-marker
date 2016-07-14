@@ -42,24 +42,26 @@
 
 
     <div>
-        <accordion close-others="oneAtATime">
+        <accordion close-others="true">
             <accordion-group ng-repeat="routePart in routeDataService.routeTableEntries" ng-click="onSelectTableEntry($index)" is-open="false">
                 <accordion-heading>
-                    <p ng-class="{'selected':$index === selectionIndex}" >
+                    <span ng-class="{'selected':$index === selectionIndex}" >
                         RouteSection: {{routePart.getShortDescriptor()}}
-                    </p>
+                    </span>
                     <route-part images="routePart.content.images"/>
                 </accordion-heading>
-                <div style="background-color: black">
-                    <p>Titel: {{routePart.getTitel()}}</p>
-                </div>
-                <div style="background-color: red">
-                    <button ng-controller="EditModalController" ng-show="$index === selectionIndex" type="button" class='button' ng-click="openEditModal()">
-                        Edit
-                    </button>
-                </div>
-                <div style="background-color: orange">
-                    <p>and some other text</p>
+                <div class="row" style="background-color: green">
+                    <div class="small-12 columns" style="background-color: black">
+                        Titel: {{routePart.getTitel()}}
+                    </div>
+                    <div class="small-12 columns" style="background-color: red">
+                        <button ng-controller="EditModalController" ng-show="$index === selectionIndex" type="button" class='button' ng-click="openEditModal()">
+                            Edit
+                        </button>
+                    </div>
+                    <div class="small-12 columns"  style="background-color: orange">
+                        <p>and some other text</p>
+                    </div>
                 </div>
             </accordion-group>
         </accordion>
