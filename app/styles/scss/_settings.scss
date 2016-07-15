@@ -124,6 +124,7 @@ $header-sizes: (
     'h6': 16,
   ),
 );
+$primary-color: #00558b;
 $header-color: inherit;
 $header-lineheight: 1.4;
 $header-margin-bottom: 0.5rem;
@@ -240,7 +241,7 @@ $button-background: $primary-color;
 $button-background-hover: scale-color($button-background, $lightness: -15%);
 $button-color: $white;
 $button-color-alt: $black;
-$button-radius: $global-radius;
+$button-radius: 5%;
 $button-sizes: (
   tiny: 0.6rem,
   small: 0.75rem,
