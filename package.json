@@ -20,10 +20,7 @@
     "requirejs": "^2.1.22"
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-load-plugins": "^0.8.0",
-    "gulp-sass": "^2.3.1",
-    "mocha": "^2.4.5"
+    "gulp-sass": "^2.3.2"
   },
   "scripts": {
     "test": "mocha"
