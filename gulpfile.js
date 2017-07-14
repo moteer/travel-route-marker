@@ -30,7 +30,7 @@ gulp.task('serve', ['sass'], function () {
             baseDir: ['.', 'app']
         }
     });
-    gulp.watch(['**/*.html', 'styles/**/*.scss', 'styles/**/*.css', 'scripts/**/*.js'], {cwd: 'app'}, reload);
+    gulp.watch(['**/*.html', 'styles/**/*.scss', 'styles/**/*.css', 'js/**/*.js'], {cwd: 'app'}, reload);
 });
 
 gulp.task('default', ['serve'], function () {

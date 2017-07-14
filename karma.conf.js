@@ -15,22 +15,10 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
-             'node_modules/angular/angular.js',
-             'node_modules/angular-mocks/angular-mocks.js',
-            '**/RouteTableAppTest.js',
-
-            '**/RouteModel.js',
-            '**/RouteDataService.js',
-            '**/MapController.js',
-            '**/RouteTableController.js',
-
-            '**/RouteModelTest.js',
-            '**/RouteDataServiceTest.js',
-            '**/MapControllerTest.js',
-            '**/RouteTableControllerTest.js'
-
+            'node_modules/angular/angular.js',
+            'node_modules/angular-mocks/angular-mocks.js',
+            '**/*.js',
         ],
-
 
         // list of files to exclude
         exclude: [],
@@ -68,7 +56,7 @@ module.exports = function (config) {
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
         browsers: ['PhantomJS'],
         // browsers: ['Firefox'],
-         // browsers: ['Chrome'],
+        // browsers: ['Chrome'],
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits

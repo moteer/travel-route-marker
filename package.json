@@ -22,7 +22,8 @@
   "devDependencies": {
     "angular": "^1.6.5",
     "angular-route": "^1.6.5",
-    "gulp-sass": "^2.3.2"
+    "gulp-sass": "^2.3.2",
+    "leaflet": "^1.1.0"
   },
   "scripts": {
     "test": "mocha"
