@@ -1,38 +1,51 @@
 var $ = require('gulp-load-plugins')();
 var gulp = require('gulp');
-
+var babel = require('gulp-babel');
 var browserSync = require('browser-sync');
-var reload = browserSync.reload;
 
-var sassOptions = {
-    errLogToConsole: true,
-    outputStyle: 'expanded',
-    includePaths: ['node_modules/foundation-sites/scss',
-        'node_modules/motion-ui']
-};
+const DIST = 'dist';
+const NODE_MODULES = 'libs';
 
-var COMPATIBILITY = [
-    'last 2 versions',
-    'ie >= 10',
-    'and_chr >= 2.3'
-];
-
-gulp.task('sass', function () {
-    return gulp.src('app/styles/scss/app.scss')
-        .pipe($.sass(sassOptions))
-        .pipe($.sass().on('error', $.sass.logError))
-        .pipe(gulp.dest('css'));
+gulp.task('html', () => {
+    gulp.src('app/**/*.html')
+        .pipe(gulp.dest(DIST));
 });
 
-gulp.task('serve', ['sass'], function () {
+gulp.task('css', () => {
+    gulp.src('app/**/*.css')
+        .pipe(gulp.dest(DIST));
+});
+
+gulp.task('js', () => {
+    gulp.src(['app/**/*.js', 'app/**/*spec.js'])
+        .pipe(babel({
+            presets: ['es2015']
+        }))
+        .pipe(gulp.dest(DIST));
+});
+
+gulp.task('libs', () => {
+    gulp.src('node_modules/angular/angular.js')
+        .pipe(gulp.dest(DIST + '/' + NODE_MODULES));
+    gulp.src('node_modules/angular-route/angular-route.js')
+        .pipe(gulp.dest(DIST + '/' + NODE_MODULES));
+});
+
+gulp.task('browser-reload', () => {
+    browserSync.reload();
+});
+
+gulp.task('serve', () => {
     browserSync({
         server: {
-            baseDir: ['.', 'app']
+            baseDir: ['.', DIST]
         }
     });
-    gulp.watch(['**/*.html', 'styles/**/*.scss', 'styles/**/*.css', 'js/**/*.js'], {cwd: 'app'}, reload);
+    gulp.watch('app/**/*.html', ['html', 'browser-reload']);
+    gulp.watch('app/**/*.css', ['css', 'browser-reload']);
+    gulp.watch('app/**/*.js', ['js', 'browser-reload']);
 });
 
-gulp.task('default', ['serve'], function () {
-    // place code for your default task here
+gulp.task('default', ['html', 'js', 'css', 'libs', 'serve'], () => {
+
 });

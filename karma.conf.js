@@ -1,5 +1,5 @@
 // Karma configuration
-// Generated on Tue Mar 08 2016 12:28:44 GMT+1100 (AEDT)
+// Generated on Fri Jul 14 2017 17:48:31 GMT+0200 (CEST)
 
 module.exports = function (config) {
     config.set({
@@ -12,22 +12,13 @@ module.exports = function (config) {
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
         frameworks: ['jasmine'],
 
-
         // list of files / patterns to load in the browser
         files: [
-            'node_modules/angular/angular.js',
-            'node_modules/angular-mocks/angular-mocks.js',
-            '**/*.js',
+            'app/**/*.js'
         ],
 
         // list of files to exclude
         exclude: [],
-
-
-        // preprocess matching files before serving them to the browser
-        // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-        preprocessors: {},
-
 
         // test results reporter to use
         // possible values: 'dots', 'progress'
@@ -55,8 +46,7 @@ module.exports = function (config) {
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
         browsers: ['PhantomJS'],
-        // browsers: ['Firefox'],
-        // browsers: ['Chrome'],
+
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
@@ -66,4 +56,5 @@ module.exports = function (config) {
         // how many browser should be started simultaneous
         concurrency: Infinity
     })
-};
+}
+

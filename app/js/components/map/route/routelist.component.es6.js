@@ -1,10 +1,9 @@
 /* global angular */
+'use strict';
 (function () {
-    'use strict';
-    console.log("Controller called hier 1235678!");
 
     angular
-        .module('route-map')
+        .module('routemap')
         .component('routelist', {
             controller: RouteListController,
             controllerAs: 'vm',
